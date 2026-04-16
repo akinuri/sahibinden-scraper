@@ -4,13 +4,13 @@ let fieldsAndPaths = {
     location: ".classifiedInfo h2",
     listingId: ["text='İlan No'", "nextElementSibling"],
     listingDate: ["text='İlan Tarihi'", "nextElementSibling"],
-    brand: ["text='Marka'", "nextElementSibling"], // TODO: the third
+    brand: ["text='Marka'", 2, "nextElementSibling"],
     series: ["text='Seri'", "nextElementSibling"],
     model: ["text='Model'", "nextElementSibling"],
     year: ["text='Yıl'", "nextElementSibling"],
     fuelType: ["text='Yakıt Tipi'", "nextElementSibling"],
     transmission: ["text='Vites'", "nextElementSibling"],
-    state: ["text='Araç Durumu'", "nextElementSibling"], // TODO: the second
+    state: ["text='Araç Durumu'", 1, "nextElementSibling"],
     mileage: ["text='KM'", "nextElementSibling"],
     bodyType: ["text='Kasa Tipi'", "nextElementSibling"],
     enginePower: ["text='Motor Gücü'", "nextElementSibling"],
@@ -95,11 +95,18 @@ function processSelector(selector) {
         }
     } else if (Array.isArray(selector)) {
         let currentElement = document;
-        for (let part of selector) {
+        for (let i = 0; i < selector.length; i++) {
+            let part = selector[i];
             if (isTextQuery(part)) {
                 let textToFind = getTextQueryValue(part);
                 let foundElements = getElementsByText(textToFind, currentElement);
-                currentElement = foundElements?.[0] || null;
+                let nextPart = selector[i + 1];
+                if (typeof nextPart === "number") {
+                    currentElement = foundElements?.[nextPart] || null;
+                    i++;
+                } else {
+                    currentElement = foundElements?.[0] || null;
+                }
             } else if (part === "nextElementSibling") {
                 if (currentElement) {
                     currentElement = currentElement.nextElementSibling;
