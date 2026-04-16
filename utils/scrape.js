@@ -34,6 +34,31 @@ function qsa(query, parent) {
     return Array.from(parent.querySelectorAll(query));
 }
 
+function getElementsByText(text, parent) {
+    if (parent === undefined) {
+        parent = document;
+    }
+    if (typeof parent == "string") {
+        parent = qs(parent);
+    }
+    if (parent === null) {
+        return [];
+    }
+    let elements = qsa("*", parent);
+    let candidates = [];
+    for (let element of elements) {
+        if (element.innerText?.trim() === text) {
+            candidates.push(element);
+        }
+    }
+    if (candidates.length === 0) {
+        return [];
+    }
+    candidates.sort((a, b) => a.children.length - b.children.length);
+    const minChildren = candidates[0].children.length;
+    return candidates.filter((element) => element.children.length === minChildren);
+}
+
 function processSelector(selector) {
     if (typeof selector === "string") {
         let element = qs(selector);
