@@ -3,6 +3,25 @@ let fieldsAndPaths = {
     price: ".classified-price-wrapper",
     location: ".classifiedInfo h2",
     listingId: ["text='İlan No'", "nextElementSibling"],
+    listingDate: ["text='İlan Tarihi'", "nextElementSibling"],
+    brand: ["text='Marka'", "nextElementSibling"], // TODO: the third
+    series: ["text='Seri'", "nextElementSibling"],
+    model: ["text='Model'", "nextElementSibling"],
+    year: ["text='Yıl'", "nextElementSibling"],
+    fuelType: ["text='Yakıt Tipi'", "nextElementSibling"],
+    transmission: ["text='Vites'", "nextElementSibling"],
+    state: ["text='Araç Durumu'", "nextElementSibling"], // TODO: the second
+    mileage: ["text='KM'", "nextElementSibling"],
+    bodyType: ["text='Kasa Tipi'", "nextElementSibling"],
+    enginePower: ["text='Motor Gücü'", "nextElementSibling"],
+    engineVolume: ["text='Motor Hacmi'", "nextElementSibling"],
+    "Çekiş": ["text='Çekiş'", "nextElementSibling"],
+    color: ["text='Renk'", "nextElementSibling"],
+    warranty: ["text='Garanti'", "nextElementSibling"],
+    heavilyDamaged: ["text='Ağır Hasar Kayıtlı'", "nextElementSibling"],
+    licencePlate: ["text='Plaka / Uyruk'", "nextElementSibling"],
+    lister: ["text='Kimden'", "nextElementSibling"],
+    trade: ["text='Takas'", "nextElementSibling"],
 };
 
 // #region ==================== UTILS
