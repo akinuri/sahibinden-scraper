@@ -2,6 +2,7 @@ let fieldsAndPaths = {
     title: "h1",
     price: ".classified-price-wrapper",
     location: ".classifiedInfo h2",
+    listingId: ["text='İlan No'", "nextElementSibling"],
 };
 
 // #region ==================== UTILS
@@ -59,11 +60,40 @@ function getElementsByText(text, parent) {
     return candidates.filter((element) => element.children.length === minChildren);
 }
 
+function isTextQuery(query) {
+    return typeof query === "string" && query.startsWith("text=");
+}
+
+function getTextQueryValue(query) {
+    return query.slice("text='".length, -1);
+}
+
 function processSelector(selector) {
     if (typeof selector === "string") {
         let element = qs(selector);
         if (element) {
             return element.innerText.trim();
+        }
+    } else if (Array.isArray(selector)) {
+        let currentElement = document;
+        for (let part of selector) {
+            if (isTextQuery(part)) {
+                let textToFind = getTextQueryValue(part);
+                let foundElements = getElementsByText(textToFind, currentElement);
+                currentElement = foundElements?.[0] || null;
+            } else if (part === "nextElementSibling") {
+                if (currentElement) {
+                    currentElement = currentElement.nextElementSibling;
+                } else {
+                    break;
+                }
+            }
+        }
+        if (currentElement === document) {
+            currentElement = null;
+        }
+        if (currentElement) {
+            return currentElement.innerText.trim();
         }
     }
     return null;
