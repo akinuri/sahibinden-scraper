@@ -34,16 +34,23 @@ function qsa(query, parent) {
     return Array.from(parent.querySelectorAll(query));
 }
 
+function processSelector(selector) {
+    if (typeof selector === "string") {
+        let element = qs(selector);
+        if (element) {
+            return element.innerText.trim();
+        }
+    }
+    return null;
+}
+
 // #endregion
 
 function scrape() {
     let info = {};
     for (let field in fieldsAndPaths) {
         let path = fieldsAndPaths[field];
-        let element = qs(path);
-        if (element) {
-            info[field] = element.innerText.trim();
-        }
+        info[field] = processSelector(path);
     }
     return info;
 }
