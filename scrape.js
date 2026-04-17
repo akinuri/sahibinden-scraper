@@ -1,5 +1,5 @@
 let fieldsAndPaths = {
-    title: "h1",
+    title: ["h1"],
     price: ".classified-price-wrapper",
     location: ".classifiedInfo h2",
     listingId: ["text='İlan No'", "nextElementSibling"],
@@ -113,6 +113,8 @@ function processSelector(selector) {
                 } else {
                     break;
                 }
+            } else if (typeof part === "string") {
+                currentElement = qs(part, currentElement);
             }
         }
         if (currentElement === document) {
