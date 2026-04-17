@@ -2,26 +2,26 @@ let fieldsAndPaths = {
     title: ["h1"],
     price: ".classified-price-wrapper",
     location: ".classifiedInfo h2",
-    listingId: ["text='İlan No'", "nextElementSibling"],
-    listingDate: ["text='İlan Tarihi'", "nextElementSibling"],
-    brand: ["text='Marka'", 2, "nextElementSibling"],
-    series: ["text='Seri'", "nextElementSibling"],
-    model: ["text='Model'", "nextElementSibling"],
-    year: ["text='Yıl'", "nextElementSibling"],
-    fuelType: ["text='Yakıt Tipi'", "nextElementSibling"],
-    transmission: ["text='Vites'", "nextElementSibling"],
-    state: ["text='Araç Durumu'", 1, "nextElementSibling"],
-    mileage: ["text='KM'", "nextElementSibling"],
-    bodyType: ["text='Kasa Tipi'", "nextElementSibling"],
-    enginePower: ["text='Motor Gücü'", "nextElementSibling"],
-    engineVolume: ["text='Motor Hacmi'", "nextElementSibling"],
-    "Çekiş": ["text='Çekiş'", "nextElementSibling"],
-    color: ["text='Renk'", "nextElementSibling"],
-    warranty: ["text='Garanti'", "nextElementSibling"],
-    heavilyDamaged: ["text='Ağır Hasar Kayıtlı'", "nextElementSibling"],
-    licencePlate: ["text='Plaka / Uyruk'", "nextElementSibling"],
-    lister: ["text='Kimden'", "nextElementSibling"],
-    trade: ["text='Takas'", "nextElementSibling"],
+    listingId: ["text='İlan No'", "$0.nextElementSibling"],
+    listingDate: ["text='İlan Tarihi'", "$0.nextElementSibling"],
+    brand: ["text='Marka'", 2, "$0.nextElementSibling"],
+    series: ["text='Seri'", "$0.nextElementSibling"],
+    model: ["text='Model'", "$0.nextElementSibling"],
+    year: ["text='Yıl'", "$0.nextElementSibling"],
+    fuelType: ["text='Yakıt Tipi'", "$0.nextElementSibling"],
+    transmission: ["text='Vites'", "$0.nextElementSibling"],
+    state: ["text='Araç Durumu'", 1, "$0.nextElementSibling"],
+    mileage: ["text='KM'", "$0.nextElementSibling"],
+    bodyType: ["text='Kasa Tipi'", "$0.nextElementSibling"],
+    enginePower: ["text='Motor Gücü'", "$0.nextElementSibling"],
+    engineVolume: ["text='Motor Hacmi'", "$0.nextElementSibling"],
+    "Çekiş": ["text='Çekiş'", "$0.nextElementSibling"],
+    color: ["text='Renk'", "$0.nextElementSibling"],
+    warranty: ["text='Garanti'", "$0.nextElementSibling"],
+    heavilyDamaged: ["text='Ağır Hasar Kayıtlı'", "$0.nextElementSibling"],
+    licencePlate: ["text='Plaka / Uyruk'", "$0.nextElementSibling"],
+    lister: ["text='Kimden'", "$0.nextElementSibling"],
+    trade: ["text='Takas'", "$0.nextElementSibling"],
     username: [".username-info-area span", `getComputedStyle($0, "::before").content`]
 };
 
@@ -115,12 +115,6 @@ function processSelector(selector) {
                     i++;
                 } else {
                     currentElement = foundElements?.[0] || null;
-                }
-            } else if (part === "nextElementSibling") {
-                if (currentElement) {
-                    currentElement = currentElement.nextElementSibling;
-                } else {
-                    break;
                 }
             } else if (isJsQuery(part)) {
                 if (currentElement && currentElement instanceof Element) {
