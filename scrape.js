@@ -94,7 +94,7 @@ function processSelector(selector) {
             return element.innerText.trim();
         }
     } else if (Array.isArray(selector)) {
-        let currentElement = document;
+        let currentElement = undefined;
         for (let i = 0; i < selector.length; i++) {
             let part = selector[i];
             if (isTextQuery(part)) {
