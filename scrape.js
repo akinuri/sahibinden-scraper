@@ -118,7 +118,7 @@ function processSelector(selector) {
         if (currentElement === document) {
             currentElement = null;
         }
-        if (currentElement) {
+        if (currentElement instanceof Element) {
             return currentElement.innerText.trim();
         }
     }
