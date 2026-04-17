@@ -22,6 +22,7 @@ let fieldsAndPaths = {
     licencePlate: ["text='Plaka / Uyruk'", "nextElementSibling"],
     lister: ["text='Kimden'", "nextElementSibling"],
     trade: ["text='Takas'", "nextElementSibling"],
+    username: [".username-info-area span", `getComputedStyle($0, "::before").content`]
 };
 
 // #region ==================== UTILS
@@ -87,6 +88,14 @@ function getTextQueryValue(query) {
     return query.slice("text='".length, -1);
 }
 
+function isJsQuery(query) {
+    return typeof query === "string" && query.includes("$0");
+}
+
+function getJsQueryValue(query, currentElement) {
+    return query.replace(/\$0/g, "currentElement");
+}
+
 function processSelector(selector) {
     if (typeof selector === "string") {
         let element = qs(selector);
@@ -113,6 +122,11 @@ function processSelector(selector) {
                 } else {
                     break;
                 }
+            } else if (isJsQuery(part)) {
+                if (currentElement && currentElement instanceof Element) {
+                    let jsCode = getJsQueryValue(part, currentElement);
+                    currentElement = eval(jsCode);
+                }
             } else if (typeof part === "string") {
                 currentElement = qs(part, currentElement);
             }
@@ -122,6 +136,9 @@ function processSelector(selector) {
         }
         if (currentElement instanceof Element) {
             return currentElement.innerText.trim();
+        }
+        if (typeof currentElement == "string") {
+            return currentElement;
         }
     }
     return null;
