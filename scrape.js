@@ -107,6 +107,9 @@ function processSelector(selector) {
     } else if (Array.isArray(selector)) {
         let currentElement = undefined;
         for (let i = 0; i < selector.length; i++) {
+            if (i !== 0 && currentElement == null) {
+                break;
+            }
             let part = selector[i];
             if (isTextQuery(part)) {
                 let textToFind = getTextQueryValue(part);
