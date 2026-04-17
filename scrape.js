@@ -15,7 +15,7 @@ let fieldsAndPaths = {
     bodyType: ["text=Kasa Tipi", "$0.nextElementSibling"],
     enginePower: ["text=Motor Gücü", "$0.nextElementSibling"],
     engineVolume: ["text=Motor Hacmi", "$0.nextElementSibling"],
-    "Çekiş": ["text=Çekiş", "$0.nextElementSibling"],
+    Çekiş: ["text=Çekiş", "$0.nextElementSibling"],
     color: ["text=Renk", "$0.nextElementSibling"],
     warranty: ["text=Garanti", "$0.nextElementSibling"],
     heavilyDamaged: ["text=Ağır Hasar Kayıtlı", "$0.nextElementSibling"],
@@ -98,6 +98,13 @@ function getJsQueryValue(query, currentElement) {
     return query.replace(/\$0/g, "currentElement");
 }
 
+function unquote(str) {
+    if ((str.startsWith('"') && str.endsWith('"')) || (str.startsWith("'") && str.endsWith("'"))) {
+        return str.slice(1, -1);
+    }
+    return str;
+}
+
 function processSelector(selector) {
     if (typeof selector === "string") {
         let element = qs(selector);
@@ -124,7 +131,12 @@ function processSelector(selector) {
             } else if (isJsQuery(part)) {
                 if (currentElement && currentElement instanceof Element) {
                     let jsCode = getJsQueryValue(part, currentElement);
+                    let isNonDom =
+                        (jsCode.includes("::before") || jsCode.includes("::after")) && jsCode.includes(".content");
                     currentElement = eval(jsCode);
+                    if (currentElement && isNonDom) {
+                        currentElement = unquote(currentElement);
+                    }
                 }
             } else if (typeof part === "string") {
                 currentElement = qs(part, currentElement);
