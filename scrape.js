@@ -22,7 +22,9 @@ let fieldsAndPaths = {
     licencePlate: ["text='Plaka / Uyruk'", "$0.nextElementSibling"],
     lister: ["text='Kimden'", "$0.nextElementSibling"],
     trade: ["text='Takas'", "$0.nextElementSibling"],
-    username: [".username-info-area span", `getComputedStyle($0, "::before").content`]
+    username: [".username-info-area span", `getComputedStyle($0, "::before").content`],
+    userRegistrationDate: ".userRegistrationDate span",
+    userMobilePhone: [".pretty-phone-part span", `$0.dataset.content`],
 };
 
 // #region ==================== UTILS
