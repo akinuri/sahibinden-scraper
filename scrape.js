@@ -134,7 +134,7 @@ function processSelector(selector) {
                 }
             } else if (isJsQuery(part)) {
                 if (currentElement && currentElement instanceof Element) {
-                    let jsCode = getJsQueryValue(part, currentElement);
+                    let jsCode = getJsQueryValue(part);
                     let isNonDom =
                         (jsCode.includes("::before") || jsCode.includes("::after")) && jsCode.includes(".content");
                     currentElement = eval(jsCode);
