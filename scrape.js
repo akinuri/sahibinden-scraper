@@ -82,6 +82,17 @@ function getElementsByText(text, parent) {
     return candidates.filter((element) => element.children.length === minChildren);
 }
 
+function unquote(str) {
+    if ((str.startsWith('"') && str.endsWith('"')) || (str.startsWith("'") && str.endsWith("'"))) {
+        return str.slice(1, -1);
+    }
+    return str;
+}
+
+// #endregion
+
+// #region ==================== HELPERS
+
 function isTextQuery(query) {
     return typeof query === "string" && query.startsWith("text=");
 }
@@ -96,13 +107,6 @@ function isJsQuery(query) {
 
 function getJsQueryValue(query, currentElement) {
     return query.replace(/\$0/g, "currentElement");
-}
-
-function unquote(str) {
-    if ((str.startsWith('"') && str.endsWith('"')) || (str.startsWith("'") && str.endsWith("'"))) {
-        return str.slice(1, -1);
-    }
-    return str;
 }
 
 function processSelector(selector) {
