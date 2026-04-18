@@ -105,8 +105,8 @@ function isJsQuery(query) {
     return typeof query === "string" && query.includes("$0");
 }
 
-function getJsQueryValue(query, currentElement) {
-    return query.replace(/\$0/g, "currentElement");
+function getJsQueryValue(query, elVarName="currentElement") {
+    return query.replace(/\$0/g, elVarName);
 }
 
 function processSelector(selector) {
