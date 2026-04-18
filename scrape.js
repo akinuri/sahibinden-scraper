@@ -170,9 +170,10 @@ function scrape() {
     return info;
 }
 
+console.clear();
+
 let info = scrape();
 let json = JSON.stringify(info, null, 4);
 
 copy(json);
-console.clear();
 console.log(json);
