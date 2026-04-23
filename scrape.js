@@ -121,7 +121,7 @@ function processPath(path) {
         lastEl = qs(path[0]);
     } else {
         for (let i = 0; i < path.length; i++) {
-            if (i !== 0 && lastEl == null) {
+            if (i > 0 && lastEl == null) {
                 break;
             }
             let item = path[i];
