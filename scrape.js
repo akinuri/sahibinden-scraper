@@ -109,23 +109,23 @@ function getJsQueryValue(query, elVarName="currentElement") {
     return query.replace(/\$0/g, elVarName);
 }
 
-function processSelector(selector) {
-    if (typeof selector === "string") {
-        let element = qs(selector);
+function processPath(path) {
+    if (typeof path === "string") {
+        let element = qs(path);
         if (element) {
             return element.innerText.trim();
         }
-    } else if (Array.isArray(selector)) {
+    } else if (Array.isArray(path)) {
         let currentElement = undefined;
-        for (let i = 0; i < selector.length; i++) {
+        for (let i = 0; i < path.length; i++) {
             if (i !== 0 && currentElement == null) {
                 break;
             }
-            let part = selector[i];
+            let part = path[i];
             if (isTextQuery(part)) {
                 let textToFind = getTextQueryValue(part);
                 let foundElements = getElementsByText(textToFind, currentElement);
-                let nextPart = selector[i + 1];
+                let nextPart = path[i + 1];
                 if (typeof nextPart === "number") {
                     currentElement = foundElements?.[nextPart] || null;
                     i++;
@@ -165,7 +165,7 @@ function scrape() {
     let info = {};
     for (let field in fieldsAndPaths) {
         let path = fieldsAndPaths[field];
-        info[field] = processSelector(path);
+        info[field] = processPath(path);
     }
     return info;
 }
