@@ -89,6 +89,16 @@ function unquote(str) {
     return str;
 }
 
+function elsToText(els, separator = " ") {
+    if (Array.isArray(els)) {
+        return els.map((el) => el.innerText.trim()).join(separator);
+    } else if (els instanceof Element) {
+        return els.innerText.trim();
+    } else if (typeof els === "string") {
+        return els.trim();
+    }
+}
+
 // #endregion
 
 // #region ==================== HELPERS
