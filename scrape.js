@@ -112,7 +112,7 @@ function getTextQueryValue(query) {
 }
 
 function isJsQuery(query) {
-    return typeof query === "string" && query.match(/\$\d+/);
+    return typeof query === "string" && query.match(/\$\d*/);
 }
 
 function getJsQueryValue(query, lastEl, elVarName = "lastEl") {
@@ -120,6 +120,7 @@ function getJsQueryValue(query, lastEl, elVarName = "lastEl") {
         query = query.replace(/\$(\d+)/g, (_, index) => {
             return `${elVarName}[${index}]`;
         });
+        query = query.replace(/\$(?!\d+)/g, elVarName);
     } else if (lastEl instanceof Element) {
         query = query.replace(/\$0/g, elVarName);
     }
