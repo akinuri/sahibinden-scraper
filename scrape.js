@@ -101,6 +101,10 @@ function elsToText(els, separator = " ") {
     }
 }
 
+function removeRedundantLineBreaks(str) {
+    return str.replace(/\n{3,}/g, "\n\n");
+}
+
 // #endregion
 
 // #region ==================== HELPERS
