@@ -105,7 +105,7 @@ function isJsQuery(query) {
     return typeof query === "string" && query.includes("$0");
 }
 
-function getJsQueryValue(query, elVarName = "element") {
+function getJsQueryValue(query, elVarName = "lastEl") {
     return query.replace(/\$0/g, elVarName);
 }
 
@@ -113,21 +113,21 @@ function processPath(path) {
     if (typeof path == "string") {
         path = [path];
     }
-    let element = null; // Element, string, null, [Element, Element, ...]
+    let lastEl = null; // Element, string, null, [Element, Element, ...]
     let text = null;
     let isPathSimpleSelector =
         path.length === 1 && typeof path[0] === "string" && !isTextQuery(path[0]) && !isJsQuery(path[0]);
     if (isPathSimpleSelector) {
-        element = qs(path[0]);
+        lastEl = qs(path[0]);
     } else {
         for (let i = 0; i < path.length; i++) {
-            if (i !== 0 && element == null) {
+            if (i !== 0 && lastEl == null) {
                 break;
             }
             let item = path[i];
             if (isTextQuery(item)) {
                 let textToFind = getTextQueryValue(item);
-                let foundElements = getElementsByText(textToFind, element || undefined);
+                let foundElements = getElementsByText(textToFind, lastEl || undefined);
                 let nextItem = path[i + 1];
                 if (typeof nextItem === "number") {
                     element = foundElements?.[nextItem] || null;
@@ -136,27 +136,27 @@ function processPath(path) {
                     element = foundElements?.[0] || null;
                 }
             } else if (isJsQuery(item)) {
-                if (element && element instanceof Element) {
+                if (lastEl && lastEl instanceof Element) {
                     let jsCode = getJsQueryValue(item);
                     let isNonDom =
                         (jsCode.includes("::before") || jsCode.includes("::after")) && jsCode.includes(".content");
-                    element = eval(jsCode);
-                    if (element && isNonDom) {
-                        element = unquote(element);
+                    lastEl = eval(jsCode);
+                    if (lastEl && isNonDom) {
+                        lastEl = unquote(lastEl);
                     }
                 }
             } else if (typeof item === "string") {
-                element = qs(item, element || undefined);
+                lastEl = qs(item, lastEl || undefined);
             }
         }
     }
-    if (element === document) {
-        element = null;
-    } else if (element instanceof Element) {
-        text = element.innerText.trim();
+    if (lastEl === document) {
+        lastEl = null;
+    } else if (lastEl instanceof Element) {
+        text = lastEl.innerText.trim();
     }
-    if (typeof element == "string") {
-        text = element.trim();
+    if (typeof lastEl == "string") {
+        text = lastEl.trim();
     }
     return text;
 }
