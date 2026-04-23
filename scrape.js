@@ -124,20 +124,20 @@ function processPath(path) {
             if (i !== 0 && element == null) {
                 break;
             }
-            let part = path[i];
-            if (isTextQuery(part)) {
-                let textToFind = getTextQueryValue(part);
+            let item = path[i];
+            if (isTextQuery(item)) {
+                let textToFind = getTextQueryValue(item);
                 let foundElements = getElementsByText(textToFind, element);
-                let nextPart = path[i + 1];
-                if (typeof nextPart === "number") {
-                    element = foundElements?.[nextPart] || null;
+                let nextItem = path[i + 1];
+                if (typeof nextItem === "number") {
+                    element = foundElements?.[nextItem] || null;
                     i++;
                 } else {
                     element = foundElements?.[0] || null;
                 }
-            } else if (isJsQuery(part)) {
+            } else if (isJsQuery(item)) {
                 if (element && element instanceof Element) {
-                    let jsCode = getJsQueryValue(part);
+                    let jsCode = getJsQueryValue(item);
                     let isNonDom =
                         (jsCode.includes("::before") || jsCode.includes("::after")) && jsCode.includes(".content");
                     element = eval(jsCode);
@@ -145,8 +145,8 @@ function processPath(path) {
                         element = unquote(element);
                     }
                 }
-            } else if (typeof part === "string") {
-                element = qs(part, element);
+            } else if (typeof item === "string") {
+                element = qs(item, element);
             }
         }
     }
