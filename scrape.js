@@ -114,6 +114,7 @@ function processPath(path) {
         path = [path];
     }
     let element = undefined;
+    let text = null;
     let isPathSimpleSelector =
         path.length === 1 && typeof path[0] === "string" && !isTextQuery(path[0]) && !isJsQuery(path[0]);
     if (isPathSimpleSelector) {
@@ -151,14 +152,13 @@ function processPath(path) {
     }
     if (element === document) {
         element = null;
-    }
-    if (element instanceof Element) {
-        return element.innerText.trim();
+    } else if (element instanceof Element) {
+        text = element.innerText.trim();
     }
     if (typeof element == "string") {
-        return element;
+        text = element.trim();
     }
-    return null;
+    return text;
 }
 
 // #endregion
