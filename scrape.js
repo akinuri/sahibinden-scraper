@@ -134,14 +134,7 @@ function processPath(path) {
             let item = path[i];
             if (isTextQuery(item)) {
                 let textToFind = getTextQueryValue(item);
-                let foundElements = getElementsByText(textToFind, lastEl || undefined);
-                let nextItem = path[i + 1];
-                if (typeof nextItem === "number") {
-                    element = foundElements?.[nextItem] || null;
-                    i++;
-                } else {
-                    element = foundElements?.[0] || null;
-                }
+                lastEl = getElementsByText(textToFind, lastEl || undefined);
             } else if (isJsQuery(item)) {
                 if (lastEl && lastEl instanceof Element) {
                     let jsCode = getJsQueryValue(item);
