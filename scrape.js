@@ -113,7 +113,7 @@ function processPath(path) {
     if (typeof path == "string") {
         path = [path];
     }
-    let element = undefined;
+    let element = null; // Element, string, null, [Element, Element, ...]
     let text = null;
     let isPathSimpleSelector =
         path.length === 1 && typeof path[0] === "string" && !isTextQuery(path[0]) && !isJsQuery(path[0]);
@@ -127,7 +127,7 @@ function processPath(path) {
             let item = path[i];
             if (isTextQuery(item)) {
                 let textToFind = getTextQueryValue(item);
-                let foundElements = getElementsByText(textToFind, element);
+                let foundElements = getElementsByText(textToFind, element || undefined);
                 let nextItem = path[i + 1];
                 if (typeof nextItem === "number") {
                     element = foundElements?.[nextItem] || null;
@@ -146,7 +146,7 @@ function processPath(path) {
                     }
                 }
             } else if (typeof item === "string") {
-                element = qs(item, element);
+                element = qs(item, element || undefined);
             }
         }
     }
