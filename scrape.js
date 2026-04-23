@@ -136,12 +136,12 @@ function processPath(path) {
                 let textToFind = getTextQueryValue(item);
                 lastEl = getElementsByText(textToFind, lastEl || undefined);
             } else if (isJsQuery(item)) {
-                if (lastEl && lastEl instanceof Element) {
-                    let jsCode = getJsQueryValue(item);
+                let jsCode = getJsQueryValue(item, lastEl, "lastEl");
+                lastEl = eval(jsCode);
+                if (lastEl) {
                     let isNonDom =
                         (jsCode.includes("::before") || jsCode.includes("::after")) && jsCode.includes(".content");
-                    lastEl = eval(jsCode);
-                    if (lastEl && isNonDom) {
+                    if (isNonDom) {
                         lastEl = unquote(lastEl);
                     }
                 }
