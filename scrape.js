@@ -1,5 +1,6 @@
 let fieldsAndPaths = {
     title: ["h1"],
+    breadcrumb: [".search-result-bc .bc-item", "$.map(el => el.innerText.trim()).join(' > ')"],
     price: ".classified-price-wrapper",
     location: ".classifiedInfo h2",
     listingId: ["text=İlan No", "$0.nextElementSibling"],
