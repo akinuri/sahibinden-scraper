@@ -175,6 +175,7 @@ function processPath(path) {
     if (typeof lastEl == "string") {
         text = lastEl.trim();
     }
+    text = removeRedundantLineBreaks(text);
     return text;
 }
 
