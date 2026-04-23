@@ -105,7 +105,7 @@ function isJsQuery(query) {
     return typeof query === "string" && query.includes("$0");
 }
 
-function getJsQueryValue(query, elVarName = "currentElement") {
+function getJsQueryValue(query, elVarName = "element") {
     return query.replace(/\$0/g, elVarName);
 }
 
@@ -113,50 +113,50 @@ function processPath(path) {
     if (typeof path == "string") {
         path = [path];
     }
-    let currentElement = undefined;
+    let element = undefined;
     let isPathSimpleSelector =
         path.length === 1 && typeof path[0] === "string" && !isTextQuery(path[0]) && !isJsQuery(path[0]);
     if (isPathSimpleSelector) {
-        currentElement = qs(path[0]);
+        element = qs(path[0]);
     } else {
         for (let i = 0; i < path.length; i++) {
-            if (i !== 0 && currentElement == null) {
+            if (i !== 0 && element == null) {
                 break;
             }
             let part = path[i];
             if (isTextQuery(part)) {
                 let textToFind = getTextQueryValue(part);
-                let foundElements = getElementsByText(textToFind, currentElement);
+                let foundElements = getElementsByText(textToFind, element);
                 let nextPart = path[i + 1];
                 if (typeof nextPart === "number") {
-                    currentElement = foundElements?.[nextPart] || null;
+                    element = foundElements?.[nextPart] || null;
                     i++;
                 } else {
-                    currentElement = foundElements?.[0] || null;
+                    element = foundElements?.[0] || null;
                 }
             } else if (isJsQuery(part)) {
-                if (currentElement && currentElement instanceof Element) {
+                if (element && element instanceof Element) {
                     let jsCode = getJsQueryValue(part);
                     let isNonDom =
                         (jsCode.includes("::before") || jsCode.includes("::after")) && jsCode.includes(".content");
-                    currentElement = eval(jsCode);
-                    if (currentElement && isNonDom) {
-                        currentElement = unquote(currentElement);
+                    element = eval(jsCode);
+                    if (element && isNonDom) {
+                        element = unquote(element);
                     }
                 }
             } else if (typeof part === "string") {
-                currentElement = qs(part, currentElement);
+                element = qs(part, element);
             }
         }
     }
-    if (currentElement === document) {
-        currentElement = null;
+    if (element === document) {
+        element = null;
     }
-    if (currentElement instanceof Element) {
-        return currentElement.innerText.trim();
+    if (element instanceof Element) {
+        return element.innerText.trim();
     }
-    if (typeof currentElement == "string") {
-        return currentElement;
+    if (typeof element == "string") {
+        return element;
     }
     return null;
 }
