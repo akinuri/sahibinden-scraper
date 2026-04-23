@@ -105,18 +105,20 @@ function isJsQuery(query) {
     return typeof query === "string" && query.includes("$0");
 }
 
-function getJsQueryValue(query, elVarName="currentElement") {
+function getJsQueryValue(query, elVarName = "currentElement") {
     return query.replace(/\$0/g, elVarName);
 }
 
 function processPath(path) {
-    if (typeof path === "string") {
-        let element = qs(path);
-        if (element) {
-            return element.innerText.trim();
-        }
-    } else if (Array.isArray(path)) {
-        let currentElement = undefined;
+    if (typeof path == "string") {
+        path = [path];
+    }
+    let currentElement = undefined;
+    let isPathSimpleSelector =
+        path.length === 1 && typeof path[0] === "string" && !isTextQuery(path[0]) && !isJsQuery(path[0]);
+    if (isPathSimpleSelector) {
+        currentElement = qs(path[0]);
+    } else {
         for (let i = 0; i < path.length; i++) {
             if (i !== 0 && currentElement == null) {
                 break;
@@ -146,15 +148,15 @@ function processPath(path) {
                 currentElement = qs(part, currentElement);
             }
         }
-        if (currentElement === document) {
-            currentElement = null;
-        }
-        if (currentElement instanceof Element) {
-            return currentElement.innerText.trim();
-        }
-        if (typeof currentElement == "string") {
-            return currentElement;
-        }
+    }
+    if (currentElement === document) {
+        currentElement = null;
+    }
+    if (currentElement instanceof Element) {
+        return currentElement.innerText.trim();
+    }
+    if (typeof currentElement == "string") {
+        return currentElement;
     }
     return null;
 }
