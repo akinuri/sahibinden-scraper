@@ -26,6 +26,7 @@ let fieldsAndPaths = {
     username: [".username-info-area span", `getComputedStyle($0, "::before").content`],
     userRegistrationDate: ".userRegistrationDate span",
     userMobilePhone: [".pretty-phone-part span", `$0.dataset.content`],
+    description: "#classified-detail .uiBoxContainer",
 };
 
 // #region ==================== UTILS
