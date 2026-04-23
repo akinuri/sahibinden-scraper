@@ -102,11 +102,18 @@ function getTextQueryValue(query) {
 }
 
 function isJsQuery(query) {
-    return typeof query === "string" && query.includes("$0");
+    return typeof query === "string" && query.match(/\$\d+/);
 }
 
-function getJsQueryValue(query, elVarName = "lastEl") {
-    return query.replace(/\$0/g, elVarName);
+function getJsQueryValue(query, lastEl, elVarName = "lastEl") {
+    if (Array.isArray(lastEl)) {
+        query = query.replace(/\$(\d+)/g, (_, index) => {
+            return `${elVarName}[${index}]`;
+        });
+    } else if (lastEl instanceof Element) {
+        query = query.replace(/\$0/g, elVarName);
+    }
+    return query;
 }
 
 function processPath(path) {
