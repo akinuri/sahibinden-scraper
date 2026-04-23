@@ -146,7 +146,7 @@ function processPath(path) {
                     }
                 }
             } else if (typeof item === "string") {
-                lastEl = qs(item, lastEl || undefined);
+                lastEl = qsa(item, lastEl || undefined);
             }
         }
     }
