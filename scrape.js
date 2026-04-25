@@ -27,6 +27,11 @@ let fieldsAndPaths = {
     userRegistrationDate: ".userRegistrationDate span",
     userMobilePhone: [".pretty-phone-part span", `$0.dataset.content`],
     description: "#classified-detail .uiBoxContainer",
+    damages: {
+        locallyPainted: ["text=Lokal Boyalı Parçalar", "nextElementSiblings($0)", []],
+        painted: ["text=Boyalı Parçalar", "nextElementSiblings($0)", []],
+        changed: ["text=Değişen Parçalar", "nextElementSiblings($0)", []],
+    },
 };
 
 // #region ==================== UTILS
