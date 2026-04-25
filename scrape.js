@@ -147,10 +147,13 @@ function processPath(path) {
     if (typeof path == "string") {
         path = [path];
     }
+
     let lastEl = null; // Element, string, null, [Element, Element, ...]
     let result = null; // string, null, [string, string, ...]
+
     let isPathSimpleSelector =
         path.length === 1 && typeof path[0] === "string" && !isTextQuery(path[0]) && !isJsQuery(path[0]);
+
     if (isPathSimpleSelector) {
         lastEl = qs(path[0]);
     } else {
@@ -177,15 +180,18 @@ function processPath(path) {
             }
         }
     }
+
     if (lastEl instanceof Element) {
         result = lastEl.innerText.trim();
     }
     if (typeof lastEl == "string") {
         result = lastEl.trim();
     }
+
     if (typeof result === "string") {
         result = removeRedundantLineBreaks(result);
     }
+
     return result;
 }
 
