@@ -105,6 +105,16 @@ function removeRedundantLineBreaks(str) {
     return str.replace(/\n{3,}/g, "\n\n");
 }
 
+function nextElementSiblings(el) {
+    let siblings = [];
+    let next = el.nextElementSibling;
+    while (next) {
+        siblings.push(next);
+        next = next.nextElementSibling;
+    }
+    return siblings;
+}
+
 // #endregion
 
 // #region ==================== HELPERS
