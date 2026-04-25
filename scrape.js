@@ -207,8 +207,6 @@ function processPath(path) {
     return result;
 }
 
-// #endregion
-
 function processesMapping(fieldsAndPaths) {
     let info = {};
     for (let field in fieldsAndPaths) {
@@ -221,6 +219,8 @@ function processesMapping(fieldsAndPaths) {
     }
     return info;
 }
+
+// #endregion
 
 console.clear();
 
