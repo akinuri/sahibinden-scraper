@@ -148,6 +148,13 @@ function processPath(path) {
         path = [path];
     }
 
+    let returnArray = false;
+    let lastPathItem = path[path.length - 1];
+    if (lastPathItem === "toArray" || (Array.isArray(lastPathItem) && lastPathItem.length === 0)) {
+        returnArray = true;
+        path = path.slice(0, -1);
+    }
+
     let lastEl = null; // Element, string, null, [Element, Element, ...]
     let result = null; // string, null, [string, string, ...]
 
@@ -158,7 +165,7 @@ function processPath(path) {
         lastEl = qs(path[0]);
     } else {
         for (let i = 0; i < path.length; i++) {
-            if (i > 0 && lastEl == null) {
+            if (i > 0 && (lastEl == null || (Array.isArray(lastEl) && lastEl.length === 0))) {
                 break;
             }
             let item = path[i];
@@ -187,9 +194,14 @@ function processPath(path) {
     if (typeof lastEl == "string") {
         result = lastEl.trim();
     }
+    if (returnArray && Array.isArray(lastEl)) {
+        result = lastEl.map((el) => el.innerText.trim()).filter(Boolean);
+    }
 
     if (typeof result === "string") {
         result = removeRedundantLineBreaks(result);
+    } else if (Array.isArray(result)) {
+        result = result.map((item) => removeRedundantLineBreaks(item));
     }
 
     return result;
