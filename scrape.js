@@ -194,8 +194,12 @@ function processPath(path) {
 function processesMapping(fieldsAndPaths) {
     let info = {};
     for (let field in fieldsAndPaths) {
-        let path = fieldsAndPaths[field];
-        info[field] = processPath(path);
+        let pathOrMapping = fieldsAndPaths[field];
+        if (typeof pathOrMapping === "string" || Array.isArray(pathOrMapping)) {
+            info[field] = processPath(pathOrMapping);
+        } else if (typeof pathOrMapping === "object") {
+            info[field] = processesMapping(pathOrMapping);
+        }
     }
     return info;
 }
