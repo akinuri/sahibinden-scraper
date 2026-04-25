@@ -177,9 +177,6 @@ function processPath(path) {
             }
         }
     }
-    if (lastEl === document) {
-        lastEl = null;
-    }
     if (lastEl instanceof Element) {
         result = lastEl.innerText.trim();
     }
