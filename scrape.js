@@ -28,9 +28,16 @@ let fieldsAndPaths = {
     userMobilePhone: [".pretty-phone-part span", `$0.dataset.content`],
     description: "#classified-detail .uiBoxContainer",
     damages: {
-        locallyPainted: ["text=Lokal Boyalı Parçalar", "nextElementSiblings($0)", []],
-        painted: ["text=Boyalı Parçalar", "nextElementSiblings($0)", []],
-        changed: ["text=Değişen Parçalar", "nextElementSiblings($0)", []],
+        locallyPainted: ["text=Lokal Boyalı Parçalar", "nextElementSiblings($0)", "array"],
+        painted: ["text=Boyalı Parçalar", "nextElementSiblings($0)", "array"],
+        changed: ["text=Değişen Parçalar", "nextElementSiblings($0)", "array"],
+    },
+    specs: {
+        abs: ["#classifiedProperties", "text=ABS", "$0.classList.contains('selected')", "bool"],
+        distronic: ["#classifiedProperties", "text=Distronic", "$0.classList.contains('selected')", "bool"],
+        passengerAirbag: ["#classifiedProperties", "text=Hava Yastığı (Yolcu)", "$0.classList.contains('selected')", "bool"],
+        centralLock: ["#classifiedProperties", "text=Merkezi Kilit", "$0.classList.contains('selected')", "bool"],
+        armoredVehicle: ["#classifiedProperties", "text=Zırhlı Araç", "$0.classList.contains('selected')", "bool"],
     },
 };
 
