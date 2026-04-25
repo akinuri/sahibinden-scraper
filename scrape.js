@@ -179,13 +179,16 @@ function processPath(path) {
     }
     if (lastEl === document) {
         lastEl = null;
-    } else if (lastEl instanceof Element) {
+    }
+    if (lastEl instanceof Element) {
         result = lastEl.innerText.trim();
     }
     if (typeof lastEl == "string") {
         result = lastEl.trim();
     }
-    result = removeRedundantLineBreaks(result);
+    if (typeof result === "string") {
+        result = removeRedundantLineBreaks(result);
+    }
     return result;
 }
 
