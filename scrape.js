@@ -153,10 +153,11 @@ function processPath(path) {
         path = [path];
     }
 
-    let returnArray = false;
+    let validCastTypes = ["bool", "array"];
+    let castType = null;
     let lastPathItem = path[path.length - 1];
-    if (lastPathItem === "toArray" || (Array.isArray(lastPathItem) && lastPathItem.length === 0)) {
-        returnArray = true;
+    if (validCastTypes.includes(lastPathItem)) {
+        castType = lastPathItem;
         path = path.slice(0, -1);
     }
 
@@ -176,7 +177,11 @@ function processPath(path) {
             let item = path[i];
             if (isTextQuery(item)) {
                 let textToFind = getTextQueryValue(item);
-                lastEl = getElementsByText(textToFind, lastEl || undefined);
+                let parent = lastEl || undefined;
+                if (Array.isArray(parent)) {
+                    parent = parent[0];
+                }
+                lastEl = getElementsByText(textToFind, parent);
             } else if (isJsQuery(item)) {
                 let jsCode = getJsQueryValue(item, lastEl, "lastEl");
                 lastEl = eval(jsCode);
@@ -199,8 +204,11 @@ function processPath(path) {
     if (typeof lastEl == "string") {
         result = lastEl.trim();
     }
-    if (returnArray && Array.isArray(lastEl)) {
+    if (castType === "array" && Array.isArray(lastEl)) {
         result = lastEl.map((el) => el.innerText.trim()).filter(Boolean);
+    }
+    if (castType === "bool") {
+        result = Boolean(lastEl);
     }
 
     if (typeof result === "string") {
