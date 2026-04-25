@@ -191,7 +191,7 @@ function processPath(path) {
 
 // #endregion
 
-function scrape() {
+function processesMapping(fieldsAndPaths) {
     let info = {};
     for (let field in fieldsAndPaths) {
         let path = fieldsAndPaths[field];
@@ -202,7 +202,7 @@ function scrape() {
 
 console.clear();
 
-let info = scrape();
+let info = processesMapping(fieldsAndPaths);
 let json = JSON.stringify(info, null, 4);
 
 copy(json);
