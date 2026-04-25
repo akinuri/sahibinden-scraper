@@ -148,7 +148,7 @@ function processPath(path) {
         path = [path];
     }
     let lastEl = null; // Element, string, null, [Element, Element, ...]
-    let text = null;
+    let result = null; // string, null, [string, string, ...]
     let isPathSimpleSelector =
         path.length === 1 && typeof path[0] === "string" && !isTextQuery(path[0]) && !isJsQuery(path[0]);
     if (isPathSimpleSelector) {
@@ -180,13 +180,13 @@ function processPath(path) {
     if (lastEl === document) {
         lastEl = null;
     } else if (lastEl instanceof Element) {
-        text = lastEl.innerText.trim();
+        result = lastEl.innerText.trim();
     }
     if (typeof lastEl == "string") {
-        text = lastEl.trim();
+        result = lastEl.trim();
     }
-    text = removeRedundantLineBreaks(text);
-    return text;
+    result = removeRedundantLineBreaks(result);
+    return result;
 }
 
 // #endregion
