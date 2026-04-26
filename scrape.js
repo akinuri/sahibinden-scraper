@@ -33,15 +33,27 @@ let fieldsAndPaths = {
         changed: ["text=Değişen Parçalar", "nextElementSiblings($0)", "array"],
     },
     specs: {
-        abs: ["#classifiedProperties", "text=ABS", "$0.classList.contains('selected')", "bool"],
-        distronic: ["#classifiedProperties", "text=Distronic", "$0.classList.contains('selected')", "bool"],
-        passengerAirbag: ["#classifiedProperties", "text=Hava Yastığı (Yolcu)", "$0.classList.contains('selected')", "bool"],
-        centralLock: ["#classifiedProperties", "text=Merkezi Kilit", "$0.classList.contains('selected')", "bool"],
-        armoredVehicle: ["#classifiedProperties", "text=Zırhlı Araç", "$0.classList.contains('selected')", "bool"],
-        aeb: ["#classifiedProperties", "text=AEB", "$0.classList.contains('selected')", "bool"],
-        esp_vsa: ["#classifiedProperties", "text=ESP / VSA", "$0.classList.contains('selected')", "bool"],
-        immobilizer: ["#classifiedProperties", "text=Immobilizer", "$0.classList.contains('selected')", "bool"],
-        laneKeepingAssist: ["#classifiedProperties", "text=Şerit Takip Sistemi", "$0.classList.contains('selected')", "bool"],
+        security: {
+            abs: ["#classifiedProperties", "text=ABS", "$0.classList.contains('selected')", "bool"],
+            distronic: ["#classifiedProperties", "text=Distronic", "$0.classList.contains('selected')", "bool"],
+            passengerAirbag: [
+                "#classifiedProperties",
+                "text=Hava Yastığı (Yolcu)",
+                "$0.classList.contains('selected')",
+                "bool",
+            ],
+            centralLock: ["#classifiedProperties", "text=Merkezi Kilit", "$0.classList.contains('selected')", "bool"],
+            armoredVehicle: ["#classifiedProperties", "text=Zırhlı Araç", "$0.classList.contains('selected')", "bool"],
+            aeb: ["#classifiedProperties", "text=AEB", "$0.classList.contains('selected')", "bool"],
+            esp_vsa: ["#classifiedProperties", "text=ESP / VSA", "$0.classList.contains('selected')", "bool"],
+            immobilizer: ["#classifiedProperties", "text=Immobilizer", "$0.classList.contains('selected')", "bool"],
+            laneKeepingAssist: [
+                "#classifiedProperties",
+                "text=Şerit Takip Sistemi",
+                "$0.classList.contains('selected')",
+                "bool",
+            ],
+        },
     },
 };
 
