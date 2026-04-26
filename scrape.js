@@ -38,6 +38,10 @@ let fieldsAndPaths = {
         passengerAirbag: ["#classifiedProperties", "text=Hava Yastığı (Yolcu)", "$0.classList.contains('selected')", "bool"],
         centralLock: ["#classifiedProperties", "text=Merkezi Kilit", "$0.classList.contains('selected')", "bool"],
         armoredVehicle: ["#classifiedProperties", "text=Zırhlı Araç", "$0.classList.contains('selected')", "bool"],
+        aeb: ["#classifiedProperties", "text=AEB", "$0.classList.contains('selected')", "bool"],
+        esp_vsa: ["#classifiedProperties", "text=ESP / VSA", "$0.classList.contains('selected')", "bool"],
+        immobilizer: ["#classifiedProperties", "text=Immobilizer", "$0.classList.contains('selected')", "bool"],
+        laneKeepingAssist: ["#classifiedProperties", "text=Şerit Takip Sistemi", "$0.classList.contains('selected')", "bool"],
     },
 };
 
@@ -92,8 +96,8 @@ function getElementsByText(text, parent) {
         return [];
     }
     candidates.sort((a, b) => a.children.length - b.children.length);
-    const minChildren = candidates[0].children.length;
-    return candidates.filter((element) => element.children.length === minChildren);
+    const minChildren = candidates[0].children.length || 1;
+    return candidates.filter((element) => element.children.length <= minChildren);
 }
 
 function unquote(str) {
