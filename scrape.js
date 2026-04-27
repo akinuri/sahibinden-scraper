@@ -100,6 +100,12 @@ let fieldsAndPaths = {
             heatedSeats: ["#classifiedProperties", "text=Koltuklar (Isıtmalı)", "$0.classList.contains('selected')", "bool"],
             frontViewCamera: ["#classifiedProperties", "text=Ön Görüş Kamerası", "$0.classList.contains('selected')", "bool"],
             thirdRowSeats: ["#classifiedProperties", "text=Üçüncü Sıra Koltuklar", "$0.classList.contains('selected')", "bool"],
+            leatherSeats: ["#classifiedProperties", "text=Deri Koltuk", "$0.classList.contains('selected')", "bool"],
+            headUpDisplay: ["#classifiedProperties", "text=Head-up Display", "$0.classList.contains('selected')", "bool"],
+            climateControl: ["#classifiedProperties", "text=Klima", "$0.classList.contains('selected')", "bool"],
+            cooledSeats: ["#classifiedProperties", "text=Koltuklar (Soğutmalı)", "$0.classList.contains('selected')", "bool"],
+            frontSeatArmrest: ["#classifiedProperties", "text=Ön Koltuk Kol Dayaması", "$0.classList.contains('selected')", "bool"],
+            tripComputer: ["#classifiedProperties", "text=Yol Bilgisayarı", "$0.classList.contains('selected')", "bool"],
         },
     },
 };
