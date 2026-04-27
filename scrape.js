@@ -106,6 +106,11 @@ let fieldsAndPaths = {
             cooledSeats: ["#classifiedProperties", "text=Koltuklar (Soğutmalı)", "$0.classList.contains('selected')", "bool"],
             frontSeatArmrest: ["#classifiedProperties", "text=Ön Koltuk Kol Dayaması", "$0.classList.contains('selected')", "bool"],
             tripComputer: ["#classifiedProperties", "text=Yol Bilgisayarı", "$0.classList.contains('selected')", "bool"],
+            electricWindows: ["#classifiedProperties", "text=Elektrikli Camlar", "$0.classList.contains('selected')", "bool"],
+            cruiseControl: ["#classifiedProperties", "text=Hız Sabitleme Sistemi", "$0.classList.contains('selected')", "bool"],
+            electricSeats: ["#classifiedProperties", "text=Koltuklar (Elektrikli)", "$0.classList.contains('selected')", "bool"],
+            fabricSeats: ["#classifiedProperties", "text=Kumaş Koltuk", "$0.classList.contains('selected')", "bool"],
+            cooledGloveBox: ["#classifiedProperties", "text=Soğutmalı Torpido", "$0.classList.contains('selected')", "bool"],
         },
     },
 };
