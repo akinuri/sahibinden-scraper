@@ -87,6 +87,14 @@ let fieldsAndPaths = {
                 "bool",
             ],
         },
+        interior: {
+            acc: ["#classifiedProperties", "text=Adaptive Cruise Control", "$0.classList.contains('selected')", "bool"],
+            functionalSteering: ["#classifiedProperties", "text=Fonksiyonel Direksiyon", "$0.classList.contains('selected')", "bool"],
+            hydraulicSteering: ["#classifiedProperties", "text=Hidrolik Direksiyon", "$0.classList.contains('selected')", "bool"],
+            memorySeats: ["#classifiedProperties", "text=Koltuklar (Hafızalı)", "$0.classList.contains('selected')", "bool"],
+            autoDimmingRearviewMirror: ["#classifiedProperties", "text=Otm.Kararan Dikiz Aynası", "$0.classList.contains('selected')", "bool"],
+            startStop: ["#classifiedProperties", "text=Start / Stop", "$0.classList.contains('selected')", "bool"],
+        },
     },
 };
 
