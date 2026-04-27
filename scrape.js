@@ -94,6 +94,12 @@ let fieldsAndPaths = {
             memorySeats: ["#classifiedProperties", "text=Koltuklar (Hafızalı)", "$0.classList.contains('selected')", "bool"],
             autoDimmingRearviewMirror: ["#classifiedProperties", "text=Otm.Kararan Dikiz Aynası", "$0.classList.contains('selected')", "bool"],
             startStop: ["#classifiedProperties", "text=Start / Stop", "$0.classList.contains('selected')", "bool"],
+            keylessEntryAndStart: ["#classifiedProperties", "text=Anahtarsız Giriş ve Çalıştırma", "$0.classList.contains('selected')", "bool"],
+            rearViewCamera: ["#classifiedProperties", "text=Geri Görüş Kamerası", "$0.classList.contains('selected')", "bool"],
+            heatedSteeringWheel: ["#classifiedProperties", "text=Isıtmalı Direksiyon", "$0.classList.contains('selected')", "bool"],
+            heatedSeats: ["#classifiedProperties", "text=Koltuklar (Isıtmalı)", "$0.classList.contains('selected')", "bool"],
+            frontViewCamera: ["#classifiedProperties", "text=Ön Görüş Kamerası", "$0.classList.contains('selected')", "bool"],
+            thirdRowSeats: ["#classifiedProperties", "text=Üçüncü Sıra Koltuklar", "$0.classList.contains('selected')", "bool"],
         },
     },
 };
