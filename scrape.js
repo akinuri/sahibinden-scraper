@@ -127,6 +127,12 @@ let fieldsAndPaths = {
             frontParkingSensors: ["#classifiedProperties", "text=Park Sensörü (Ön)", "$0.classList.contains('selected')", "bool"],
             panoramicSunroof: ["#classifiedProperties", "text=Panoramik Cam Tavan", "$0.classList.contains('selected')", "bool"],
         },
+        multimedia: {
+            androidAuto: ["#classifiedProperties", "text=Android Auto", "$0.classList.contains('selected')", "bool"],
+            appleCarPlay: ["#classifiedProperties", "text=Apple CarPlay", "$0.classList.contains('selected')", "bool"],
+            bluetooth: ["#classifiedProperties", "text=Bluetooth", "$0.classList.contains('selected')", "bool"],
+            usbAux: ["#classifiedProperties", "text=USB / AUX", "$0.classList.contains('selected')", "bool"],
+        },
     },
 };
 
