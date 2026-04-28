@@ -112,6 +112,12 @@ let fieldsAndPaths = {
             fabricSeats: ["#classifiedProperties", "text=Kumaş Koltuk", "$0.classList.contains('selected')", "bool"],
             cooledGloveBox: ["#classifiedProperties", "text=Soğutmalı Torpido", "$0.classList.contains('selected')", "bool"],
         },
+        exterior: {
+            footActivatedTrunk: ["#classifiedProperties", "text=Ayakla Açılan Bagaj Kapağı", "$0.classList.contains('selected')", "bool"],
+            heatedMirrors: ["#classifiedProperties", "text=Aynalar (Isıtmalı)", "$0.classList.contains('selected')", "bool"],
+            parkAssist: ["#classifiedProperties", "text=Park Asistanı", "$0.classList.contains('selected')", "bool"],
+            towHook: ["#classifiedProperties", "text=Römork Çeki Demiri", "$0.classList.contains('selected')", "bool"],
+        },
     },
 };
 
