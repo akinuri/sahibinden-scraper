@@ -134,6 +134,20 @@ let fieldsAndPaths = {
             usbAux: ["#classifiedProperties", "text=USB / AUX", "$0.classList.contains('selected')", "bool"],
         },
     },
+    specs: {
+        general: {
+            modelYear: ["text=Model Üretim Yılı (İlk / Son)", "$0.nextElementSibling"],
+            segment: ["text=Segmenti", "$0.nextElementSibling"],
+            bodyType: ["text=Kasa Tipi / Kapı Sayısı", "$0.nextElementSibling"],
+            engineType: ["text=Motor Tipi", "$0.nextElementSibling"],
+            fuelConsumption: ["text=Yakıt Tüketimi (Şehir içi / Şehir dışı)", "$0.nextElementSibling"],
+            enginePower: ["text=Motor Gücü", "$0.nextElementSibling"],
+            transmission: ["text=Şanzıman / Çekiş", "$0.nextElementSibling"],
+            acceleration: ["text=Hızlanma 0-100 km/saat", "$0.nextElementSibling"],
+            topSpeed: ["text=Azami Sürat", "$0.nextElementSibling"],
+            annualTax: ["text=Toplam yıllık MTV (2013 model ve 1396 cc)", "$0.nextElementSibling"],
+        },
+    },
 };
 
 // #region ==================== UTILS
