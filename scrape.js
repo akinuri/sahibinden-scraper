@@ -162,6 +162,15 @@ let fieldsAndPaths = {
             averageConsumption: ["text=Ortalama (100 km'de)", "$0.nextElementSibling"],
             fuelTankCapacity: ["text=Yakıt Depo Hacmi", "$0.nextElementSibling"],
         },
+        dimensions: {
+            seatingCapacity: ["text=Koltuk Sayısı", "$0.nextElementSibling"],
+            length: ["text=Uzunluk", "$0.nextElementSibling"],
+            width: ["text=Genişlik", "$0.nextElementSibling"],
+            height: ["text=Yükseklik", "$0.nextElementSibling"],
+            curbWeight: ["text=Net Ağırlık", "$0.nextElementSibling"],
+            trunkCapacity: ["text=Bagaj Kapasitesi", "$0.nextElementSibling"],
+            tireDimensions: ["text=Lastik Ölçüleri", "$0.nextElementSibling"],
+        },
     },
 };
 
