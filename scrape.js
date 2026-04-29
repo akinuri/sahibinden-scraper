@@ -155,6 +155,13 @@ let fieldsAndPaths = {
             acceleration: ["text=Hızlanma 0-100 km/saat", "$0.nextElementSibling"],
             topSpeed: ["text=Azami Sürat", "$0.nextElementSibling"],
         },
+        fuelConsumption: {
+            fuelType: ["text=Yakıt Tipi", "$0.nextElementSibling"],
+            cityConsumption: ["text=Şehir içi (100 km'de)", "$0.nextElementSibling"],
+            highwayConsumption: ["text=Şehir dışı (100 km'de)", "$0.nextElementSibling"],
+            averageConsumption: ["text=Ortalama (100 km'de)", "$0.nextElementSibling"],
+            fuelTankCapacity: ["text=Yakıt Depo Hacmi", "$0.nextElementSibling"],
+        },
     },
 };
 
