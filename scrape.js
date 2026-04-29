@@ -32,7 +32,7 @@ let fieldsAndPaths = {
         painted: ["text=Boyalı Parçalar", "nextElementSiblings($0)", "array"],
         changed: ["text=Değişen Parçalar", "nextElementSiblings($0)", "array"],
     },
-    specs: {
+    feats: {
         security: {
             abs: ["#classifiedProperties", "text=ABS", "$0.classList.contains('selected')", "bool"],
             distronic: ["#classifiedProperties", "text=Distronic", "$0.classList.contains('selected')", "bool"],
