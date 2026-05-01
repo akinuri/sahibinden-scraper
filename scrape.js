@@ -449,13 +449,13 @@ function isJsQuery(query) {
     return typeof query === "string" && query.match(/\$\d*/);
 }
 
-function getJsQueryValue(query, lastEl, elVarName = "lastEl") {
-    if (Array.isArray(lastEl)) {
+function getJsQueryValue(query, els, elVarName = "els") {
+    if (Array.isArray(els)) {
         query = query.replace(/\$(\d+)/g, (_, index) => {
             return `${elVarName}[${index}]`;
         });
         query = query.replace(/\$(?!\d+)/g, elVarName);
-    } else if (lastEl instanceof Element) {
+    } else if (els instanceof Element) {
         query = query.replace(/\$0/g, elVarName);
     }
     return query;
@@ -492,20 +492,20 @@ function processPath(path) {
         path = path.slice(0, -1);
     }
 
-    let lastEl = []; // Element, string, null, [Element, Element, ...]
+    let els = []; // Element, string, null, [Element, Element, ...]
     let result = null; // string, null, [string, string, ...]
 
     for (let i = 0; i < path.length; i++) {
-        let isChainBroken = i > 0 && (lastEl == null || (Array.isArray(lastEl) && lastEl.length === 0));
+        let isChainBroken = i > 0 && (!els || (Array.isArray(els) && els.length === 0));
         if (isChainBroken) {
             break;
         }
         let pathItem = path[i];
         if (isTextQuery(pathItem)) {
             let textToFind = getTextQueryValue(pathItem);
-            lastEl = getElementsByText(textToFind, lastEl[0] || undefined);
+            els = getElementsByText(textToFind, els[0] || undefined);
         } else if (isJsQuery(pathItem)) {
-            let jsCode = getJsQueryValue(pathItem, lastEl, "lastEl");
+            let jsCode = getJsQueryValue(pathItem, els, "els");
             let evalResult = eval(jsCode);
             if (evalResult) {
                 let isNonDom =
@@ -514,27 +514,27 @@ function processPath(path) {
                     evalResult = unquote(evalResult);
                 }
             }
-            lastEl = evalResult;
+            els = evalResult;
         } else if (typeof pathItem === "string") {
-            lastEl = qsa(pathItem, lastEl[0] || undefined);
+            els = qsa(pathItem, els[0] || undefined);
         }
     }
 
-    if (Array.isArray(lastEl) && castType !== "array") {
-        lastEl = lastEl[0];
+    if (Array.isArray(els) && castType !== "array") {
+        els = els[0];
     }
 
-    if (lastEl instanceof Element) {
-        result = lastEl.innerText.trim();
+    if (els instanceof Element) {
+        result = els.innerText.trim();
     }
-    if (typeof lastEl == "string") {
-        result = lastEl.trim();
+    if (typeof els == "string") {
+        result = els.trim();
     }
-    if (castType === "array" && Array.isArray(lastEl)) {
-        result = lastEl.map((el) => el.innerText.trim()).filter(Boolean);
+    if (castType === "array" && Array.isArray(els)) {
+        result = els.map((el) => el.innerText.trim()).filter(Boolean);
     }
     if (castType === "bool") {
-        result = Boolean(lastEl);
+        result = Boolean(els);
     }
 
     if (typeof result === "string") {
