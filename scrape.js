@@ -426,6 +426,24 @@ function getJsQueryValue(query, lastEl, elVarName = "lastEl") {
     return query;
 }
 
+function stringifyElement(element) {
+    let elType = typeof element;
+    let scalarTypes = ["string", "boolean", "number"];
+    let text = null;
+    if (element instanceof HTMLImageElement) {
+        text = element.src;
+    } else if (element instanceof Element) {
+        text = element.innerText;
+    } else if (scalarTypes.includes(elType)) {
+        text = element;
+    }
+    if (typeof text === "string") {
+        text = text?.trim();
+        text = removeRedundantLineBreaks(text);
+    }
+    return text;
+}
+
 function processPath(path) {
     if (typeof path == "string") {
         path = [path];
