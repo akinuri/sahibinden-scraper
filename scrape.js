@@ -510,14 +510,15 @@ function processPath(path) {
             lastEl = getElementsByText(textToFind, parent);
         } else if (isJsQuery(pathItem)) {
             let jsCode = getJsQueryValue(pathItem, lastEl, "lastEl");
-            lastEl = eval(jsCode);
-            if (lastEl) {
+            let evalResult = eval(jsCode);
+            if (evalResult) {
                 let isNonDom =
                     (jsCode.includes("::before") || jsCode.includes("::after")) && jsCode.includes(".content");
                 if (isNonDom) {
-                    lastEl = unquote(lastEl);
+                    evalResult = unquote(evalResult);
                 }
             }
+            lastEl = evalResult;
         } else if (typeof pathItem === "string") {
             lastEl = qsa(pathItem, lastEl || undefined);
         }
