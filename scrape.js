@@ -382,6 +382,9 @@ function elsToText(els, separator = " ") {
 }
 
 function removeRedundantLineBreaks(str) {
+    if (typeof str !== "string") {
+        return str;
+    }
     return str.replace(/\n{3,}/g, "\n\n");
 }
 
