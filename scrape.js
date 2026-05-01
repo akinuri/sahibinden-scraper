@@ -280,7 +280,7 @@ let fieldsAndPaths = {
             transmission: ["text=Şanzıman / Çekiş", "$0.nextElementSibling"],
             acceleration: ["text=Hızlanma 0-100 km/saat", "$0.nextElementSibling"],
             topSpeed: ["text=Azami Sürat", "$0.nextElementSibling"],
-            annualTax: ["text=Toplam yıllık MTV (2013 model ve 1396 cc)", "$0.nextElementSibling"],
+            annualTax: ["text=/Toplam yıllık MTV \\(\\d+ model ve \\d+ cc\\)/", "$0.nextElementSibling"],
         },
         engine: {
             engineType: ["text=Motor Tipi", "$0.nextElementSibling"],
