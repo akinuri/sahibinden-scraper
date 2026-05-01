@@ -496,7 +496,8 @@ function processPath(path) {
     let result = null; // string, null, [string, string, ...]
 
     for (let i = 0; i < path.length; i++) {
-        if (i > 0 && (lastEl == null || (Array.isArray(lastEl) && lastEl.length === 0))) {
+        let isChainBroken = i > 0 && (lastEl == null || (Array.isArray(lastEl) && lastEl.length === 0));
+        if (isChainBroken) {
             break;
         }
         let pathItem = path[i];
