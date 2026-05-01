@@ -495,38 +495,35 @@ function processPath(path) {
     let lastEl = null; // Element, string, null, [Element, Element, ...]
     let result = null; // string, null, [string, string, ...]
 
-    let isPathSimpleSelector =
-        path.length === 1 && typeof path[0] === "string" && !isTextQuery(path[0]) && !isJsQuery(path[0]);
-
-    if (isPathSimpleSelector) {
-        lastEl = qs(path[0]);
-    } else {
-        for (let i = 0; i < path.length; i++) {
-            if (i > 0 && (lastEl == null || (Array.isArray(lastEl) && lastEl.length === 0))) {
-                break;
-            }
-            let item = path[i];
-            if (isTextQuery(item)) {
-                let textToFind = getTextQueryValue(item);
-                let parent = lastEl || undefined;
-                if (Array.isArray(parent)) {
-                    parent = parent[0];
-                }
-                lastEl = getElementsByText(textToFind, parent);
-            } else if (isJsQuery(item)) {
-                let jsCode = getJsQueryValue(item, lastEl, "lastEl");
-                lastEl = eval(jsCode);
-                if (lastEl) {
-                    let isNonDom =
-                        (jsCode.includes("::before") || jsCode.includes("::after")) && jsCode.includes(".content");
-                    if (isNonDom) {
-                        lastEl = unquote(lastEl);
-                    }
-                }
-            } else if (typeof item === "string") {
-                lastEl = qsa(item, lastEl || undefined);
-            }
+    for (let i = 0; i < path.length; i++) {
+        if (i > 0 && (lastEl == null || (Array.isArray(lastEl) && lastEl.length === 0))) {
+            break;
         }
+        let item = path[i];
+        if (isTextQuery(item)) {
+            let textToFind = getTextQueryValue(item);
+            let parent = lastEl || undefined;
+            if (Array.isArray(parent)) {
+                parent = parent[0];
+            }
+            lastEl = getElementsByText(textToFind, parent);
+        } else if (isJsQuery(item)) {
+            let jsCode = getJsQueryValue(item, lastEl, "lastEl");
+            lastEl = eval(jsCode);
+            if (lastEl) {
+                let isNonDom =
+                    (jsCode.includes("::before") || jsCode.includes("::after")) && jsCode.includes(".content");
+                if (isNonDom) {
+                    lastEl = unquote(lastEl);
+                }
+            }
+        } else if (typeof item === "string") {
+            lastEl = qsa(item, lastEl || undefined);
+        }
+    }
+
+    if (Array.isArray(lastEl) && castType !== "array") {
+        lastEl = lastEl[0];
     }
 
     if (lastEl instanceof Element) {
