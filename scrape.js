@@ -373,9 +373,22 @@ function getElementsByText(text, parent) {
     }
     let elements = qsa("*", parent);
     let candidates = [];
+    text = innerText(text);
+    let hasPattern = isWrappedWith(text, "/");
+    if (hasPattern) {
+        text = unwrap(text, "/");
+    }
+    let textPattern = new RegExp("^" + text + "$", "i");
     for (let element of elements) {
-        if (element.innerText?.trim() === text) {
-            candidates.push(element);
+        let elementText = innerText(element);
+        if (hasPattern) {
+            if (textPattern.test(elementText)) {
+                candidates.push(element);
+            }
+        } else {
+            if (elementText === text) {
+                candidates.push(element);
+            }
         }
     }
     if (candidates.length === 0) {
