@@ -339,6 +339,28 @@ function qsa(query, parent) {
     return Array.from(parent.querySelectorAll(query));
 }
 
+function innerText(el) {
+    let text = "";
+    if (el instanceof Element) {
+        text = el.textContent;
+    } else if (typeof el === "string") {
+        text = el;
+    }
+    text = text?.trim().replace(/\s+/g, " ");
+    return text;
+}
+
+function isWrappedWith(str, wrapperChar) {
+    return typeof str === "string" && str.startsWith(wrapperChar) && str.endsWith(wrapperChar);
+}
+
+function unwrap(str, wrapperChar) {
+    if (isWrappedWith(str, wrapperChar)) {
+        return str.slice(1, -1);
+    }
+    return str;
+}
+
 function getElementsByText(text, parent) {
     if (parent === undefined) {
         parent = document;
