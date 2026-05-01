@@ -499,16 +499,16 @@ function processPath(path) {
         if (i > 0 && (lastEl == null || (Array.isArray(lastEl) && lastEl.length === 0))) {
             break;
         }
-        let item = path[i];
-        if (isTextQuery(item)) {
-            let textToFind = getTextQueryValue(item);
+        let pathItem = path[i];
+        if (isTextQuery(pathItem)) {
+            let textToFind = getTextQueryValue(pathItem);
             let parent = lastEl || undefined;
             if (Array.isArray(parent)) {
                 parent = parent[0];
             }
             lastEl = getElementsByText(textToFind, parent);
-        } else if (isJsQuery(item)) {
-            let jsCode = getJsQueryValue(item, lastEl, "lastEl");
+        } else if (isJsQuery(pathItem)) {
+            let jsCode = getJsQueryValue(pathItem, lastEl, "lastEl");
             lastEl = eval(jsCode);
             if (lastEl) {
                 let isNonDom =
@@ -517,8 +517,8 @@ function processPath(path) {
                     lastEl = unquote(lastEl);
                 }
             }
-        } else if (typeof item === "string") {
-            lastEl = qsa(item, lastEl || undefined);
+        } else if (typeof pathItem === "string") {
+            lastEl = qsa(pathItem, lastEl || undefined);
         }
     }
 
