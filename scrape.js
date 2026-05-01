@@ -484,11 +484,10 @@ function processPath(path) {
         path = [path];
     }
 
-    let validCastTypes = ["bool", "array"];
-    let castType = null;
+    let isResultMultiple = false;
     let lastPathItem = path[path.length - 1];
-    if (validCastTypes.includes(lastPathItem)) {
-        castType = lastPathItem;
+    if (lastPathItem == "array") {
+        isResultMultiple = true;
         path = path.slice(0, -1);
     }
 
@@ -519,28 +518,13 @@ function processPath(path) {
             els = qsa(pathItem, els[0] || undefined);
         }
     }
-
-    if (Array.isArray(els) && castType !== "array") {
-        els = els[0];
+    if (Array.isArray(els)) {
+        result = els.map(stringifyElement).filter(Boolean);
+    } else {
+        result = stringifyElement(els);
     }
-
-    if (els instanceof Element) {
-        result = els.innerText.trim();
-    }
-    if (typeof els == "string") {
-        result = els.trim();
-    }
-    if (castType === "array" && Array.isArray(els)) {
-        result = els.map((el) => el.innerText.trim()).filter(Boolean);
-    }
-    if (castType === "bool") {
-        result = Boolean(els);
-    }
-
-    if (typeof result === "string") {
-        result = removeRedundantLineBreaks(result);
-    } else if (Array.isArray(result)) {
-        result = result.map((item) => removeRedundantLineBreaks(item));
+    if (Array.isArray(result) && !isResultMultiple) {
+        result = result[0];
     }
 
     return result;
