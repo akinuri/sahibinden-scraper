@@ -492,7 +492,7 @@ function processPath(path) {
         path = path.slice(0, -1);
     }
 
-    let lastEl = null; // Element, string, null, [Element, Element, ...]
+    let lastEl = []; // Element, string, null, [Element, Element, ...]
     let result = null; // string, null, [string, string, ...]
 
     for (let i = 0; i < path.length; i++) {
@@ -503,11 +503,7 @@ function processPath(path) {
         let pathItem = path[i];
         if (isTextQuery(pathItem)) {
             let textToFind = getTextQueryValue(pathItem);
-            let parent = lastEl || undefined;
-            if (Array.isArray(parent)) {
-                parent = parent[0];
-            }
-            lastEl = getElementsByText(textToFind, parent);
+            lastEl = getElementsByText(textToFind, lastEl[0] || undefined);
         } else if (isJsQuery(pathItem)) {
             let jsCode = getJsQueryValue(pathItem, lastEl, "lastEl");
             let evalResult = eval(jsCode);
@@ -520,7 +516,7 @@ function processPath(path) {
             }
             lastEl = evalResult;
         } else if (typeof pathItem === "string") {
-            lastEl = qsa(pathItem, lastEl || undefined);
+            lastEl = qsa(pathItem, lastEl[0] || undefined);
         }
     }
 
