@@ -311,10 +311,27 @@ function unhideEl(el, method, originalValue) {
     }
 }
 
-function innerText(el) {
+function innerText(el, multilineThreshold = 20, hiddenParentDepth = 2) {
     let text = "";
     if (el instanceof Element) {
-        text = el.textContent;
+        text = el.innerText || "";
+        let isMultiline = text.includes("\n") || text.length > multilineThreshold;
+        if (isMultiline) {
+            const hiderParent = findHiddenParent(el, hiddenParentDepth);
+            if (hiderParent) {
+                const hideMethod = getHideMethod(hiderParent);
+                let originalValue;
+                try {
+                    originalValue = hideEl(hiderParent, hideMethod);
+                    text = el.innerText;
+                } finally {
+                    unhideEl(hiderParent, hideMethod, originalValue);
+                }
+            }
+        }
+        if (!text || text.trim() === "") {
+            text = el.textContent;
+        }
     } else if (typeof el === "string") {
         text = el;
     }
