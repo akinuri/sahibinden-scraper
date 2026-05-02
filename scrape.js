@@ -405,7 +405,7 @@ function stringifyElement(element) {
     return text;
 }
 
-function processPath(path) {
+async function processPath(path) {
     if (typeof path == "string") {
         path = [path];
     }
@@ -431,7 +431,16 @@ function processPath(path) {
             els = getElementsByText(textToFind, els[0] || undefined);
         } else if (isJsQuery(pathItem)) {
             let jsCode = getJsQueryValue(pathItem, els, "els");
-            let evalResult = eval(jsCode);
+            let evalResult;
+            try {
+                evalResult = eval(jsCode);
+                if (evalResult && typeof evalResult.then === "function") {
+                    evalResult = await evalResult;
+                }
+            } catch (error) {
+                console.error("Error evaluating:", jsCode, error);
+                evalResult = null;
+            }
             if (evalResult) {
                 let isNonDom =
                     (jsCode.includes("::before") || jsCode.includes("::after")) && jsCode.includes(".content");
@@ -456,14 +465,14 @@ function processPath(path) {
     return result;
 }
 
-function processesMapping(fieldsAndPaths) {
+async function processesMapping(fieldsAndPaths) {
     let info = {};
     for (let field in fieldsAndPaths) {
         let pathOrMapping = fieldsAndPaths[field];
         if (typeof pathOrMapping === "string" || Array.isArray(pathOrMapping)) {
-            info[field] = processPath(pathOrMapping);
+            info[field] = await processPath(pathOrMapping);
         } else if (typeof pathOrMapping === "object") {
-            info[field] = processesMapping(pathOrMapping);
+            info[field] = await processesMapping(pathOrMapping);
         }
     }
     return info;
@@ -473,8 +482,10 @@ function processesMapping(fieldsAndPaths) {
 
 console.clear();
 
-let info = processesMapping(fieldsAndPaths);
-let json = JSON.stringify(info, null, 4);
+(async () => {
+    let info = await processesMapping(fieldsAndPaths);
+    let json = JSON.stringify(info, null, 4);
 
-copyToClipboard(json);
-console.log(json);
+    await copyToClipboard(json);
+    console.log(json);
+})();
