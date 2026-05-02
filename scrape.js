@@ -395,6 +395,8 @@ function stringifyElement(element) {
         text = innerText(element);
     } else if (scalarTypes.includes(elType)) {
         text = element;
+    } else {
+        text = element;
     }
     if (typeof text === "string") {
         text = text?.trim();
