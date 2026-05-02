@@ -392,7 +392,7 @@ function stringifyElement(element) {
     if (element instanceof HTMLImageElement) {
         text = element.src;
     } else if (element instanceof Element) {
-        text = element.innerText;
+        text = innerText(element);
     } else if (scalarTypes.includes(elType)) {
         text = element;
     }
