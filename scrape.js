@@ -245,7 +245,7 @@ function innerText(el) {
     } else if (typeof el === "string") {
         text = el;
     }
-    text = text?.trim().replace(/\s+/g, " ");
+    text = text?.trim().replace(/ +/g, " ");
     return text;
 }
 
