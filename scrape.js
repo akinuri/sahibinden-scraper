@@ -357,6 +357,50 @@ function copyToClipboardViaCmd(text) {
     document.body.removeChild(textarea);
 }
 
+function createThumb(image, maxWidth, maxHeight) {
+    const canvas = document.createElement("canvas");
+    let [w, h] = [image.naturalWidth, image.naturalHeight];
+    if (w > maxWidth) {
+        h = (maxWidth / w) * h;
+        w = maxWidth;
+    }
+    if (h > maxHeight) {
+        w = (maxHeight / h) * w;
+        h = maxHeight;
+    }
+    Object.assign(canvas, { width: w, height: h });
+    canvas.getContext("2d").drawImage(image, 0, 0, w, h);
+    return canvas.toDataURL("image/png");
+}
+
+async function img2b64(img, srcGetter = null, maxWidth = 200, maxHeight = 200) {
+    const src = srcGetter ? srcGetter(img) : img.src;
+    const makeResult = (image) => ({
+        url: src,
+        width: image.naturalWidth,
+        height: image.naturalHeight,
+        thumb: createThumb(image, maxWidth, maxHeight),
+    });
+    try {
+        return makeResult(img);
+    } catch (error) {
+        if (error.name === "SecurityError") {
+            const response = await fetch(src);
+            const blob = await response.blob();
+            return new Promise((resolve) => {
+                const newImg = new Image();
+                newImg.onload = () => resolve(makeResult(newImg));
+                newImg.src = URL.createObjectURL(blob);
+            });
+        }
+        throw error;
+    }
+}
+
+async function imgs2b64(imgs, srcGetter = null, maxWidth = 200, maxHeight = 200) {
+    return Promise.all(imgs.map((img) => img2b64(img, srcGetter, maxWidth, maxHeight)));
+}
+
 // #endregion
 
 // #region ==================== HELPERS
