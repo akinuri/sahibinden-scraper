@@ -1,6 +1,6 @@
 let fieldsAndPaths = {
     title: ["h1"],
-    images: [".classifiedDetailMainPhoto img", "$.map(img => img.dataset.src || img.src)", "array"],
+    images: [".classifiedDetailMainPhoto img", "imgs2b64($, img => img.dataset.src || img.src)", "array"],
     breadcrumb: [".search-result-bc .bc-item", "elsToText($, ' > ')"],
     price: ".classified-price-wrapper",
     location: ".classifiedInfo h2",
