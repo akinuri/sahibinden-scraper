@@ -317,13 +317,9 @@
                 const imgDiv = document.createElement('div');
                 imgDiv.className = 'relative group';
                 imgDiv.innerHTML = `
-                    <img src="${image.thumb || image.url}" 
+                    <img src="${image.thumb}" 
                          alt="Vehicle Image ${index + 1}"
-                         class="w-full h-32 object-cover rounded-lg cursor-pointer group-hover:opacity-90 transition-opacity"
-                         onclick="window.open('${image.url}', '_blank')">
-                    <div class="absolute bottom-2 right-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">
-                        ${image.width}x${image.height}
-                    </div>
+                         class="w-full h-32 object-cover rounded-lg">
                 `;
                 container.appendChild(imgDiv);
             });
