@@ -238,6 +238,79 @@ function qsa(query, parent) {
     return Array.from(parent.querySelectorAll(query));
 }
 
+function findHiddenParent(el, maxDepth = 5) {
+    let current = el;
+    let depth = 0;
+    while (current && current !== document.body && depth < maxDepth) {
+        const style = getComputedStyle(current);
+        if (style.display === "none" || style.visibility === "hidden" || style.opacity === "0" || current.hidden) {
+            return current;
+        }
+        current = current.parentElement;
+        depth++;
+    }
+    return null;
+}
+
+function getHideMethod(el) {
+    const style = getComputedStyle(el);
+    if (style.display === "none") return "display";
+    if (style.visibility === "hidden") return "visibility";
+    if (style.opacity === "0") return "opacity";
+    if (el.hidden) return "hidden";
+    return null;
+}
+
+function hideEl(el, method) {
+    switch (method) {
+        case "display":
+            const displayValue = el.style.display;
+            el.style.setProperty("display", "block", "important");
+            return displayValue;
+        case "visibility":
+            const visibilityValue = el.style.visibility;
+            el.style.setProperty("visibility", "visible", "important");
+            return visibilityValue;
+        case "opacity":
+            const opacityValue = el.style.opacity;
+            el.style.setProperty("opacity", "1", "important");
+            return opacityValue;
+        case "hidden":
+            const hiddenValue = el.hidden;
+            el.hidden = false;
+            return hiddenValue;
+    }
+}
+
+function unhideEl(el, method, originalValue) {
+    switch (method) {
+        case "display":
+            if (originalValue) {
+                el.style.setProperty("display", originalValue, "important");
+            } else {
+                el.style.removeProperty("display");
+            }
+            break;
+        case "visibility":
+            if (originalValue) {
+                el.style.setProperty("visibility", originalValue, "important");
+            } else {
+                el.style.removeProperty("visibility");
+            }
+            break;
+        case "opacity":
+            if (originalValue) {
+                el.style.setProperty("opacity", originalValue, "important");
+            } else {
+                el.style.removeProperty("opacity");
+            }
+            break;
+        case "hidden":
+            el.hidden = originalValue;
+            break;
+    }
+}
+
 function innerText(el) {
     let text = "";
     if (el instanceof Element) {
