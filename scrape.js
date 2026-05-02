@@ -332,6 +332,31 @@ function nextElementSiblings(el) {
     return siblings;
 }
 
+async function copyToClipboard(text) {
+    try {
+        copy(text);
+    } catch (error) {
+        try {
+            await copyToClipboardViaNavigator(text);
+        } catch (error) {
+            copyToClipboardViaCmd(text);
+        }
+    }
+}
+
+async function copyToClipboardViaNavigator(text) {
+    await navigator.clipboard.writeText(text);
+}
+
+function copyToClipboardViaCmd(text) {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+}
+
 // #endregion
 
 // #region ==================== HELPERS
@@ -449,5 +474,5 @@ console.clear();
 let info = processesMapping(fieldsAndPaths);
 let json = JSON.stringify(info, null, 4);
 
-copy(json);
+copyToClipboard(json);
 console.log(json);
