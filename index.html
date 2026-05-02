@@ -98,7 +98,7 @@
             <!-- Images Card -->
             <div id="imagesCard" class="bg-white rounded-lg shadow-md p-6 mb-6 hidden">
                 <h3 class="text-xl font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">📷 Fotoğraflar</h3>
-                <div id="imagesContainer" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+                <div id="imagesContainer" class="flex gap-4 overflow-x-auto pb-2"></div>
             </div>
 
             <!-- Vehicle Details Card -->
@@ -179,8 +179,71 @@
         </div>
     </div>
 
+    <!-- Image Viewer Modal -->
+    <div id="imageViewer" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center">
+        <button id="closeViewer" class="absolute top-4 right-4 text-white text-5xl hover:text-gray-300 z-10 bg-black bg-opacity-50 rounded-full w-16 h-16 flex items-center justify-center">
+            ✕
+        </button>
+        <button id="prevImage" class="absolute left-16 top-1/2 transform -translate-y-1/2 text-white text-8xl hover:text-gray-300 z-10 bg-black bg-opacity-50 rounded-full w-20 h-20 flex items-center justify-center pb-6">
+            ‹
+        </button>
+        <button id="nextImage" class="absolute right-16 top-1/2 transform -translate-y-1/2 text-white text-8xl hover:text-gray-300 z-10 bg-black bg-opacity-50 rounded-full w-20 h-20 flex items-center justify-center pb-6">
+            ›
+        </button>
+        <div class="max-w-full max-h-full p-8 flex flex-col items-center relative">
+            <img id="viewerImage" class="max-w-full max-h-full object-contain" style="transform: scale(2);" src="" alt="">
+            <div id="imageCounter" class="absolute -bottom-28 text-white text-lg font-bold bg-black bg-opacity-70 px-3 py-2 rounded-lg"></div>
+        </div>
+    </div>
+
     <script>
         let currentListing = null;
+        let currentImages = [];
+        let currentImageIndex = 0;
+
+        // Image viewer functions
+        function openImageViewer(images, index) {
+            currentImages = images;
+            currentImageIndex = index;
+            showCurrentImage();
+            document.getElementById('imageViewer').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageViewer() {
+            document.getElementById('imageViewer').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function showCurrentImage() {
+            if (currentImages.length === 0) return;
+            
+            const image = currentImages[currentImageIndex];
+            const viewerImage = document.getElementById('viewerImage');
+            const counter = document.getElementById('imageCounter');
+            
+            // Use the base64 thumbnail data for viewer too (since we have it locally)
+            viewerImage.src = image.thumb;
+            counter.textContent = `${currentImageIndex + 1} / ${currentImages.length}`;
+        }
+
+        function nextImage() {
+            if (currentImageIndex < currentImages.length - 1) {
+                currentImageIndex++;
+            } else {
+                currentImageIndex = 0; // Loop back to first image
+            }
+            showCurrentImage();
+        }
+
+        function prevImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+            } else {
+                currentImageIndex = currentImages.length - 1; // Loop back to last image
+            }
+            showCurrentImage();
+        }
 
         // Sample data from listing.txt
         const sampleData = {
@@ -313,14 +376,22 @@
             const container = document.getElementById('imagesContainer');
             container.innerHTML = '';
             
+            // Update header with count
+            const imagesCard = document.getElementById('imagesCard');
+            const header = imagesCard.querySelector('h3');
+            header.textContent = `📷 Fotoğraflar (${images.length})`;
+            
             images.forEach((image, index) => {
                 const imgDiv = document.createElement('div');
-                imgDiv.className = 'relative group';
+                imgDiv.className = 'relative group cursor-pointer flex-shrink-0 p-1';
                 imgDiv.innerHTML = `
                     <img src="${image.thumb}" 
                          alt="Vehicle Image ${index + 1}"
-                         class="w-full h-32 object-cover rounded-lg">
+                         class="h-32 object-contain rounded-lg transition-opacity hover:opacity-80 shadow-md">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity rounded-lg flex items-center justify-center">
+                    </div>
                 `;
+                imgDiv.addEventListener('click', () => openImageViewer(images, index));
                 container.appendChild(imgDiv);
             });
             
@@ -463,6 +534,35 @@
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('jsonInput').value = JSON.stringify(sampleData, null, 2);
             displayListing(sampleData);
+        });
+
+        // Image viewer event listeners
+        document.getElementById('closeViewer').addEventListener('click', closeImageViewer);
+        document.getElementById('prevImage').addEventListener('click', prevImage);
+        document.getElementById('nextImage').addEventListener('click', nextImage);
+        
+        // Close viewer when clicking outside image
+        document.getElementById('imageViewer').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageViewer();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (!document.getElementById('imageViewer').classList.contains('hidden')) {
+                switch(e.key) {
+                    case 'Escape':
+                        closeImageViewer();
+                        break;
+                    case 'ArrowLeft':
+                        prevImage();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        break;
+                }
+            }
         });
     </script>
 </body>
