@@ -4,6 +4,7 @@ let fieldsAndPaths = {
     breadcrumb: [".search-result-bc .bc-item", "elsToText($, ' > ')"],
     price: ".classified-price-wrapper",
     location: ".classifiedInfo h2",
+    coords: ["#gmap", "[$0.dataset.lat, $0.dataset.lon]", "array"],
     listingId: ["text=İlan No", "$0.nextElementSibling"],
     listingDate: ["text=İlan Tarihi", "$0.nextElementSibling"],
     brand: ["text=Marka", "$2.nextElementSibling"],
