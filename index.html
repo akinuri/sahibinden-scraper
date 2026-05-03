@@ -80,7 +80,7 @@
                         <tr class="border-b border-gray-100">
                             <td class="py-2 px-4 font-medium text-gray-700 bg-gray-50">📷 Fotoğraflar</td>
                             <td class="py-2 px-4" id="images-col1">
-                                <div id="imagesContainer" class="flex gap-2 overflow-x-auto pb-2"></div>
+                                <div id="imagesContainer" class="flex gap-2 overflow-x-auto pb-2 max-w-[480px]"></div>
                             </td>
                         </tr>
                         <tr class="border-b border-gray-100">
@@ -296,6 +296,131 @@
             showCurrentImage();
         }
 
+        // Feature name mappings from fieldsAndPaths
+        const featureNames = {
+            security: {
+                abs: "ABS",
+                distronic: "Distronic",
+                passengerAirbag: "Hava Yastığı (Yolcu)",
+                centralLock: "Merkezi Kilit",
+                armoredVehicle: "Zırhlı Araç",
+                aeb: "AEB",
+                esp_vsa: "ESP / VSA",
+                immobilizer: "Immobilizer",
+                laneKeepingAssist: "Şerit Takip Sistemi",
+                bas: "BAS",
+                nightVision: "Gece Görüş Sistemi",
+                isofix: "Isofix",
+                hillStartAssist: "Yokuş Kalkış Desteği",
+                childLock: "Çocuk Kilidi",
+                driverAirbag: "Hava Yastığı (Sürücü)",
+                blindSpotWarning: "Kör Nokta Uyarı Sistemi",
+                fatigueDetection: "Yorgunluk Tespit Sistemi"
+            },
+            interior: {
+                acc: "Adaptive Cruise Control",
+                functionalSteering: "Fonksiyonel Direksiyon",
+                hydraulicSteering: "Hidrolik Direksiyon",
+                memorySeats: "Koltuklar (Hafızalı)",
+                autoDimmingRearviewMirror: "Otm.Kararan Dikiz Aynası",
+                startStop: "Start / Stop",
+                keylessEntryAndStart: "Anahtarsız Giriş ve Çalıştırma",
+                rearViewCamera: "Geri Görüş Kamerası",
+                heatedSteeringWheel: "Isıtmalı Direksiyon",
+                heatedSeats: "Koltuklar (Isıtmalı)",
+                frontViewCamera: "Ön Görüş Kamerası",
+                thirdRowSeats: "Üçüncü Sıra Koltuklar",
+                leatherSeats: "Deri Koltuk",
+                headUpDisplay: "Head-up Display",
+                climateControl: "Klima",
+                cooledSeats: "Koltuklar (Soğutmalı)",
+                frontSeatArmrest: "Ön Koltuk Kol Dayaması",
+                tripComputer: "Yol Bilgisayarı",
+                electricWindows: "Elektrikli Camlar",
+                cruiseControl: "Hız Sabitleme Sistemi",
+                electricSeats: "Koltuklar (Elektrikli)",
+                fabricSeats: "Kumaş Koltuk",
+                cooledGloveBox: "Soğutmalı Torpido"
+            },
+            exterior: {
+                footActivatedTrunk: "Ayakla Açılan Bagaj Kapağı",
+                heatedMirrors: "Aynalar (Isıtmalı)",
+                parkAssist: "Park Asistanı",
+                towHook: "Römork Çeki Demiri",
+                hardtop: "Hardtop",
+                memoryMirrors: "Aynalar (Hafızalı)",
+                sunroof: "Sunroof",
+                adaptiveHeadlights: "Far (Adaptif)",
+                rearParkingSensors: "Park Sensörü (Arka)",
+                smartTrunk: "Akıllı Bagaj Kapağı",
+                electricMirrors: "Aynalar (Elektrikli)",
+                frontParkingSensors: "Park Sensörü (Ön)",
+                panoramicSunroof: "Panoramik Cam Tavan"
+            },
+            multimedia: {
+                androidAuto: "Android Auto",
+                appleCarPlay: "Apple CarPlay",
+                bluetooth: "Bluetooth",
+                usbAux: "USB / AUX"
+            }
+        };
+
+        const damageNames = {
+            locallyPainted: "Lokal Boyalı Parçalar",
+            painted: "Boyalı Parçalar",
+            changed: "Değişen Parçalar"
+        };
+
+        const categoryNames = {
+            security: "Güvenlik",
+            interior: "İç Donanım",
+            exterior: "Dış Donanım",
+            multimedia: "Multimedya",
+            general: "Genel Bilgiler",
+            engine: "Motor",
+            fuelConsumption: "Yakıt Tüketimi",
+            dimensions: "Boyutlar"
+        };
+
+        const specNames = {
+            general: {
+                modelYear: "Model Üretim Yılı",
+                segment: "Segmenti",
+                bodyType: "Kasa Tipi / Kapı Sayısı",
+                engineType: "Motor Tipi",
+                fuelConsumption: "Yakıt Tüketimi",
+                enginePower: "Motor Gücü",
+                transmission: "Şanzıman / Çekiş",
+                acceleration: "Hızlanma 0-100 km/saat",
+                topSpeed: "Azami Sürat",
+                annualTax: "Yıllık MTV"
+            },
+            engine: {
+                engineType: "Motor Tipi",
+                engineCapacity: "Motor Hacmi",
+                maxPower: "Maksimum Güç",
+                maxTorque: "Maksimum Tork",
+                acceleration: "Hızlanma 0-100 km/saat",
+                topSpeed: "Azami Sürat"
+            },
+            fuelConsumption: {
+                fuelType: "Yakıt Tipi",
+                cityConsumption: "Şehir içi (100 km'de)",
+                highwayConsumption: "Şehir dışı (100 km'de)",
+                averageConsumption: "Ortalama (100 km'de)",
+                fuelTankCapacity: "Yakıt Depo Hacmi"
+            },
+            dimensions: {
+                seatingCapacity: "Koltuk Sayısı",
+                length: "Uzunluk",
+                width: "Genişlik",
+                height: "Yükseklik",
+                curbWeight: "Net Ağırlık",
+                trunkCapacity: "Bagaj Kapasitesi",
+                tireDimensions: "Lastik Ölçüleri"
+            }
+        };
+
         // Sample data from listing.txt
         const sampleData = {
             "title": "DÜŞÜK KM/HATASIZ MOTOR KONDİSYONU/ÇELİK JANT/GERİ GÖRÜŞ",
@@ -304,12 +429,14 @@
                     "url": "https://i0.shbdn.com/photos/01/86/05/x5_13120186058z0.jpg",
                     "width": 528,
                     "height": 396,
+                    "thumb": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAyAEADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigD//2Q=="
                 },
                 {
                     "url": "https://i0.shbdn.com/photos/01/86/05/x5_1312018605yy9.jpg",
                     "width": 528,
                     "height": 396,
-                },
+                    "thumb": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAyAEADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigD//2Q=="
+                }
             ],
             "breadcrumb": "Vasıta > Otomobil > Renault > Clio > 0.9 TCe > Icon",
             "price": "485.000 TL",
@@ -557,14 +684,34 @@
             let hasFeatures = false;
             Object.keys(feats).forEach(category => {
                 if (typeof feats[category] === 'object') {
+                    // Add category header row
+                    hasFeatures = true;
+                    const categoryRow = document.createElement('tr');
+                    categoryRow.className = 'bg-blue-50';
+                    categoryRow.innerHTML = `
+                        <td colspan="2" class="px-4 py-2 font-semibold text-blue-700">
+                            ${categoryNames[category] || category}
+                        </td>
+                    `;
+                    tbody.appendChild(categoryRow);
+                    
+                    // Add features in this category
                     Object.keys(feats[category]).forEach(feat => {
-                        hasFeatures = true;
+                        const featDisplayName = featureNames[category] && featureNames[category][feat] 
+                            ? featureNames[category][feat] 
+                            : feat;
+                        
+                        const isEnabled = feats[category][feat];
+                        const checkmark = isEnabled ? '✓' : '✗';
+                        const checkmarkColor = isEnabled ? 'text-green-600' : 'text-red-500 opacity-20';
+                        
                         const row = document.createElement('tr');
                         row.className = 'border-b border-gray-100';
-                        const isPresent = feats[category][feat] === true || feats[category][feat] === 'true';
                         row.innerHTML = `
-                            <td class="py-2 px-4 font-medium text-gray-700 bg-gray-50">${feat}</td>
-                            <td class="py-2 px-4 ${isPresent ? 'text-green-600' : 'text-red-400 opacity-30'}">${isPresent ? '✓' : '✗'}</td>
+                            <td class="px-4 py-2 pl-8 font-medium text-gray-700 bg-gray-50">${featDisplayName}</td>
+                            <td class="px-4 py-2">
+                                <span class="${checkmarkColor} font-bold text-lg">${checkmark}</span>
+                            </td>
                         `;
                         tbody.appendChild(row);
                     });
@@ -587,9 +734,13 @@
                     hasDamages = true;
                     const row = document.createElement('tr');
                     row.className = 'border-b border-gray-100';
+                    
+                    const damageTypeDisplayName = damageNames[damageType] || damageType;
+                    const parts = damages[damageType].join(', ');
+                    
                     row.innerHTML = `
-                        <td class="py-2 px-4 font-medium text-gray-700 bg-gray-50">${damageType}</td>
-                        <td class="py-2 px-4 ">${damages[damageType].join(', ')}</td>
+                        <td class="px-4 py-2 font-medium text-gray-700 bg-gray-50">${damageTypeDisplayName}</td>
+                        <td class="px-4 py-2">${parts}</td>
                     `;
                     tbody.appendChild(row);
                 }
@@ -608,14 +759,29 @@
             let hasSpecs = false;
             Object.keys(specs).forEach(category => {
                 if (typeof specs[category] === 'object') {
+                    // Add category header row
+                    hasSpecs = true;
+                    const categoryRow = document.createElement('tr');
+                    categoryRow.className = 'bg-green-50';
+                    categoryRow.innerHTML = `
+                        <td colspan="2" class="px-4 py-2 font-semibold text-green-700">
+                            ${categoryNames[category] || category}
+                        </td>
+                    `;
+                    tbody.appendChild(categoryRow);
+                    
+                    // Add specs in this category
                     Object.keys(specs[category]).forEach(spec => {
                         if (specs[category][spec]) {
-                            hasSpecs = true;
+                            const specDisplayName = specNames[category] && specNames[category][spec] 
+                                ? specNames[category][spec] 
+                                : spec;
+                            
                             const row = document.createElement('tr');
                             row.className = 'border-b border-gray-100';
                             row.innerHTML = `
-                                <td class="py-2 px-4 font-medium text-gray-700 bg-gray-50">${spec}</td>
-                                <td class="py-2 px-4 ">${specs[category][spec]}</td>
+                                <td class="px-4 py-2 pl-8 font-medium text-gray-700 bg-gray-50">${specDisplayName}</td>
+                                <td class="px-4 py-2 text-gray-800">${specs[category][spec]}</td>
                             `;
                             tbody.appendChild(row);
                         }
