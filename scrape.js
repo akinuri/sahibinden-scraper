@@ -609,6 +609,8 @@ async function processesMapping(fieldsAndPaths) {
         let pathOrMapping = fieldsAndPaths[field];
         if (typeof pathOrMapping === "string" || Array.isArray(pathOrMapping)) {
             info[field] = await processPath(pathOrMapping);
+        } else if (typeof pathOrMapping === "function") {
+            info[field] = await pathOrMapping();
         } else if (typeof pathOrMapping === "object") {
             info[field] = await processesMapping(pathOrMapping);
         }
