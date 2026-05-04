@@ -198,11 +198,11 @@
                             <td class="py-2 px-4" id="trade-col1">-</td>
                         </tr>
 
-                        <!-- Damages Section -->
-                        <tr class="border-b border-gray-200 bg-red-100" id="damagesHeader" style="display: none;">
-                            <td colspan="2" class="py-2 px-4 font-semibold text-gray-800">⚠️ Hasar Bilgileri</td>
+                        <!-- Parts Section -->
+                        <tr class="border-b border-gray-200 bg-red-100" id="partsHeader" style="display: none;">
+                            <td colspan="2" class="py-2 px-4 font-semibold text-gray-800">⚠️ Parça Bilgileri</td>
                         </tr>
-                        <tbody id="damagesRows" style="display: none;"></tbody>
+                        <tbody id="partsRows" style="display: none;"></tbody>
 
                         <!-- Features Section -->
                         <tr class="border-b border-gray-200 bg-purple-100" id="featuresHeader" style="display: none;">
@@ -365,10 +365,22 @@
             }
         };
 
-        const damageNames = {
-            locallyPainted: "Lokal Boyalı Parçalar",
-            painted: "Boyalı Parçalar",
-            changed: "Değişen Parçalar"
+        const partNames = {
+            frontBumper: "Ön Tampon",
+            frontHood: "Motor Kaputu",
+            hood: "Motor Kaputu",
+            roof: "Tavan", 
+            rearHood: "Bagaj Kapağı",
+            trunk: "Bagaj Kapağı",
+            rearBumper: "Arka Tampon",
+            frontLeftFender: "Sol Ön Çamurluk",
+            frontLeftDoor: "Sol Ön Kapı",
+            rearLeftDoor: "Sol Arka Kapı",
+            rearLeftFender: "Sol Arka Çamurluk",
+            frontRightFender: "Sağ Ön Çamurluk",
+            frontRightDoor: "Sağ Ön Kapı",
+            rearRightDoor: "Sağ Arka Kapı",
+            rearRightFender: "Sağ Arka Çamurluk"
         };
 
         const categoryNames = {
@@ -465,10 +477,20 @@
             "userRegistrationDate": "Mayıs 2019",
             "userMobilePhone": "0 (532) 456 78 90",
             "description": "YENİ ARAÇ ALACAĞIM TEMİZ KULLANILMIŞ 2012 CLİO 4 İCON\n\n* HATASIZ MOTOR & ŞANZIMAN\n* BOYASIZ KASA\n* MUAYENE YENİ ALINMIŞ\n* TÜM BAKIMLARI YAPILMIŞ\n* SORUNSUZ ARAÇ\n\nÖZELLİKLER:\n- Klima\n- Merkezi Kilit\n- Elektrikli Camlar\n- Hidrolik Direksiyon\n- ABS\n- Hava Yastığı\n\nCİDDİ ALICI İLE GÖRÜŞÜLÜR\nKREDİ İMKANI VARDIR",
-            "damages": {
-                "locallyPainted": ["Sol Ön Çamurluk"],
-                "painted": [],
-                "changed": []
+            "parts": {
+                "hood": "Orijinal",
+                "frontBumper": "Orijinal",
+                "rearBumper": "Orijinal",
+                "roof": "Orijinal",
+                "trunk": "Orijinal",
+                "frontLeftDoor": "Orijinal",
+                "frontRightDoor": "Orijinal",
+                "rearLeftDoor": "Orijinal",
+                "rearRightDoor": "Orijinal",
+                "frontLeftFender": "Değişen",
+                "frontRightFender": "Orijinal",
+                "rearLeftFender": "Orijinal",
+                "rearRightFender": "Orijinal"
             },
             "feats": {
                 "security": {
@@ -647,9 +669,9 @@
                 displayFeatures(data.feats);
             }
 
-            // Damages
-            if (data.damages && Object.keys(data.damages).length > 0) {
-                displayDamages(data.damages);
+            // Parts
+            if (data.parts && Object.keys(data.parts).length > 0) {
+                displayParts(data.parts);
             }
 
             // Specs
@@ -724,30 +746,43 @@
             }
         }
 
-        function displayDamages(damages) {
-            const tbody = document.getElementById('damagesRows');
+        function displayParts(parts) {
+            const tbody = document.getElementById('partsRows');
             tbody.innerHTML = '';
 
-            let hasDamages = false;
-            Object.keys(damages).forEach(damageType => {
-                if (Array.isArray(damages[damageType]) && damages[damageType].length > 0) {
-                    hasDamages = true;
+            let hasParts = false;
+            Object.keys(parts).forEach(partKey => {
+                const partValue = parts[partKey];
+                const partDisplayName = partNames[partKey] || partKey;
+                
+                if (partValue) {
+                    hasParts = true;
                     const row = document.createElement('tr');
                     row.className = 'border-b border-gray-100';
                     
-                    const damageTypeDisplayName = damageNames[damageType] || damageType;
-                    const parts = damages[damageType].join(', ');
+                    // Color mapping for different part statuses
+                    let statusClass = '';
+                    const normalizedStatus = partValue.toLowerCase();
+                    if (normalizedStatus.includes('değişen')) {
+                        statusClass = 'font-bold text-red-600';
+                    } else if (normalizedStatus.includes('lokal boyalı')) {
+                        statusClass = 'font-bold text-orange-600';
+                    } else if (normalizedStatus.includes('boyalı') || normalizedStatus.includes('boyal')) {
+                        statusClass = 'font-bold text-blue-600';
+                    } else if (normalizedStatus.includes('orijinal')) {
+                        statusClass = 'text-gray-600';
+                    }
                     
                     row.innerHTML = `
-                        <td class="px-4 py-2 font-medium text-gray-700 bg-gray-50">${damageTypeDisplayName}</td>
-                        <td class="px-4 py-2">${parts}</td>
+                        <td class="px-4 py-2 font-medium text-gray-700 bg-gray-50">${partDisplayName}</td>
+                        <td class="px-4 py-2 ${statusClass}">${partValue}</td>
                     `;
                     tbody.appendChild(row);
                 }
             });
 
-            if (hasDamages) {
-                document.getElementById('damagesHeader').style.display = '';
+            if (hasParts) {
+                document.getElementById('partsHeader').style.display = '';
                 tbody.style.display = '';
             }
         }
