@@ -29,10 +29,22 @@ let fieldsAndPaths = {
     userRegistrationDate: ".userRegistrationDate span",
     userMobilePhone: [".pretty-phone-part span", `$0.dataset.content`],
     description: "#classified-detail .uiBoxContainer",
-    damages: {
-        locallyPainted: ["text=Lokal Boyalı Parçalar", "nextElementSiblings($0)", "array"],
-        painted: ["text=Boyalı Parçalar", "nextElementSiblings($0)", "array"],
-        changed: ["text=Değişen Parçalar", "nextElementSiblings($0)", "array"],
+    parts: {
+        frontBumper: getCarPartStatus.bind(null, ["Ön Tampon"]),
+        frontHood: getCarPartStatus.bind(null, ["Motor Kaputu"]),
+        roof: getCarPartStatus.bind(null, ["Tavan"]),
+        rearHood: getCarPartStatus.bind(null, ["Bagaj Kapağı"]),
+        rearBumper: getCarPartStatus.bind(null, ["Arka Tampon"]),
+        
+        frontLeftFender: getCarPartStatus.bind(null, ["Sol Ön Çamurluk"]),
+        frontLeftDoor: getCarPartStatus.bind(null, ["Sol Ön Kapı"]),
+        rearLeftDoor: getCarPartStatus.bind(null, ["Sol Arka Kapı"]),
+        rearLeftFender: getCarPartStatus.bind(null, ["Sol Arka Çamurluk"]),
+        
+        frontRightFender: getCarPartStatus.bind(null, ["Sağ Ön Çamurluk"]),
+        frontRightDoor: getCarPartStatus.bind(null, ["Sağ Ön Kapı"]),
+        rearRightDoor: getCarPartStatus.bind(null, ["Sağ Arka Kapı"]),
+        rearRightFender: getCarPartStatus.bind(null, ["Sağ Arka Çamurluk"]),
     },
     feats: {
         security: {
