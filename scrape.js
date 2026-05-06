@@ -426,6 +426,7 @@ function removeRedundantLineBreaks(str) {
 }
 
 function nextElementSiblings(el) {
+    if (!el) return [];
     let siblings = [];
     let next = el.nextElementSibling;
     while (next) {
