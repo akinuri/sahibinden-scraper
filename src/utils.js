@@ -254,6 +254,12 @@ function createThumb(image, maxWidth, maxHeight) {
 
 async function img2b64(img, srcGetter = null, maxWidth = 200, maxHeight = 200) {
     const src = srcGetter ? srcGetter(img) : img.src;
+    const fallbackResult = {
+        url: src,
+        width: null,
+        height: null,
+        thumb: null,
+    };
     const makeResult = (image) => ({
         url: src,
         width: image.naturalWidth,
@@ -263,14 +269,21 @@ async function img2b64(img, srcGetter = null, maxWidth = 200, maxHeight = 200) {
     try {
         return makeResult(img);
     } catch (error) {
+        // console.log("createThumb failed");
         if (error.name === "SecurityError") {
-            const response = await fetch(src);
-            const blob = await response.blob();
-            return new Promise((resolve) => {
-                const newImg = new Image();
-                newImg.onload = () => resolve(makeResult(newImg));
-                newImg.src = URL.createObjectURL(blob);
-            });
+            try {
+                const response = await fetch(src);
+                const blob = await response.blob();
+                return new Promise((resolve) => {
+                    const newImg = new Image();
+                    newImg.onload = () => resolve(makeResult(newImg));
+                    newImg.onerror = () => resolve(fallbackResult);
+                    newImg.src = URL.createObjectURL(blob);
+                });
+            } catch (fetchError) {
+                // console.log("fetch blob failed");
+                return fallbackResult;
+            }
         }
         throw error;
     }
