@@ -117,7 +117,7 @@ async function processesMapping(fieldsAndPaths) {
         } else if (typeof pathOrMapping === "object") {
             value = await processesMapping(pathOrMapping);
         }
-        info[field] = value;
+        info[field] = value || null;
     }
     return info;
 }
