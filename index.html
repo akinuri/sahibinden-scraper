@@ -646,6 +646,27 @@
             }
         }
 
+        function setListingIdLink(listingId) {
+            const element = document.getElementById('listingId-col1');
+            if (!element) return;
+
+            const idText = listingId ? String(listingId).trim() : '';
+            if (!idText) {
+                element.textContent = '-';
+                return;
+            }
+
+            const link = document.createElement('a');
+            link.href = `https://www.sahibinden.com/ilan/${idText}/detay`;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.className = 'text-blue-500 hover:underline';
+            link.textContent = idText;
+
+            element.innerHTML = '';
+            element.appendChild(link);
+        }
+
         function displayListing(data) {
             currentListing = data;
             hideError();
@@ -656,7 +677,7 @@
             setText('price', data.price);
             setText('location', data.location);
             setText('listingDate', data.listingDate);
-            setText('listingId', data.listingId);
+            setListingIdLink(data.listingId);
             setText('lister', data.lister);
             setText('trade', data.trade);
 
@@ -904,6 +925,7 @@
                 'userRegistrationDate', 'userMobilePhone', 'licencePlate', 'description'];
             
             basicFields.forEach(field => setText(field, '-'));
+            setListingIdLink('');
             
             // Clear images
             const imagesContainer = document.getElementById('imagesContainer');
