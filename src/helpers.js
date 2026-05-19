@@ -109,13 +109,15 @@ async function processesMapping(fieldsAndPaths) {
     let info = {};
     for (let field in fieldsAndPaths) {
         let pathOrMapping = fieldsAndPaths[field];
+        let value = null;
         if (typeof pathOrMapping === "string" || Array.isArray(pathOrMapping)) {
-            info[field] = await processPath(pathOrMapping);
+            value = await processPath(pathOrMapping);
         } else if (typeof pathOrMapping === "function") {
-            info[field] = await pathOrMapping();
+            value = await pathOrMapping();
         } else if (typeof pathOrMapping === "object") {
-            info[field] = await processesMapping(pathOrMapping);
+            value = await processesMapping(pathOrMapping);
         }
+        info[field] = value;
     }
     return info;
 }
