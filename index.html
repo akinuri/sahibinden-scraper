@@ -706,8 +706,9 @@
             images.forEach((image, index) => {
                 const imgDiv = document.createElement('div');
                 imgDiv.className = 'relative group cursor-pointer flex-shrink-0';
+                let src = image.thumb || image.url || '';
                 imgDiv.innerHTML = `
-                    <img src="${image.thumb}" 
+                    <img src="${src}" 
                          alt="Vehicle Image ${index + 1}"
                          style="max-height: 100px;" class="object-contain rounded-lg transition-opacity hover:opacity-80 shadow-md">
                 `;
