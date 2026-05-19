@@ -837,12 +837,15 @@
                 return;
             }
 
+            let data;
             try {
-                const data = JSON.parse(input);
-                displayListing(data);
+                data = JSON.parse(input);
             } catch (error) {
                 showError('Geçersiz JSON formatı: ' + error.message);
+                return;
             }
+            
+            displayListing(data);
         });
 
         document.getElementById('loadSampleBtn').addEventListener('click', function() {
