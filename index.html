@@ -1175,13 +1175,28 @@
 
         function clearListing() {
             // Clear all basic fields to dash
-            const basicFields = ['title', 'breadcrumb', 'price', 'location', 'listingDate', 'listingId', 'lister', 'trade',
+            const basicFields = ['title', 'breadcrumb', 'price', 'location', 'lister', 'trade',
                 'brand', 'series', 'model', 'year', 'fuelType', 'transmission', 'mileage', 'color', 'bodyType',
                 'enginePower', 'engineVolume', 'cekis', 'state', 'warranty', 'heavilyDamaged', 'username',
                 'userRegistrationDate', 'userMobilePhone', 'licencePlate', 'description'];
 
             basicFields.forEach(field => setText(field, '-'));
+            setListingDateWithElapsed('');
             setListingIdLink('');
+            setText('storeAgentName', '-');
+            setText('storeAgentMobilePhone', '-');
+
+            const storeLogo = document.getElementById('storeLogo-col1');
+            if (storeLogo) {
+                storeLogo.src = '';
+                storeLogo.classList.add('hidden');
+            }
+
+            const storeNameCell = document.getElementById('storeName-col1');
+            const storeNameSpan = storeNameCell ? storeNameCell.querySelector('span') : null;
+            if (storeNameSpan) {
+                storeNameSpan.textContent = '-';
+            }
 
             // Clear images
             const imagesContainer = document.getElementById('imagesContainer');
