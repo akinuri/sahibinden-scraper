@@ -813,6 +813,95 @@
             }
         }
 
+        function parseTurkishDate(dateText) {
+            if (!dateText) return null;
+
+            const months = {
+                ocak: 0,
+                subat: 1,
+                mart: 2,
+                nisan: 3,
+                mayis: 4,
+                haziran: 5,
+                temmuz: 6,
+                agustos: 7,
+                eylul: 8,
+                ekim: 9,
+                kasim: 10,
+                aralik: 11
+            };
+
+            const normalized = String(dateText)
+                .toLowerCase('tr-TR')
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/ı/g, 'i')
+                .replace(/[.,]/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+
+            if (normalized === 'bugun') {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                return today;
+            }
+
+            if (normalized === 'dun') {
+                const yesterday = new Date();
+                yesterday.setHours(0, 0, 0, 0);
+                yesterday.setDate(yesterday.getDate() - 1);
+                return yesterday;
+            }
+
+            const match = normalized.match(/^(\d{1,2})\s+([a-z]+)\s+(\d{4})(?:\s+\d{1,2}:\d{2})?$/);
+            if (!match) return null;
+
+            const day = Number(match[1]);
+            const month = months[match[2]];
+            const year = Number(match[3]);
+            if (month === undefined) return null;
+
+            const parsed = new Date(year, month, day);
+            if (Number.isNaN(parsed.getTime())) return null;
+            return parsed;
+        }
+
+        function setListingDateWithElapsed(listingDate) {
+            const element = document.getElementById('listingDate-col1');
+            if (!element) return;
+
+            const dateText = listingDate ? String(listingDate).trim() : '';
+            if (!dateText) {
+                element.textContent = '-';
+                return;
+            }
+
+            let parsedDate = parseTurkishDate(dateText);
+            if (!parsedDate) {
+                const fallback = new Date(dateText);
+                if (!Number.isNaN(fallback.getTime())) {
+                    parsedDate = fallback;
+                }
+            }
+            if (!parsedDate) {
+                element.textContent = dateText;
+                return;
+            }
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            parsedDate.setHours(0, 0, 0, 0);
+
+            const diffDays = Math.floor((today - parsedDate) / (1000 * 60 * 60 * 24));
+            if (diffDays < 0) {
+                element.textContent = dateText;
+                return;
+            }
+
+            const elapsedText = diffDays === 0 ? 'bugün' : `${diffDays} gün önce`;
+            element.innerHTML = `${dateText} <span class="text-black/50">(${elapsedText})</span>`;
+        }
+
         function setListingIdLink(listingId) {
             const element = document.getElementById('listingId-col1');
             if (!element) return;
@@ -843,7 +932,7 @@
             setText('breadcrumb', data.breadcrumb);
             setText('price', data.price);
             setText('location', data.location);
-            setText('listingDate', data.listingDate);
+            setListingDateWithElapsed(data.listingDate);
             setListingIdLink(data.listingId);
             setText('lister', data.lister);
             setText('trade', data.trade);
