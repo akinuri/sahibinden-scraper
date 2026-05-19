@@ -27,6 +27,11 @@ let fieldsAndPaths = {
     licencePlate: ["text=Plaka / Uyruk", "$0.nextElementSibling"],
     lister: ["text=Kimden", "$0.nextElementSibling"],
     trade: ["text=Takas", "$0.nextElementSibling"],
+    storeLogo: [".user-info-store-logo img", "img2b64($0)"],
+    storeName: [".user-info-store-name a"],
+    storeLink: [".user-info-store-name a", "$0.href"],
+    storeAgentName: [".user-info-agent h3"],
+    storeAgentMobilePhone: [".user-info-phones", "text=Cep", "$0.nextElementSibling"],
     username: [".username-info-area span", `getComputedStyle($0, "::before").content`],
     userRegistrationDate: ".userRegistrationDate span",
     userMobilePhone: [".pretty-phone-part span", `$0.dataset.content`],
@@ -654,13 +659,15 @@ async function processesMapping(fieldsAndPaths) {
     let info = {};
     for (let field in fieldsAndPaths) {
         let pathOrMapping = fieldsAndPaths[field];
+        let value = null;
         if (typeof pathOrMapping === "string" || Array.isArray(pathOrMapping)) {
-            info[field] = await processPath(pathOrMapping);
+            value = await processPath(pathOrMapping);
         } else if (typeof pathOrMapping === "function") {
-            info[field] = await pathOrMapping();
+            value = await pathOrMapping();
         } else if (typeof pathOrMapping === "object") {
-            info[field] = await processesMapping(pathOrMapping);
+            value = await processesMapping(pathOrMapping);
         }
+        info[field] = value || null;
     }
     return info;
 }
