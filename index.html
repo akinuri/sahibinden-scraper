@@ -203,6 +203,21 @@
                             <td colspan="2" class="py-2 px-4 font-semibold text-gray-800">İletişim</td>
                         </tr>
                         <tr class="border-b border-gray-100 hover:bg-gray-100">
+                            <td class="py-2 px-4 font-medium text-gray-700 bg-gray-50">Galeri</td>
+                            <td class="py-2 px-4" id="storeName-col1">
+                                <img id="storeLogo-col1" class="inline-block w-8 h-8 mr-2" src="" alt="">
+                                <span>-</span>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-100 hover:bg-gray-100">
+                            <td class="py-2 px-4 font-medium text-gray-700 bg-gray-50">Temsilci</td>
+                            <td class="py-2 px-4" id="storeAgentName-col1">-</td>
+                        </tr>
+                        <tr class="border-b border-gray-100 hover:bg-gray-100">
+                            <td class="py-2 px-4 font-medium text-gray-700 bg-gray-50">Telefon</td>
+                            <td class="py-2 px-4" id="storeAgentMobilePhone-col1">-</td>
+                        </tr>
+                        <tr class="border-b border-gray-100 hover:bg-gray-100">
                             <td class="py-2 px-4 font-medium text-gray-700 bg-gray-50">Kullanıcı</td>
                             <td class="py-2 px-4" id="username-col1">-</td>
                         </tr>
@@ -664,7 +679,31 @@
             setText('warranty', data.warranty);
             setText('heavilyDamaged', data.heavilyDamaged);
 
-            // Contact info
+            // Contact rows
+            const storeLogo = document.getElementById('storeLogo-col1');
+            if (storeLogo) {
+                if (data.storeLogo && data.storeLogo.thumb) {
+                    storeLogo.src = data.storeLogo.thumb || '';
+                    storeLogo.alt = data.storeName || 'Store Logo';
+                    storeLogo.classList.remove('hidden');
+                } else {
+                    storeLogo.src = '';
+                    storeLogo.classList.add('hidden');
+                }
+            }
+
+            const storeLink = document.getElementById('storeName-col1');
+            const span = storeLink.querySelector('span');
+            if (span) {
+                if (data.storeLink) {
+                    span.innerHTML = `<a href="${data.storeLink}" target="_blank" class="text-blue-500 hover:underline">${data.storeName}</a>`;
+                } else {
+                    span.textContent = data.storeName || '-';
+                }
+            }
+
+            setText('storeAgentName', data.storeAgentName);
+            setText('storeAgentMobilePhone', data.storeAgentMobilePhone);
             setText('username', data.username);
             setText('userRegistrationDate', data.userRegistrationDate);
             setText('userMobilePhone', data.userMobilePhone);
