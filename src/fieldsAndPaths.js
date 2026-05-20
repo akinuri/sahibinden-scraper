@@ -54,35 +54,34 @@ let fieldsAndPaths = {
     feats: {
         security: {
             abs: ["#classifiedProperties", "text=ABS", "$0.classList.contains('selected')"],
+            aeb: ["#classifiedProperties", "text=AEB", "$0.classList.contains('selected')"],
+            bas: ["#classifiedProperties", "text=BAS", "$0.classList.contains('selected')"],
+            childLock: ["#classifiedProperties", "text=Çocuk Kilidi", "$0.classList.contains('selected')"],
             distronic: ["#classifiedProperties", "text=Distronic", "$0.classList.contains('selected')"],
+            esp_vsa: ["#classifiedProperties", "text=ESP / VSA", "$0.classList.contains('selected')"],
+            nightVision: ["#classifiedProperties", "text=Gece Görüş Sistemi", "$0.classList.contains('selected')"],
+            driverAirbag: ["#classifiedProperties", "text=Hava Yastığı (Sürücü)", "$0.classList.contains('selected')"],
             passengerAirbag: [
                 "#classifiedProperties",
                 "text=Hava Yastığı (Yolcu)",
                 "$0.classList.contains('selected')",
             ],
-            centralLock: ["#classifiedProperties", "text=Merkezi Kilit", "$0.classList.contains('selected')"],
-            armoredVehicle: ["#classifiedProperties", "text=Zırhlı Araç", "$0.classList.contains('selected')"],
-            aeb: ["#classifiedProperties", "text=AEB", "$0.classList.contains('selected')"],
-            esp_vsa: ["#classifiedProperties", "text=ESP / VSA", "$0.classList.contains('selected')"],
             immobilizer: ["#classifiedProperties", "text=Immobilizer", "$0.classList.contains('selected')"],
+            isofix: ["#classifiedProperties", "text=Isofix", "$0.classList.contains('selected')"],
+            blindSpotWarning: [
+                "#classifiedProperties",
+                "text=Kör Nokta Uyarı Sistemi",
+                "$0.classList.contains('selected')",
+            ],
+            centralLock: ["#classifiedProperties", "text=Merkezi Kilit", "$0.classList.contains('selected')"],
             laneKeepingAssist: [
                 "#classifiedProperties",
                 "text=Şerit Takip Sistemi",
                 "$0.classList.contains('selected')",
             ],
-            bas: ["#classifiedProperties", "text=BAS", "$0.classList.contains('selected')"],
-            nightVision: ["#classifiedProperties", "text=Gece Görüş Sistemi", "$0.classList.contains('selected')"],
-            isofix: ["#classifiedProperties", "text=Isofix", "$0.classList.contains('selected')"],
             hillStartAssist: [
                 "#classifiedProperties",
                 "text=Yokuş Kalkış Desteği",
-                "$0.classList.contains('selected')",
-            ],
-            childLock: ["#classifiedProperties", "text=Çocuk Kilidi", "$0.classList.contains('selected')"],
-            driverAirbag: ["#classifiedProperties", "text=Hava Yastığı (Sürücü)", "$0.classList.contains('selected')"],
-            blindSpotWarning: [
-                "#classifiedProperties",
-                "text=Kör Nokta Uyarı Sistemi",
                 "$0.classList.contains('selected')",
             ],
             fatigueDetection: [
@@ -90,6 +89,7 @@ let fieldsAndPaths = {
                 "text=Yorgunluk Tespit Sistemi",
                 "$0.classList.contains('selected')",
             ],
+            armoredVehicle: ["#classifiedProperties", "text=Zırhlı Araç", "$0.classList.contains('selected')"],
         },
         interior: {
             acc: ["#classifiedProperties", "text=Adaptive Cruise Control", "$0.classList.contains('selected')"],
