@@ -99,8 +99,9 @@ function unhideEl(el, method, originalValue) {
     }
 }
 
-function innerText(el, multilineThreshold = 20, hiddenParentDepth = 2) {
+function innerText(el, options = {}) {
     let text = "";
+    const { multilineThreshold = 20, hiddenParentDepth = 2, linearize = false } = options;
     if (el instanceof Element) {
         text = el.innerText || "";
         let isMultiline = text.includes("\n") || text.length > multilineThreshold;
@@ -124,6 +125,9 @@ function innerText(el, multilineThreshold = 20, hiddenParentDepth = 2) {
         text = el;
     }
     text = text?.trim().replace(/ +/g, " ");
+    if (linearize) {
+        text = text.replace(/\n+/g, "");
+    }
     return text;
 }
 
@@ -150,14 +154,14 @@ function getElementsByText(text, parent) {
     }
     let elements = qsa("*", parent);
     let candidates = [];
-    text = innerText(text);
+    text = innerText(text, { linearize: true });
     let hasPattern = isWrappedWith(text, "/");
     if (hasPattern) {
         text = unwrap(text, "/");
     }
     let textPattern = new RegExp("^" + text + "$", "i");
     for (let element of elements) {
-        let elementText = innerText(element);
+        let elementText = innerText(element, { linearize: true });
         if (hasPattern) {
             if (textPattern.test(elementText)) {
                 candidates.push(element);
