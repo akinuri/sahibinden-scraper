@@ -186,6 +186,7 @@ let fieldsAndPaths = {
             usbAux: ["#classifiedProperties", "text=USB / AUX", "$0.classList.contains('selected')"],
         },
     },
+    modelName: [".tech-main-title span"],
     specs: {
         general: {
             modelYear: ["text=Model Üretim Yılı (İlk / Son)", "$0.nextElementSibling"],
