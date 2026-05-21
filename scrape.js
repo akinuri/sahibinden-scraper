@@ -56,35 +56,34 @@ let fieldsAndPaths = {
     feats: {
         security: {
             abs: ["#classifiedProperties", "text=ABS", "$0.classList.contains('selected')"],
+            aeb: ["#classifiedProperties", "text=AEB", "$0.classList.contains('selected')"],
+            bas: ["#classifiedProperties", "text=BAS", "$0.classList.contains('selected')"],
+            childLock: ["#classifiedProperties", "text=Çocuk Kilidi", "$0.classList.contains('selected')"],
             distronic: ["#classifiedProperties", "text=Distronic", "$0.classList.contains('selected')"],
+            esp_vsa: ["#classifiedProperties", "text=ESP / VSA", "$0.classList.contains('selected')"],
+            nightVision: ["#classifiedProperties", "text=Gece Görüş Sistemi", "$0.classList.contains('selected')"],
+            driverAirbag: ["#classifiedProperties", "text=Hava Yastığı (Sürücü)", "$0.classList.contains('selected')"],
             passengerAirbag: [
                 "#classifiedProperties",
                 "text=Hava Yastığı (Yolcu)",
                 "$0.classList.contains('selected')",
             ],
-            centralLock: ["#classifiedProperties", "text=Merkezi Kilit", "$0.classList.contains('selected')"],
-            armoredVehicle: ["#classifiedProperties", "text=Zırhlı Araç", "$0.classList.contains('selected')"],
-            aeb: ["#classifiedProperties", "text=AEB", "$0.classList.contains('selected')"],
-            esp_vsa: ["#classifiedProperties", "text=ESP / VSA", "$0.classList.contains('selected')"],
             immobilizer: ["#classifiedProperties", "text=Immobilizer", "$0.classList.contains('selected')"],
+            isofix: ["#classifiedProperties", "text=Isofix", "$0.classList.contains('selected')"],
+            blindSpotWarning: [
+                "#classifiedProperties",
+                "text=Kör Nokta Uyarı Sistemi",
+                "$0.classList.contains('selected')",
+            ],
+            centralLock: ["#classifiedProperties", "text=Merkezi Kilit", "$0.classList.contains('selected')"],
             laneKeepingAssist: [
                 "#classifiedProperties",
                 "text=Şerit Takip Sistemi",
                 "$0.classList.contains('selected')",
             ],
-            bas: ["#classifiedProperties", "text=BAS", "$0.classList.contains('selected')"],
-            nightVision: ["#classifiedProperties", "text=Gece Görüş Sistemi", "$0.classList.contains('selected')"],
-            isofix: ["#classifiedProperties", "text=Isofix", "$0.classList.contains('selected')"],
             hillStartAssist: [
                 "#classifiedProperties",
                 "text=Yokuş Kalkış Desteği",
-                "$0.classList.contains('selected')",
-            ],
-            childLock: ["#classifiedProperties", "text=Çocuk Kilidi", "$0.classList.contains('selected')"],
-            driverAirbag: ["#classifiedProperties", "text=Hava Yastığı (Sürücü)", "$0.classList.contains('selected')"],
-            blindSpotWarning: [
-                "#classifiedProperties",
-                "text=Kör Nokta Uyarı Sistemi",
                 "$0.classList.contains('selected')",
             ],
             fatigueDetection: [
@@ -92,59 +91,60 @@ let fieldsAndPaths = {
                 "text=Yorgunluk Tespit Sistemi",
                 "$0.classList.contains('selected')",
             ],
+            armoredVehicle: ["#classifiedProperties", "text=Zırhlı Araç", "$0.classList.contains('selected')"],
         },
         interior: {
             acc: ["#classifiedProperties", "text=Adaptive Cruise Control", "$0.classList.contains('selected')"],
-            functionalSteering: [
-                "#classifiedProperties",
-                "text=Fonksiyonel Direksiyon",
-                "$0.classList.contains('selected')",
-            ],
-            hydraulicSteering: [
-                "#classifiedProperties",
-                "text=Hidrolik Direksiyon",
-                "$0.classList.contains('selected')",
-            ],
-            memorySeats: ["#classifiedProperties", "text=Koltuklar (Hafızalı)", "$0.classList.contains('selected')"],
-            autoDimmingRearviewMirror: [
-                "#classifiedProperties",
-                "text=Otm.Kararan Dikiz Aynası",
-                "$0.classList.contains('selected')",
-            ],
-            startStop: ["#classifiedProperties", "text=Start / Stop", "$0.classList.contains('selected')"],
             keylessEntryAndStart: [
                 "#classifiedProperties",
                 "text=Anahtarsız Giriş ve Çalıştırma",
                 "$0.classList.contains('selected')",
             ],
+            leatherSeats: ["#classifiedProperties", "text=Deri Koltuk", "$0.classList.contains('selected')"],
+            electricWindows: ["#classifiedProperties", "text=Elektrikli Camlar", "$0.classList.contains('selected')"],
+            functionalSteering: [
+                "#classifiedProperties",
+                "text=Fonksiyonel Direksiyon",
+                "$0.classList.contains('selected')",
+            ],
             rearViewCamera: ["#classifiedProperties", "text=Geri Görüş Kamerası", "$0.classList.contains('selected')"],
+            headUpDisplay: ["#classifiedProperties", "text=Head-up Display", "$0.classList.contains('selected')"],
+            cruiseControl: ["#classifiedProperties", "text=Hız Sabitleme Sistemi", "$0.classList.contains('selected')"],
+            hydraulicSteering: [
+                "#classifiedProperties",
+                "text=Hidrolik Direksiyon",
+                "$0.classList.contains('selected')",
+            ],
             heatedSteeringWheel: [
                 "#classifiedProperties",
                 "text=Isıtmalı Direksiyon",
                 "$0.classList.contains('selected')",
             ],
-            heatedSeats: ["#classifiedProperties", "text=Koltuklar (Isıtmalı)", "$0.classList.contains('selected')"],
-            frontViewCamera: ["#classifiedProperties", "text=Ön Görüş Kamerası", "$0.classList.contains('selected')"],
-            thirdRowSeats: ["#classifiedProperties", "text=Üçüncü Sıra Koltuklar", "$0.classList.contains('selected')"],
-            leatherSeats: ["#classifiedProperties", "text=Deri Koltuk", "$0.classList.contains('selected')"],
-            headUpDisplay: ["#classifiedProperties", "text=Head-up Display", "$0.classList.contains('selected')"],
             climateControl: ["#classifiedProperties", "text=Klima", "$0.classList.contains('selected')"],
-            cooledSeats: ["#classifiedProperties", "text=Koltuklar (Soğutmalı)", "$0.classList.contains('selected')"],
-            frontSeatArmrest: [
-                "#classifiedProperties",
-                "text=Ön Koltuk Kol Dayaması",
-                "$0.classList.contains('selected')",
-            ],
-            tripComputer: ["#classifiedProperties", "text=Yol Bilgisayarı", "$0.classList.contains('selected')"],
-            electricWindows: ["#classifiedProperties", "text=Elektrikli Camlar", "$0.classList.contains('selected')"],
-            cruiseControl: ["#classifiedProperties", "text=Hız Sabitleme Sistemi", "$0.classList.contains('selected')"],
             electricSeats: [
                 "#classifiedProperties",
                 "text=Koltuklar (Elektrikli)",
                 "$0.classList.contains('selected')",
             ],
+            memorySeats: ["#classifiedProperties", "text=Koltuklar (Hafızalı)", "$0.classList.contains('selected')"],
+            heatedSeats: ["#classifiedProperties", "text=Koltuklar (Isıtmalı)", "$0.classList.contains('selected')"],
+            cooledSeats: ["#classifiedProperties", "text=Koltuklar (Soğutmalı)", "$0.classList.contains('selected')"],
             fabricSeats: ["#classifiedProperties", "text=Kumaş Koltuk", "$0.classList.contains('selected')"],
+            autoDimmingRearviewMirror: [
+                "#classifiedProperties",
+                "text=Otm.Kararan Dikiz Aynası",
+                "$0.classList.contains('selected')",
+            ],
+            frontViewCamera: ["#classifiedProperties", "text=Ön Görüş Kamerası", "$0.classList.contains('selected')"],
+            frontSeatArmrest: [
+                "#classifiedProperties",
+                "text=Ön Koltuk Kol Dayaması",
+                "$0.classList.contains('selected')",
+            ],
             cooledGloveBox: ["#classifiedProperties", "text=Soğutmalı Torpido", "$0.classList.contains('selected')"],
+            startStop: ["#classifiedProperties", "text=Start / Stop", "$0.classList.contains('selected')"],
+            thirdRowSeats: ["#classifiedProperties", "text=Üçüncü Sıra Koltuklar", "$0.classList.contains('selected')"],
+            tripComputer: ["#classifiedProperties", "text=Yol Bilgisayarı", "$0.classList.contains('selected')"],
         },
         exterior: {
             footActivatedTrunk: [
@@ -152,22 +152,18 @@ let fieldsAndPaths = {
                 "text=Ayakla Açılan Bagaj Kapağı",
                 "$0.classList.contains('selected')",
             ],
-            heatedMirrors: ["#classifiedProperties", "text=Aynalar (Isıtmalı)", "$0.classList.contains('selected')"],
-            parkAssist: ["#classifiedProperties", "text=Park Asistanı", "$0.classList.contains('selected')"],
-            towHook: ["#classifiedProperties", "text=Römork Çeki Demiri", "$0.classList.contains('selected')"],
             hardtop: ["#classifiedProperties", "text=Hardtop", "$0.classList.contains('selected')"],
-            memoryMirrors: ["#classifiedProperties", "text=Aynalar (Hafızalı)", "$0.classList.contains('selected')"],
-            sunroof: ["#classifiedProperties", "text=Sunroof", "$0.classList.contains('selected')"],
             adaptiveHeadlights: ["#classifiedProperties", "text=Far (Adaptif)", "$0.classList.contains('selected')"],
-            rearParkingSensors: [
-                "#classifiedProperties",
-                "text=Park Sensörü (Arka)",
-                "$0.classList.contains('selected')",
-            ],
-            smartTrunk: ["#classifiedProperties", "text=Akıllı Bagaj Kapağı", "$0.classList.contains('selected')"],
             electricMirrors: [
                 "#classifiedProperties",
                 "text=Aynalar (Elektrikli)",
+                "$0.classList.contains('selected')",
+            ],
+            heatedMirrors: ["#classifiedProperties", "text=Aynalar (Isıtmalı)", "$0.classList.contains('selected')"],
+            memoryMirrors: ["#classifiedProperties", "text=Aynalar (Hafızalı)", "$0.classList.contains('selected')"],
+            rearParkingSensors: [
+                "#classifiedProperties",
+                "text=Park Sensörü (Arka)",
                 "$0.classList.contains('selected')",
             ],
             frontParkingSensors: [
@@ -175,11 +171,15 @@ let fieldsAndPaths = {
                 "text=Park Sensörü (Ön)",
                 "$0.classList.contains('selected')",
             ],
+            parkAssist: ["#classifiedProperties", "text=Park Asistanı", "$0.classList.contains('selected')"],
+            sunroof: ["#classifiedProperties", "text=Sunroof", "$0.classList.contains('selected')"],
+            smartTrunk: ["#classifiedProperties", "text=Akıllı Bagaj Kapağı", "$0.classList.contains('selected')"],
             panoramicSunroof: [
                 "#classifiedProperties",
                 "text=Panoramik Cam Tavan",
                 "$0.classList.contains('selected')",
             ],
+            towHook: ["#classifiedProperties", "text=Römork Çeki Demiri", "$0.classList.contains('selected')"],
         },
         multimedia: {
             androidAuto: ["#classifiedProperties", "text=Android Auto", "$0.classList.contains('selected')"],
@@ -188,6 +188,7 @@ let fieldsAndPaths = {
             usbAux: ["#classifiedProperties", "text=USB / AUX", "$0.classList.contains('selected')"],
         },
     },
+    modelName: [".tech-main-title span"],
     specs: {
         general: {
             modelYear: ["text=Model Üretim Yılı (İlk / Son)", "$0.nextElementSibling"],
@@ -333,8 +334,9 @@ function unhideEl(el, method, originalValue) {
     }
 }
 
-function innerText(el, multilineThreshold = 20, hiddenParentDepth = 2) {
+function innerText(el, options = {}) {
     let text = "";
+    const { multilineThreshold = 20, hiddenParentDepth = 2, linearize = false } = options;
     if (el instanceof Element) {
         text = el.innerText || "";
         let isMultiline = text.includes("\n") || text.length > multilineThreshold;
@@ -358,6 +360,9 @@ function innerText(el, multilineThreshold = 20, hiddenParentDepth = 2) {
         text = el;
     }
     text = text?.trim().replace(/ +/g, " ");
+    if (linearize) {
+        text = text.replace(/\n+/g, "");
+    }
     return text;
 }
 
@@ -384,14 +389,14 @@ function getElementsByText(text, parent) {
     }
     let elements = qsa("*", parent);
     let candidates = [];
-    text = innerText(text);
+    text = innerText(text, { linearize: true });
     let hasPattern = isWrappedWith(text, "/");
     if (hasPattern) {
         text = unwrap(text, "/");
     }
     let textPattern = new RegExp("^" + text + "$", "i");
     for (let element of elements) {
-        let elementText = innerText(element);
+        let elementText = innerText(element, { linearize: true });
         if (hasPattern) {
             if (textPattern.test(elementText)) {
                 candidates.push(element);
