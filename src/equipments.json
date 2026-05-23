@@ -37,6 +37,21 @@
         "Polo 1.2 Trendline",
         "Polo 1.4 TDI BMT Comfortline",
         "Polo 1.4 TDI Trendline",
+        "Punto 1.2 Popstar",
+        "Punto 1.2 Start&Stop Pop",
+        "Punto 1.3 MultiJet Pop",
+        "Punto 1.3 MultiJet Start&Stop Easy",
+        "Punto 1.4 Start&Stop Easy",
+        "Punto 1.4 Start&Stop S7 Popstar",
+        "Punto EVO 1.3 MultiJet Start&Stop Dynamic",
+        "Punto EVO 1.4 8V Dynamic",
+        "Punto EVO 1.4 8V Start&Stop Active Dualogic",
+        "Punto EVO 1.4 8V Start&Stop Dynamic",
+        "Punto EVO 1.4 Fire Start&Stop My Life",
+        "Punto EVO 1.4 Fire Start&Stop My Life Dualogic",
+        "Punto Grande 1.3 MultiJet",
+        "Punto Grande 1.3 MultiJet Active",
+        "Punto Grande 1.4 Fire Start&Stop",
         "i20 1.2 D-CVVT Jump",
         "i20 1.2 D-CVVT Sense",
         "i20 1.2 MPI Elite",
@@ -71,7 +86,8 @@
             "Yan Aynalar - Isıtmalı",
             "Cam Tavan",
             "Arka Cam - Isıtmalı Arka Cam",
-            "Park Yardım Sistemi"
+            "Park Yardım Sistemi",
+            "Yan Aynalar - Otomatik Kararan"
         ],
         "Konfor": [
             "Hız Sabitleme Sistemi",
@@ -80,7 +96,8 @@
             "Gündüz Yanan Farlar",
             "Elektrikli Katlanabilen Aynalar",
             "Ön Far Ayarlama - Sürüşe Duyarlı Farlar",
-            "Trafik Bilgi Sistemi"
+            "Trafik Bilgi Sistemi",
+            "Elektrikli Bagaj Kapama"
         ],
         "Multimedya": [
             "Yol Bilgisayarı",
