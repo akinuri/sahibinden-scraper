@@ -296,3 +296,21 @@ async function img2b64(img, srcGetter = null, maxWidth = 200, maxHeight = 200) {
 async function imgs2b64(imgs, srcGetter = null, maxWidth = 200, maxHeight = 200) {
     return Promise.all(imgs.map((img) => img2b64(img, srcGetter, maxWidth, maxHeight)));
 }
+
+function latinize(str) {
+    const charMap = {
+        Ç: "C",
+        ç: "c",
+        Ğ: "G",
+        ğ: "g",
+        İ: "I",
+        ı: "i",
+        Ö: "O",
+        ö: "o",
+        Ş: "S",
+        ş: "s",
+        Ü: "U",
+        ü: "u",
+    };
+    return str.replace(/[^A-Za-z0-9]/g, (char) => charMap[char] || char);
+}
