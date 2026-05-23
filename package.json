@@ -3,6 +3,8 @@
   "private": true,
   "scripts": {
     "build": "grunt build",
+    "build:equipments": "grunt build:equipments",
+    "watch:equipments": "grunt build:equipments watch:equipments",
     "watch": "grunt watch",
     "dev": "grunt"
   },

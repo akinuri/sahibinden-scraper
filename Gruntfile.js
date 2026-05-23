@@ -48,7 +48,33 @@ module.exports = function (grunt) {
                     spawn: false,
                 },
             },
+            equipments: {
+                files: ["src/equipments.json", "src/equipments-scraper.js"],
+                tasks: ["build:equipments"],
+                options: {
+                    spawn: false,
+                },
+            },
         },
+    });
+
+    grunt.registerTask("build:equipments", "Inject equipments JSON into scraper output", function () {
+        const jsonPath = "src/equipments.json";
+        const templatePath = "src/equipments-scraper.js";
+        const outputPath = "equipments-scraper.js";
+        const placeholder = "__EQUIPMENTS_DATA__";
+
+        const equipments = grunt.file.readJSON(jsonPath);
+        const template = grunt.file.read(templatePath);
+        const payload = JSON.stringify(equipments, null, 4);
+
+        if (!template.includes(placeholder)) {
+            grunt.fail.fatal(`Placeholder ${placeholder} not found in ${templatePath}`);
+        }
+
+        const output = template.replace(placeholder, payload);
+        grunt.file.write(outputPath, output);
+        grunt.log.writeln(`File ${outputPath} created.`);
     });
 
     grunt.registerTask("build", ["concat", "terser"]);
