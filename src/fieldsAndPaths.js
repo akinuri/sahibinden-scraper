@@ -399,6 +399,44 @@ let fieldsAndPaths = {
                     "$0.classList.contains('checkmark')",
                 ],
             },
+            multimedia: {
+                "Amfi / Ses Sistemi": [
+                    ".equipments",
+                    "text=Amfi / Ses Sistemi",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                Bluetooth: [
+                    ".equipments",
+                    "text=Bluetooth",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Mobil Entegrasyon - Android Auto": [
+                    ".equipments",
+                    "text=Mobil Entegrasyon - Android Auto",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Mobil Entegrasyon - Apple CarPlay": [
+                    ".equipments",
+                    "text=Mobil Entegrasyon - Apple CarPlay",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                Navigasyon: [
+                    ".equipments",
+                    "text=Navigasyon",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Yol Bilgisayarı": [
+                    ".equipments",
+                    "text=Yol Bilgisayarı",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+            },
         },
     },
 };
