@@ -42,12 +42,12 @@ let fieldsAndPaths = {
         roof: getCarPartStatus.bind(null, ["Tavan"]),
         rearHood: getCarPartStatus.bind(null, ["Bagaj Kapağı"]),
         rearBumper: getCarPartStatus.bind(null, ["Arka Tampon"]),
-        
+
         frontLeftFender: getCarPartStatus.bind(null, ["Sol Ön Çamurluk"]),
         frontLeftDoor: getCarPartStatus.bind(null, ["Sol Ön Kapı"]),
         rearLeftDoor: getCarPartStatus.bind(null, ["Sol Arka Kapı"]),
         rearLeftFender: getCarPartStatus.bind(null, ["Sol Arka Çamurluk"]),
-        
+
         frontRightFender: getCarPartStatus.bind(null, ["Sağ Ön Çamurluk"]),
         frontRightDoor: getCarPartStatus.bind(null, ["Sağ Ön Kapı"]),
         rearRightDoor: getCarPartStatus.bind(null, ["Sağ Arka Kapı"]),
@@ -225,6 +225,220 @@ let fieldsAndPaths = {
             curbWeight: ["text=Net Ağırlık", "$0.nextElementSibling"],
             trunkCapacity: ["text=Bagaj Kapasitesi", "$0.nextElementSibling"],
             tireDimensions: ["text=Lastik Ölçüleri", "$0.nextElementSibling"],
+        },
+        equipments: {
+            security: {
+                abs: [".equipments", "text=ABS", "$0.nextElementSibling", "$0.classList.contains('checkmark')"],
+                "Çarpışma Uyarı Sistemi - Sürücü Izleme": [
+                    ".equipments",
+                    "text=Çarpışma Uyarı Sistemi - Sürücü Izleme",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Çoklu Çarpışma Frenlemesi": [
+                    ".equipments",
+                    "text=Çoklu Çarpışma Frenlemesi",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Devrilme Kontrol Sistemi (ESC)": [
+                    ".equipments",
+                    "text=Devrilme Kontrol Sistemi (ESC)",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                EBD: [".equipments", "text=EBD", "$0.nextElementSibling", "$0.classList.contains('checkmark')"],
+                "ESP (Denge Kontrolü)": [
+                    ".equipments",
+                    "text=ESP (Denge Kontrolü)",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Fren Yardım Sistemi (Brake Assist System)": [
+                    ".equipments",
+                    "text=Fren Yardım Sistemi (Brake Assist System)",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Geri Görüş Aynası - Otomatik Kararan": [
+                    ".equipments",
+                    "text=Geri Görüş Aynası - Otomatik Kararan",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                Isofix: [".equipments", "text=Isofix", "$0.nextElementSibling", "$0.classList.contains('checkmark')"],
+                "Lastik Basınç Kontrolü": [
+                    ".equipments",
+                    "text=Lastik Basınç Kontrolü",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Merkezi Kilit": [
+                    ".equipments",
+                    "text=Merkezi Kilit",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Otomatik Dörtlü Flaşör": [
+                    ".equipments",
+                    "text=Otomatik Dörtlü Flaşör",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Sürücü Hava Yastığı": [
+                    ".equipments",
+                    "text=Sürücü Hava Yastığı",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Yokuşta Kalkış Desteği": [
+                    ".equipments",
+                    "text=Yokuşta Kalkış Desteği",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Yolcu Hava Yastığı": [
+                    ".equipments",
+                    "text=Yolcu Hava Yastığı",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+            },
+            interior: {
+                Klima: [".equipments", "text=Klima", "$0.nextElementSibling", "$0.classList.contains('checkmark')"],
+                "Ön Koltuk Kol Dayaması": [
+                    ".equipments",
+                    "text=Ön Koltuk Kol Dayaması",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Start/Stop": [
+                    ".equipments",
+                    "text=Start/Stop",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+            },
+            exterior: {
+                "Arka Cam - Isıtmalı Arka Cam": [
+                    ".equipments",
+                    "text=Arka Cam - Isıtmalı Arka Cam",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Cam Tavan": [
+                    ".equipments",
+                    "text=Cam Tavan",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Park Yardım Sistemi": [
+                    ".equipments",
+                    "text=Park Yardım Sistemi",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Yan Aynalar - Isıtmalı": [
+                    ".equipments",
+                    "text=Yan Aynalar - Isıtmalı",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Yan Aynalar - Otomatik Kararan": [
+                    ".equipments",
+                    "text=Yan Aynalar - Otomatik Kararan",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+            },
+            comfort: {
+                "Elektrikli Bagaj Kapama": [
+                    ".equipments",
+                    "text=Elektrikli Bagaj Kapama",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Elektrikli Camlar": [
+                    ".equipments",
+                    "text=Elektrikli Camlar",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Elektrikli Katlanabilen Aynalar": [
+                    ".equipments",
+                    "text=Elektrikli Katlanabilen Aynalar",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Gündüz Yanan Farlar": [
+                    ".equipments",
+                    "text=Gündüz Yanan Farlar",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Hız Sabitleme Sistemi": [
+                    ".equipments",
+                    "text=Hız Sabitleme Sistemi",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Ön Far Ayarlama - Sürüşe Duyarlı Farlar": [
+                    ".equipments",
+                    "text=Ön Far Ayarlama - Sürüşe Duyarlı Farlar",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Smart Card / Smart Key": [
+                    ".equipments",
+                    "text=Smart Card / Smart Key",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Trafik Bilgi Sistemi": [
+                    ".equipments",
+                    "text=Trafik Bilgi Sistemi",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+            },
+            multimedia: {
+                "Amfi / Ses Sistemi": [
+                    ".equipments",
+                    "text=Amfi / Ses Sistemi",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                Bluetooth: [
+                    ".equipments",
+                    "text=Bluetooth",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Mobil Entegrasyon - Android Auto": [
+                    ".equipments",
+                    "text=Mobil Entegrasyon - Android Auto",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Mobil Entegrasyon - Apple CarPlay": [
+                    ".equipments",
+                    "text=Mobil Entegrasyon - Apple CarPlay",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                Navigasyon: [
+                    ".equipments",
+                    "text=Navigasyon",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Yol Bilgisayarı": [
+                    ".equipments",
+                    "text=Yol Bilgisayarı",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+            },
         },
     },
 };
@@ -530,6 +744,24 @@ async function img2b64(img, srcGetter = null, maxWidth = 200, maxHeight = 200) {
 
 async function imgs2b64(imgs, srcGetter = null, maxWidth = 200, maxHeight = 200) {
     return Promise.all(imgs.map((img) => img2b64(img, srcGetter, maxWidth, maxHeight)));
+}
+
+function latinize(str) {
+    const charMap = {
+        Ç: "C",
+        ç: "c",
+        Ğ: "G",
+        ğ: "g",
+        İ: "I",
+        ı: "i",
+        Ö: "O",
+        ö: "o",
+        Ş: "S",
+        ş: "s",
+        Ü: "U",
+        ü: "u",
+    };
+    return str.replace(/[^A-Za-z0-9]/g, (char) => charMap[char] || char);
 }
 
 // #endregion
