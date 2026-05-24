@@ -40,12 +40,12 @@ let fieldsAndPaths = {
         roof: getCarPartStatus.bind(null, ["Tavan"]),
         rearHood: getCarPartStatus.bind(null, ["Bagaj Kapağı"]),
         rearBumper: getCarPartStatus.bind(null, ["Arka Tampon"]),
-        
+
         frontLeftFender: getCarPartStatus.bind(null, ["Sol Ön Çamurluk"]),
         frontLeftDoor: getCarPartStatus.bind(null, ["Sol Ön Kapı"]),
         rearLeftDoor: getCarPartStatus.bind(null, ["Sol Arka Kapı"]),
         rearLeftFender: getCarPartStatus.bind(null, ["Sol Arka Çamurluk"]),
-        
+
         frontRightFender: getCarPartStatus.bind(null, ["Sağ Ön Çamurluk"]),
         frontRightDoor: getCarPartStatus.bind(null, ["Sağ Ön Kapı"]),
         rearRightDoor: getCarPartStatus.bind(null, ["Sağ Arka Kapı"]),
