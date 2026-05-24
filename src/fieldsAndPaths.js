@@ -317,6 +317,38 @@ let fieldsAndPaths = {
                     "$0.classList.contains('checkmark')",
                 ],
             },
+            exterior: {
+                "Arka Cam - Isıtmalı Arka Cam": [
+                    ".equipments",
+                    "text=Arka Cam - Isıtmalı Arka Cam",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Cam Tavan": [
+                    ".equipments",
+                    "text=Cam Tavan",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Park Yardım Sistemi": [
+                    ".equipments",
+                    "text=Park Yardım Sistemi",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Yan Aynalar - Isıtmalı": [
+                    ".equipments",
+                    "text=Yan Aynalar - Isıtmalı",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Yan Aynalar - Otomatik Kararan": [
+                    ".equipments",
+                    "text=Yan Aynalar - Otomatik Kararan",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+            },
         },
     },
 };
