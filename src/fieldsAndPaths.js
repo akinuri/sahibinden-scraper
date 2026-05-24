@@ -349,6 +349,56 @@ let fieldsAndPaths = {
                     "$0.classList.contains('checkmark')",
                 ],
             },
+            comfort: {
+                "Elektrikli Bagaj Kapama": [
+                    ".equipments",
+                    "text=Elektrikli Bagaj Kapama",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Elektrikli Camlar": [
+                    ".equipments",
+                    "text=Elektrikli Camlar",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Elektrikli Katlanabilen Aynalar": [
+                    ".equipments",
+                    "text=Elektrikli Katlanabilen Aynalar",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Gündüz Yanan Farlar": [
+                    ".equipments",
+                    "text=Gündüz Yanan Farlar",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Hız Sabitleme Sistemi": [
+                    ".equipments",
+                    "text=Hız Sabitleme Sistemi",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Ön Far Ayarlama - Sürüşe Duyarlı Farlar": [
+                    ".equipments",
+                    "text=Ön Far Ayarlama - Sürüşe Duyarlı Farlar",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Smart Card / Smart Key": [
+                    ".equipments",
+                    "text=Smart Card / Smart Key",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Trafik Bilgi Sistemi": [
+                    ".equipments",
+                    "text=Trafik Bilgi Sistemi",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+            },
         },
     },
 };
