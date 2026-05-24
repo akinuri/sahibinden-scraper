@@ -302,6 +302,21 @@ let fieldsAndPaths = {
                     "$0.classList.contains('checkmark')",
                 ],
             },
+            interior: {
+                Klima: [".equipments", "text=Klima", "$0.nextElementSibling", "$0.classList.contains('checkmark')"],
+                "Ön Koltuk Kol Dayaması": [
+                    ".equipments",
+                    "text=Ön Koltuk Kol Dayaması",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+                "Start/Stop": [
+                    ".equipments",
+                    "text=Start/Stop",
+                    "$0.nextElementSibling",
+                    "$0.classList.contains('checkmark')",
+                ],
+            },
         },
     },
 };
