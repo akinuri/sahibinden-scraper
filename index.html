@@ -90,20 +90,22 @@
         <!-- Listing Display -->
         <div
             id="listingDisplay"
-            class="hidden"
+            class="hidden space-y-12"
         >
-            <!-- Comparison Table -->
+            <!-- Ilan Section -->
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                 <table class="w-full table-fixed">
+                    <colgroup>
+                        <col class="w-4/12">
+                        <col class="w-8/12">
+                    </colgroup>
                     <thead>
-                        <!-- Listing Details -->
                         <tr class="border-b border-slate-300 bg-gray-400/40 no-hover">
-                            <td class="py-1 px-4 font-semibold text-gray-800 w-4/12">İlan</td>
-                            <td class="py-1 px-4 font-semibold text-gray-800 w-8/12"></td>
+                            <td class="py-1 px-4 font-semibold text-gray-800">İlan</td>
+                            <td class="py-1 px-4 font-semibold text-gray-800"></td>
                         </tr>
                     </thead>
-                    <tbody id="comparisonTableBody">
-                        <!-- Basic Info -->
+                    <tbody>
                         <tr class="border-b border-gray-100 hover:bg-gray-100">
                             <td class="py-1 px-4 font-medium text-gray-700 bg-gray-50">Başlık</td>
                             <td
@@ -182,14 +184,23 @@
                                 >-</div>
                             </td>
                         </tr>
+                    </tbody>
+                </table>
+            </div>
 
-                        <!-- Vehicle Details -->
+            <!-- Arac Section -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <table class="w-full table-fixed">
+                    <colgroup>
+                        <col class="w-4/12">
+                        <col class="w-8/12">
+                    </colgroup>
+                    <thead>
                         <tr class="border-b border-gray-200 bg-blue-100 no-hover">
-                            <td
-                                colspan="2"
-                                class="py-1 px-4 font-semibold text-gray-800"
-                            >Araç</td>
+                            <td colspan="2" class="py-1 px-4 font-semibold text-gray-800">Araç</td>
                         </tr>
+                    </thead>
+                    <tbody>
                         <tr class="border-b border-gray-100 hover:bg-gray-100">
                             <td class="py-1 px-4 font-medium text-gray-700 bg-gray-50">Marka</td>
                             <td
@@ -302,14 +313,23 @@
                                 id="licencePlate-col1"
                             >-</td>
                         </tr>
+                    </tbody>
+                </table>
+            </div>
 
-                        <!-- Contact Info -->
+            <!-- Iletisim Section -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <table class="w-full table-fixed">
+                    <colgroup>
+                        <col class="w-4/12">
+                        <col class="w-8/12">
+                    </colgroup>
+                    <thead>
                         <tr class="border-b border-gray-200 bg-green-100 no-hover">
-                            <td
-                                colspan="2"
-                                class="py-1 px-4 font-semibold text-gray-800"
-                            >İletişim</td>
+                            <td colspan="2" class="py-1 px-4 font-semibold text-gray-800">İletişim</td>
                         </tr>
+                    </thead>
+                    <tbody>
                         <tr class="border-b border-gray-100 hover:bg-gray-100">
                             <td class="py-1 px-4 font-medium text-gray-700 bg-gray-50">Galeri</td>
                             <td
@@ -360,45 +380,68 @@
                                 id="userMobilePhone-col1"
                             >-</td>
                         </tr>
+                    </tbody>
+                </table>
+            </div>
 
-                        <!-- Parts Section -->
+            <!-- Parca Section -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <table class="w-full table-fixed">
+                    <colgroup>
+                        <col class="w-4/12">
+                        <col class="w-8/12">
+                    </colgroup>
+                    <thead>
                         <tr
                             class="border-b border-gray-200 bg-red-100 no-hover"
                             id="partsHeader"
                         >
+                            <td colspan="2" class="py-1 px-4 font-semibold text-gray-800">Parça</td>
+                        </tr>
+                    </thead>
+                    <tbody id="partsRows"></tbody>
+                </table>
+            </div>
+
+            <!-- Ozellikler Section -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <table class="w-full table-fixed">
+                    <colgroup>
+                        <col class="w-4/12">
+                        <col class="w-8/12">
+                    </colgroup>
+                    <thead>
+                        <tr
+                            class="border-b border-gray-200 bg-purple-100 no-hover"
+                            id="featuresHeader"
+                        >
+                            <td colspan="2" class="py-1 px-4 font-semibold text-gray-800">Özellikler</td>
+                        </tr>
+                    </thead>
+                    <tbody id="featuresRows"></tbody>
+                </table>
+            </div>
+
+            <!-- Teknik Ozellikler Section -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <table class="w-full table-fixed">
+                    <colgroup>
+                        <col class="w-4/12">
+                        <col class="w-8/12">
+                    </colgroup>
+                    <thead>
+                        <tr
+                            class="border-b border-gray-200 bg-blue-100 no-hover"
+                            id="specsHeader"
+                        >
                             <td
                                 colspan="2"
                                 class="py-1 px-4 font-semibold text-gray-800"
-                            >Parça</td>
+                                id="specsHeaderTitle"
+                            >Teknik Özellikler</td>
                         </tr>
-                    <tbody id="partsRows"></tbody>
-
-                    <!-- Features Section -->
-                    <tr
-                        class="border-b border-gray-200 bg-purple-100 no-hover"
-                        id="featuresHeader"
-                    >
-                        <td
-                            colspan="2"
-                            class="py-1 px-4 font-semibold text-gray-800"
-                        >Özellikler</td>
-                    </tr>
-                    <tbody id="featuresRows"></tbody>
-
-                    <!-- Specs Section -->
-                    <tr
-                        class="border-b border-gray-200 bg-blue-100 no-hover"
-                        id="specsHeader"
-                    >
-                        <td
-                            colspan="2"
-                            class="py-1 px-4 font-semibold text-gray-800"
-                            id="specsHeaderTitle"
-                        >Teknik Özellikler</td>
-                    </tr>
+                    </thead>
                     <tbody id="specsRows"></tbody>
-
-                    </tbody>
                 </table>
             </div>
         </div>
