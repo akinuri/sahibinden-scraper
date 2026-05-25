@@ -580,11 +580,13 @@
             security: "Güvenlik",
             interior: "İç Donanım",
             exterior: "Dış Donanım",
+            comfort: "Konfor",
             multimedia: "Multimedya",
             general: "Genel Bilgiler",
             engine: "Motor",
             fuelConsumption: "Yakıt Tüketimi",
-            dimensions: "Boyutlar"
+            dimensions: "Boyutlar",
+            equipments: "Donanım"
         };
 
         const specNames = {
@@ -623,6 +625,55 @@
                 curbWeight: "Net Ağırlık",
                 trunkCapacity: "Bagaj Kapasitesi",
                 tireDimensions: "Lastik Ölçüleri"
+            },
+            equipments: {
+                security: {
+                    "ABS": "ABS",
+                    "Çarpışma Uyarı Sistemi - Sürücü Izleme": "Çarpışma Uyarı Sistemi - Sürücü İzleme",
+                    "Çoklu Çarpışma Frenlemesi": "Çoklu Çarpışma Frenlemesi",
+                    "Devrilme Kontrol Sistemi (ESC)": "Devrilme Kontrol Sistemi (ESC)",
+                    "EBD": "EBD",
+                    "ESP (Denge Kontrolü)": "ESP (Denge Kontrolü)",
+                    "Fren Yardım Sistemi (Brake Assist System)": "Fren Yardım Sistemi (Brake Assist System)",
+                    "Geri Görüş Aynası - Otomatik Kararan": "Geri Görüş Aynası - Otomatik Kararan",
+                    "Isofix": "Isofix",
+                    "Lastik Basınç Kontrolü": "Lastik Basınç Kontrolü",
+                    "Merkezi Kilit": "Merkezi Kilit",
+                    "Otomatik Dörtlü Flaşör": "Otomatik Dörtlü Flaşör",
+                    "Sürücü Hava Yastığı": "Sürücü Hava Yastığı",
+                    "Yokuşta Kalkış Desteği": "Yokuşta Kalkış Desteği",
+                    "Yolcu Hava Yastığı": "Yolcu Hava Yastığı"
+                },
+                interior: {
+                    "Klima": "Klima",
+                    "Ön Koltuk Kol Dayaması": "Ön Koltuk Kol Dayaması",
+                    "Start/Stop": "Start/Stop"
+                },
+                exterior: {
+                    "Arka Cam - Isıtmalı Arka Cam": "Arka Cam - Isıtmalı Arka Cam",
+                    "Cam Tavan": "Cam Tavan",
+                    "Park Yardım Sistemi": "Park Yardım Sistemi",
+                    "Yan Aynalar - Isıtmalı": "Yan Aynalar - Isıtmalı",
+                    "Yan Aynalar - Otomatik Kararan": "Yan Aynalar - Otomatik Kararan"
+                },
+                comfort: {
+                    "Elektrikli Bagaj Kapama": "Elektrikli Bagaj Kapama",
+                    "Elektrikli Camlar": "Elektrikli Camlar",
+                    "Elektrikli Katlanabilen Aynalar": "Elektrikli Katlanabilen Aynalar",
+                    "Gündüz Yanan Farlar": "Gündüz Yanan Farlar",
+                    "Hız Sabitleme Sistemi": "Hız Sabitleme Sistemi",
+                    "Ön Far Ayarlama - Sürüşe Duyarlı Farlar": "Ön Far Ayarlama - Sürüşe Duyarlı Farlar",
+                    "Smart Card / Smart Key": "Smart Card / Smart Key",
+                    "Trafik Bilgi Sistemi": "Trafik Bilgi Sistemi"
+                },
+                multimedia: {
+                    "Amfi / Ses Sistemi": "Amfi / Ses Sistemi",
+                    "Bluetooth": "Bluetooth",
+                    "Mobil Entegrasyon - Android Auto": "Mobil Entegrasyon - Android Auto",
+                    "Mobil Entegrasyon - Apple CarPlay": "Mobil Entegrasyon - Apple CarPlay",
+                    "Navigasyon": "Navigasyon",
+                    "Yol Bilgisayarı": "Yol Bilgisayarı"
+                }
             }
         };
 
@@ -788,6 +839,55 @@
                     "curbWeight": "1084 kg",
                     "trunkCapacity": "300 lt",
                     "tireDimensions": "185/65 R15"
+                },
+                "equipments": {
+                    "security": {
+                        "ABS": true,
+                        "Çarpışma Uyarı Sistemi - Sürücü Izleme": false,
+                        "Çoklu Çarpışma Frenlemesi": false,
+                        "Devrilme Kontrol Sistemi (ESC)": false,
+                        "EBD": true,
+                        "ESP (Denge Kontrolü)": false,
+                        "Fren Yardım Sistemi (Brake Assist System)": false,
+                        "Geri Görüş Aynası - Otomatik Kararan": false,
+                        "Isofix": true,
+                        "Lastik Basınç Kontrolü": false,
+                        "Merkezi Kilit": true,
+                        "Otomatik Dörtlü Flaşör": false,
+                        "Sürücü Hava Yastığı": true,
+                        "Yokuşta Kalkış Desteği": false,
+                        "Yolcu Hava Yastığı": true
+                    },
+                    "interior": {
+                        "Klima": true,
+                        "Ön Koltuk Kol Dayaması": false,
+                        "Start/Stop": false
+                    },
+                    "exterior": {
+                        "Arka Cam - Isıtmalı Arka Cam": true,
+                        "Cam Tavan": false,
+                        "Park Yardım Sistemi": false,
+                        "Yan Aynalar - Isıtmalı": false,
+                        "Yan Aynalar - Otomatik Kararan": false
+                    },
+                    "comfort": {
+                        "Elektrikli Bagaj Kapama": false,
+                        "Elektrikli Camlar": true,
+                        "Elektrikli Katlanabilen Aynalar": false,
+                        "Gündüz Yanan Farlar": true,
+                        "Hız Sabitleme Sistemi": false,
+                        "Ön Far Ayarlama - Sürüşe Duyarlı Farlar": false,
+                        "Smart Card / Smart Key": false,
+                        "Trafik Bilgi Sistemi": false
+                    },
+                    "multimedia": {
+                        "Amfi / Ses Sistemi": false,
+                        "Bluetooth": false,
+                        "Mobil Entegrasyon - Android Auto": false,
+                        "Mobil Entegrasyon - Apple CarPlay": false,
+                        "Navigasyon": false,
+                        "Yol Bilgisayarı": true
+                    }
                 }
             }
         };
@@ -1131,6 +1231,68 @@
                     </td>
                 `;
                 tbody.appendChild(categoryRow);
+
+                if (category === 'equipments') {
+                    const hasAnyEquipmentsData =
+                        specs.equipments && typeof specs.equipments === 'object';
+
+                    Object.keys(specNames.equipments).forEach(equipmentCategory => {
+                        const equipmentCategoryRow = document.createElement('tr');
+                        equipmentCategoryRow.className = 'bg-teal-50 no-hover';
+                        equipmentCategoryRow.innerHTML = `
+                            <td colspan="2" class="px-4 py-1 font-semibold text-teal-700">
+                                ${categoryNames[equipmentCategory] || equipmentCategory}
+                            </td>
+                        `;
+                        tbody.appendChild(equipmentCategoryRow);
+
+                        Object.keys(specNames.equipments[equipmentCategory]).forEach(equipmentName => {
+                            const hasCategoryData =
+                                specs.equipments &&
+                                specs.equipments[equipmentCategory] !== undefined;
+                            const equipmentValue = hasCategoryData
+                                ? specs.equipments[equipmentCategory][equipmentName]
+                                : undefined;
+                            const normalizedEquipmentValue =
+                                typeof equipmentValue === 'string'
+                                    ? equipmentValue.trim()
+                                    : equipmentValue;
+                            const normalizedLower =
+                                typeof normalizedEquipmentValue === 'string'
+                                    ? normalizedEquipmentValue.toLowerCase()
+                                    : '';
+
+                            let displayValue = '-';
+                            let displayClass = 'text-gray-500';
+
+                            if (hasAnyEquipmentsData) {
+                                const isEnabled =
+                                    normalizedEquipmentValue === true ||
+                                    normalizedEquipmentValue === '✓' ||
+                                    normalizedEquipmentValue === '✔' ||
+                                    normalizedLower === 'true' ||
+                                    normalizedLower === '1' ||
+                                    normalizedLower === 'evet' ||
+                                    normalizedLower === 'var';
+
+                                displayValue = isEnabled ? '✓' : '✗';
+                                displayClass = isEnabled ? 'text-green-600' : 'text-red-900/15';
+                            }
+
+                            const row = document.createElement('tr');
+                            row.className = 'border-b border-gray-100 hover:bg-gray-100';
+                            row.innerHTML = `
+                                <td class="px-4 py-1 font-medium text-gray-700 bg-gray-50">${specNames.equipments[equipmentCategory][equipmentName]}</td>
+                                <td class="px-4 py-1">
+                                    <span class="${displayClass} font-bold ${(displayValue === '✓' || displayValue === '✗') ? 'text-lg' : ''}">${displayValue}</span>
+                                </td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                    });
+
+                    return;
+                }
 
                 // Add all specs in this category
                 Object.keys(specNames[category]).forEach(spec => {
