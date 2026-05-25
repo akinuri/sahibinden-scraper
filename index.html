@@ -30,6 +30,14 @@
         tr.no-hover:hover td {
             background-color: initial !important;
         }
+
+        /* Keep section headers visible while scrolling */
+        .section-header-cell {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background-color: inherit;
+        }
     </style>
 </head>
 
@@ -93,7 +101,7 @@
             class="hidden space-y-12"
         >
             <!-- Ilan Section -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="bg-white rounded-lg shadow-md">
                 <table class="w-full table-fixed">
                     <colgroup>
                         <col class="w-4/12">
@@ -101,8 +109,8 @@
                     </colgroup>
                     <thead>
                         <tr class="border-b border-slate-300 bg-gray-400/40 no-hover">
-                            <td class="py-1 px-4 font-semibold text-gray-800">İlan</td>
-                            <td class="py-1 px-4 font-semibold text-gray-800"></td>
+                            <td class="py-1 px-4 font-semibold text-gray-800 section-header-cell">İlan</td>
+                            <td class="py-1 px-4 font-semibold text-gray-800 section-header-cell"></td>
                         </tr>
                     </thead>
                     <tbody>
@@ -189,7 +197,7 @@
             </div>
 
             <!-- Arac Section -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="bg-white rounded-lg shadow-md">
                 <table class="w-full table-fixed">
                     <colgroup>
                         <col class="w-4/12">
@@ -197,7 +205,7 @@
                     </colgroup>
                     <thead>
                         <tr class="border-b border-gray-200 bg-blue-100 no-hover">
-                            <td colspan="2" class="py-1 px-4 font-semibold text-gray-800">Araç</td>
+                            <td colspan="2" class="py-1 px-4 font-semibold text-gray-800 section-header-cell">Araç</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -318,7 +326,7 @@
             </div>
 
             <!-- Iletisim Section -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="bg-white rounded-lg shadow-md">
                 <table class="w-full table-fixed">
                     <colgroup>
                         <col class="w-4/12">
@@ -326,7 +334,7 @@
                     </colgroup>
                     <thead>
                         <tr class="border-b border-gray-200 bg-green-100 no-hover">
-                            <td colspan="2" class="py-1 px-4 font-semibold text-gray-800">İletişim</td>
+                            <td colspan="2" class="py-1 px-4 font-semibold text-gray-800 section-header-cell">İletişim</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -385,7 +393,7 @@
             </div>
 
             <!-- Parca Section -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="bg-white rounded-lg shadow-md">
                 <table class="w-full table-fixed">
                     <colgroup>
                         <col class="w-4/12">
@@ -396,7 +404,7 @@
                             class="border-b border-gray-200 bg-red-100 no-hover"
                             id="partsHeader"
                         >
-                            <td colspan="2" class="py-1 px-4 font-semibold text-gray-800">Parça</td>
+                            <td colspan="2" class="py-1 px-4 font-semibold text-gray-800 section-header-cell">Parça</td>
                         </tr>
                     </thead>
                     <tbody id="partsRows"></tbody>
@@ -404,7 +412,7 @@
             </div>
 
             <!-- Ozellikler Section -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="bg-white rounded-lg shadow-md">
                 <table class="w-full table-fixed">
                     <colgroup>
                         <col class="w-4/12">
@@ -415,7 +423,7 @@
                             class="border-b border-gray-200 bg-purple-100 no-hover"
                             id="featuresHeader"
                         >
-                            <td colspan="2" class="py-1 px-4 font-semibold text-gray-800">Özellikler</td>
+                            <td colspan="2" class="py-1 px-4 font-semibold text-gray-800 section-header-cell">Özellikler</td>
                         </tr>
                     </thead>
                     <tbody id="featuresRows"></tbody>
@@ -423,7 +431,7 @@
             </div>
 
             <!-- Teknik Ozellikler Section -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="bg-white rounded-lg shadow-md">
                 <table class="w-full table-fixed">
                     <colgroup>
                         <col class="w-4/12">
@@ -436,7 +444,7 @@
                         >
                             <td
                                 colspan="2"
-                                class="py-1 px-4 font-semibold text-gray-800"
+                                class="py-1 px-4 font-semibold text-gray-800 section-header-cell"
                                 id="specsHeaderTitle"
                             >Teknik Özellikler</td>
                         </tr>
