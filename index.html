@@ -1215,7 +1215,7 @@
                         displayClass = 'text-gray-500';
                     } else {
                         displayValue = isEnabled ? '✓' : '✗';
-                        displayClass = isEnabled ? 'text-green-600' : 'text-red-900/15';
+                        displayClass = isEnabled ? 'text-green-600 font-bold' : 'text-red-900/15';
                     }
 
                     const row = document.createElement('tr');
@@ -1223,7 +1223,7 @@
                     row.innerHTML = `
                         <td class="px-4 py-1 font-medium text-gray-700 bg-gray-50">${featDisplayName}</td>
                         <td class="px-4 py-1">
-                            <span class="${displayClass} font-bold text-lg">${displayValue}</span>
+                            <span class="${displayClass} text-lg">${displayValue}</span>
                         </td>
                     `;
                     tbody.appendChild(row);
@@ -1327,7 +1327,7 @@
                                     normalizedLower === 'var';
 
                                 displayValue = isEnabled ? '✓' : '✗';
-                                displayClass = isEnabled ? 'text-green-600' : 'text-red-900/15';
+                                displayClass = isEnabled ? 'text-green-600 font-bold' : 'text-red-900/15';
                             }
 
                             const row = document.createElement('tr');
@@ -1335,7 +1335,7 @@
                             row.innerHTML = `
                                 <td class="px-4 py-1 font-medium text-gray-700 bg-gray-50">${specNames.equipments[equipmentCategory][equipmentName]}</td>
                                 <td class="px-4 py-1">
-                                    <span class="${displayClass} font-bold ${(displayValue === '✓' || displayValue === '✗') ? 'text-lg' : ''}">${displayValue}</span>
+                                    <span class="${displayClass} ${(displayValue === '✓' || displayValue === '✗') ? 'text-lg' : ''}">${displayValue}</span>
                                 </td>
                             `;
                             tbody.appendChild(row);
