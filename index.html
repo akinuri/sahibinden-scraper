@@ -1162,6 +1162,14 @@
             return normalized;
         }
 
+        function normalizeSpecsCompareValue(value) {
+            if (value === undefined || value === null) return '';
+            return String(value)
+                .trim()
+                .toLocaleLowerCase('tr-TR')
+                .replace(/\s+/g, ' ');
+        }
+
         function updateVehicleCompareHighlights() {
             const compareFields = [
                 'series',
@@ -1446,6 +1454,16 @@
                         tbody.appendChild(equipmentCategoryRow);
 
                         Object.keys(specNames.equipments[equipmentCategory]).forEach(equipmentName => {
+                            const comparableValues = [];
+                            for (let c = 1; c <= activeColumnCount; c++) {
+                                const specs = listingDataByColumn[c - 1]?.specs || {};
+                                const hasAnyEquipmentsData = specs.equipments && typeof specs.equipments === 'object';
+                                if (!hasAnyEquipmentsData) continue;
+                                const equipmentValue = specs.equipments?.[equipmentCategory]?.[equipmentName];
+                                comparableValues.push(normalizeFeatureFlagValue(!!equipmentValue));
+                            }
+                            const hasDiff = comparableValues.length >= 2 && new Set(comparableValues).size > 1;
+
                             const row = document.createElement('tr');
                             row.className = 'border-b border-gray-100 hover:bg-gray-100';
                             let html = `<td class="px-4 py-1 font-medium text-gray-700 bg-gray-50">${specNames.equipments[equipmentCategory][equipmentName]}</td>`;
@@ -1469,6 +1487,7 @@
 
                                 let displayValue = '-';
                                 let displayClass = 'text-gray-500';
+                                let cellClass = 'px-4 py-1';
 
                                 if (hasAnyEquipmentsData) {
                                     const isEnabled =
@@ -1484,7 +1503,11 @@
                                     displayClass = isEnabled ? 'text-green-600 font-bold' : 'text-red-900/15';
                                 }
 
-                                html += `<td class="px-4 py-1"><span class="${displayClass} ${(displayValue === '✓' || displayValue === '✗') ? 'text-lg' : ''}">${displayValue}</span></td>`;
+                                if (hasDiff && hasAnyEquipmentsData) {
+                                    cellClass += ' compare-diff';
+                                }
+
+                                html += `<td class="${cellClass}"><span class="${displayClass} ${(displayValue === '✓' || displayValue === '✗') ? 'text-lg' : ''}">${displayValue}</span></td>`;
                             }
                             row.innerHTML = html;
                             tbody.appendChild(row);
@@ -1498,13 +1521,27 @@
                 Object.keys(specNames[category]).forEach(spec => {
                     const specDisplayName = specNames[category][spec];
 
+                    const comparableValues = [];
+                    for (let c = 1; c <= activeColumnCount; c++) {
+                        const specs = listingDataByColumn[c - 1]?.specs || {};
+                        const hasCategoryData = !!specs[category];
+                        if (!hasCategoryData) continue;
+                        comparableValues.push(normalizeSpecsCompareValue(specs[category][spec]));
+                    }
+                    const hasDiff = comparableValues.length >= 2 && new Set(comparableValues).size > 1;
+
                     const row = document.createElement('tr');
                     row.className = 'border-b border-gray-100 hover:bg-gray-100';
                     let html = `<td class="px-4 py-1 font-medium text-gray-700 bg-gray-50">${specDisplayName}</td>`;
                     for (let c = 1; c <= activeColumnCount; c++) {
                         const specs = listingDataByColumn[c - 1]?.specs || {};
+                        const hasCategoryData = !!specs[category];
                         const specValue = specs[category] ? (specs[category][spec] || '-') : '-';
-                        html += `<td class="px-4 py-1 text-gray-800">${specValue}</td>`;
+                        let cellClass = 'px-4 py-1 text-gray-800';
+                        if (hasDiff && hasCategoryData) {
+                            cellClass += ' compare-diff';
+                        }
+                        html += `<td class="${cellClass}">${specValue}</td>`;
                     }
                     row.innerHTML = html;
                     tbody.appendChild(row);
