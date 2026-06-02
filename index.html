@@ -1150,6 +1150,18 @@
                 .replace(/\s+/g, ' ');
         }
 
+        function normalizeFeatureFlagValue(value) {
+            if (value === undefined || value === null) return '';
+            const normalized = String(value).trim().toLocaleLowerCase('tr-TR');
+            if (normalized === 'true' || normalized === '1' || normalized === 'evet' || normalized === 'var' || normalized === '✓' || normalized === '✔') {
+                return '1';
+            }
+            if (normalized === 'false' || normalized === '0' || normalized === 'hayır' || normalized === 'hayir' || normalized === 'yok' || normalized === '✗' || normalized === 'x') {
+                return '0';
+            }
+            return normalized;
+        }
+
         function updateVehicleCompareHighlights() {
             const compareFields = [
                 'series',
@@ -1332,6 +1344,18 @@
                 Object.keys(featureNames[category]).forEach(feat => {
                     const featDisplayName = featureNames[category][feat];
 
+                    const comparableValues = [];
+                    for (let c = 1; c <= activeColumnCount; c++) {
+                        const feats = listingDataByColumn[c - 1]?.feats;
+                        const hasCategory = !!(feats && feats[category] !== undefined);
+                        if (!hasCategory) continue;
+                        if (!(feat in feats[category])) continue;
+                        const normalizedValue = normalizeFeatureFlagValue(feats[category][feat]);
+                        if (!normalizedValue) continue;
+                        comparableValues.push(normalizedValue);
+                    }
+                    const hasDiff = comparableValues.length >= 2 && new Set(comparableValues).size > 1;
+
                     const row = document.createElement('tr');
                     row.className = 'border-b border-gray-100 hover:bg-gray-100';
 
@@ -1339,14 +1363,19 @@
                     for (let c = 1; c <= activeColumnCount; c++) {
                         const feats = listingDataByColumn[c - 1]?.feats;
                         const hasData = feats && feats[category] !== undefined;
+                        const hasFeatureValue = !!(hasData && (feat in feats[category]));
                         const isEnabled = feats?.[category] ? !!feats[category][feat] : false;
                         let displayValue = '-';
                         let displayClass = 'text-gray-500';
+                        let cellClass = 'px-4 py-1';
                         if (hasData) {
                             displayValue = isEnabled ? '✓' : '✗';
                             displayClass = isEnabled ? 'text-green-600 font-bold' : 'text-red-900/15';
                         }
-                        html += `<td class="px-4 py-1"><span class="${displayClass} text-lg">${displayValue}</span></td>`;
+                        if (hasDiff && hasFeatureValue) {
+                            cellClass += ' compare-diff';
+                        }
+                        html += `<td class="${cellClass}"><span class="${displayClass} text-lg">${displayValue}</span></td>`;
                     }
                     row.innerHTML = html;
                     tbody.appendChild(row);
