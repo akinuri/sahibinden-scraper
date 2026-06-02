@@ -22,6 +22,34 @@
         }
     </script>
     <style>
+        :root {
+            --field-col-width: 320px;
+            --listing-value-col-width: 640px;
+            --listing-value-col-count: 1;
+        }
+
+        .field-spacer {
+            width: var(--field-col-width);
+            flex: 0 0 var(--field-col-width);
+        }
+
+        .input-panel {
+            width: var(--listing-value-col-width);
+            flex: 0 0 var(--listing-value-col-width);
+        }
+
+        .listing-table {
+            width: calc(var(--field-col-width) + (var(--listing-value-col-width) * var(--listing-value-col-count)));
+        }
+
+        .field-col {
+            width: var(--field-col-width);
+        }
+
+        .listing-value-col {
+            width: var(--listing-value-col-width);
+        }
+
         /* Ensure row hover overrides cell backgrounds */
         tbody tr:hover td {
             background-color: rgb(243 244 246) !important;
@@ -42,13 +70,13 @@
 </head>
 
 <body class="bg-gray-200/90 min-h-screen pb-[calc(5vh_+_4rem)]">
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
+    <div class="mx-auto px-4 py-8 w-[992px] max-w-none">
         <!-- Header aligned to values column -->
         <div class="flex">
             <!-- Empty space for field names column -->
-            <div class="w-4/12"></div>
+            <div class="field-spacer"></div>
             <!-- Input card aligned to values column -->
-            <div class="w-8/12">
+            <div class="input-panel">
                 <div class="bg-white rounded-lg shadow-md p-6 mb-12">
                     <!-- JSON Input -->
                     <div class="mb-4">
@@ -102,10 +130,10 @@
         >
             <!-- Ilan Section -->
             <div class="bg-white rounded-lg shadow-md">
-                <table class="w-full table-fixed">
+                <table class="listing-table table-fixed">
                     <colgroup>
-                        <col class="w-4/12">
-                        <col class="w-8/12">
+                        <col class="field-col">
+                        <col class="listing-value-col">
                     </colgroup>
                     <thead>
                         <tr class="border-b border-slate-400/50 bg-gray-300 no-hover">
@@ -198,10 +226,10 @@
 
             <!-- Iletisim Section -->
             <div class="bg-white rounded-lg shadow-md">
-                <table class="w-full table-fixed">
+                <table class="listing-table table-fixed">
                     <colgroup>
-                        <col class="w-4/12">
-                        <col class="w-8/12">
+                        <col class="field-col">
+                        <col class="listing-value-col">
                     </colgroup>
                     <thead>
                         <tr class="border-b border-gray-200 bg-green-100 no-hover">
@@ -265,10 +293,10 @@
 
             <!-- Arac Section -->
             <div class="bg-white rounded-lg shadow-md">
-                <table class="w-full table-fixed">
+                <table class="listing-table table-fixed">
                     <colgroup>
-                        <col class="w-4/12">
-                        <col class="w-8/12">
+                        <col class="field-col">
+                        <col class="listing-value-col">
                     </colgroup>
                     <thead>
                         <tr class="border-b border-gray-200 bg-blue-100 no-hover">
@@ -394,10 +422,10 @@
 
             <!-- Parca Section -->
             <div class="bg-white rounded-lg shadow-md">
-                <table class="w-full table-fixed">
+                <table class="listing-table table-fixed">
                     <colgroup>
-                        <col class="w-4/12">
-                        <col class="w-8/12">
+                        <col class="field-col">
+                        <col class="listing-value-col">
                     </colgroup>
                     <thead>
                         <tr
@@ -413,10 +441,10 @@
 
             <!-- Ozellikler Section -->
             <div class="bg-white rounded-lg shadow-md">
-                <table class="w-full table-fixed">
+                <table class="listing-table table-fixed">
                     <colgroup>
-                        <col class="w-4/12">
-                        <col class="w-8/12">
+                        <col class="field-col">
+                        <col class="listing-value-col">
                     </colgroup>
                     <thead>
                         <tr
@@ -432,10 +460,10 @@
 
             <!-- Teknik Ozellikler Section -->
             <div class="bg-white rounded-lg shadow-md">
-                <table class="w-full table-fixed">
+                <table class="listing-table table-fixed">
                     <colgroup>
-                        <col class="w-4/12">
-                        <col class="w-8/12">
+                        <col class="field-col">
+                        <col class="listing-value-col">
                     </colgroup>
                     <thead>
                         <tr
