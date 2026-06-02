@@ -26,6 +26,7 @@
             --field-col-width: 320px;
             --listing-value-col-width: 640px;
             --listing-value-col-count: 1;
+            --input-card-side-inset: 12px;
         }
 
         .field-spacer {
@@ -38,6 +39,12 @@
             flex: 0 0 var(--listing-value-col-width);
         }
 
+        .input-card {
+            width: calc(var(--listing-value-col-width) - (var(--input-card-side-inset) * 2));
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         .listing-table {
             width: calc(var(--field-col-width) + (var(--listing-value-col-width) * var(--listing-value-col-count)));
         }
@@ -48,6 +55,14 @@
 
         .listing-value-col {
             width: var(--listing-value-col-width);
+        }
+
+        .layout-shell {
+            width: calc(var(--field-col-width) + (var(--listing-value-col-width) * var(--listing-value-col-count)) + 56px);
+        }
+
+        .listing-display-shell {
+            width: calc(var(--field-col-width) + (var(--listing-value-col-width) * var(--listing-value-col-count)));
         }
 
         /* Ensure row hover overrides cell backgrounds */
@@ -70,63 +85,80 @@
 </head>
 
 <body class="bg-gray-200/90 min-h-screen pb-[calc(5vh_+_4rem)]">
-    <div class="mx-auto px-4 py-8 w-[992px] max-w-none">
+    <div class="layout-shell mx-auto px-4 py-8 max-w-none">
         <!-- Header aligned to values column -->
-        <div class="flex">
+        <div class="flex relative items-start">
             <!-- Empty space for field names column -->
             <div class="field-spacer"></div>
-            <!-- Input card aligned to values column -->
-            <div class="input-panel">
-                <div class="bg-white rounded-lg shadow-md p-6 mb-12">
-                    <!-- JSON Input -->
-                    <div class="mb-4">
-                        <label
-                            for="jsonInput"
-                            class="block font-medium text-gray-700 mb-2"
-                        >
-                            Scrape JSON Verisi:
-                        </label>
-                        <textarea
-                            id="jsonInput"
-                            rows="4"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 resize-vertical"
-                            placeholder="İlanın scrape edilmiş JSON verisini buraya yapıştırın..."
-                        ></textarea>
-                    </div>
+            <div id="inputCardsRow" class="flex items-start gap-0">
+                <!-- Input card aligned to values column -->
+                <div class="input-panel" id="inputCardWrap-col1">
+                    <div class="input-card bg-white rounded-lg shadow-md p-6 mb-12">
+                        <!-- JSON Input -->
+                        <div class="mb-4">
+                            <label
+                                for="jsonInput-col1"
+                                class="block font-medium text-gray-700 mb-2"
+                            >
+                                Scrape JSON Verisi #1:
+                            </label>
+                            <textarea
+                                id="jsonInput-col1"
+                                rows="4"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 resize-vertical"
+                                placeholder="İlanın scrape edilmiş JSON verisini buraya yapıştırın..."
+                            ></textarea>
+                        </div>
 
-                    <div class="flex gap-2 flex-wrap">
-                        <button
-                            id="parseBtn"
-                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium transition-colors text-sm"
-                        >
-                            Görüntüle
-                        </button>
-                        <button
-                            id="loadSampleBtn"
-                            class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md font-medium transition-colors text-sm"
-                        >
-                            Örnek Yükle
-                        </button>
-                        <button
-                            id="clearBtn"
-                            class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-medium transition-colors text-sm"
-                        >
-                            Temizle
-                        </button>
-                    </div>
+                        <div class="flex gap-2 flex-wrap">
+                            <button
+                                id="parseBtn-col1"
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium transition-colors text-sm"
+                            >
+                                Görüntüle
+                            </button>
+                            <button
+                                id="loadSampleBtn-col1"
+                                class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md font-medium transition-colors text-sm"
+                            >
+                                Örnek Yükle
+                            </button>
+                            <button
+                                id="clearBtn-col1"
+                                class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-medium transition-colors text-sm"
+                            >
+                                Temizle
+                            </button>
+                        </div>
 
-                    <div
-                        id="errorMsg"
-                        class="mt-3 text-red-600 hidden"
-                    ></div>
+                        <div
+                            id="errorMsg-col1"
+                            class="mt-3 text-red-600 hidden"
+                        ></div>
+                    </div>
                 </div>
+                <button
+                    id="addListingBtn"
+                    title="Yeni ilan sütunu ekle"
+                    class="absolute top-[90px] -right-14 w-10 h-10 p-0 rounded-full bg-blue-600 text-white grid place-items-center overflow-hidden shadow-md hover:bg-blue-700 transition-colors"
+                >
+                    <svg
+                        class="w-5 h-5"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                    >
+                        <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" />
+                    </svg>
+                </button>
             </div>
         </div>
 
         <!-- Listing Display -->
         <div
             id="listingDisplay"
-            class="hidden space-y-12"
+            class="hidden space-y-12 listing-display-shell"
         >
             <!-- Ilan Section -->
             <div class="bg-white rounded-lg shadow-md">
@@ -205,7 +237,7 @@
                                 id="images-col1"
                             >
                                 <div
-                                    id="imagesContainer"
+                                    id="imagesContainer-col1"
                                     class="flex gap-2 overflow-x-auto pb-2 max-w-[540px]"
                                 ></div>
                             </td>
@@ -470,11 +502,11 @@
                             class="border-b border-gray-200 bg-blue-100 no-hover"
                             id="specsHeader"
                         >
+                            <td class="py-1 px-4 font-semibold text-gray-800 section-header-cell">Model Özellikleri</td>
                             <td
-                                colspan="2"
                                 class="py-1 px-4 font-semibold text-gray-800 section-header-cell"
-                                id="specsHeaderTitle"
-                            >Teknik Özellikler</td>
+                                id="specsModelHeader-col1"
+                            >-</td>
                         </tr>
                     </thead>
                     <tbody id="specsRows"></tbody>
@@ -525,6 +557,9 @@
         let currentListing = null;
         let currentImages = [];
         let currentImageIndex = 0;
+        let activeColumnCount = 1;
+        const listingDataByColumn = [];
+        const imagesByColumn = [];
 
         // Image viewer functions
         function openImageViewer(images, index) {
@@ -971,14 +1006,17 @@
             }
         };
 
-        function showError(message) {
-            const errorDiv = document.getElementById('errorMsg');
+        function showError(message, columnNum = 1) {
+            const errorDiv = document.getElementById(`errorMsg-col${columnNum}`);
+            if (!errorDiv) return;
             errorDiv.textContent = message;
             errorDiv.classList.remove('hidden');
         }
 
-        function hideError() {
-            document.getElementById('errorMsg').classList.add('hidden');
+        function hideError(columnNum = 1) {
+            const errorDiv = document.getElementById(`errorMsg-col${columnNum}`);
+            if (!errorDiv) return;
+            errorDiv.classList.add('hidden');
         }
 
         function setText(fieldId, value, columnNum = 1) {
@@ -1041,8 +1079,8 @@
             return parsed;
         }
 
-        function setListingDateWithElapsed(listingDate) {
-            const element = document.getElementById('listingDate-col1');
+        function setListingDateWithElapsed(listingDate, columnNum = 1) {
+            const element = document.getElementById(`listingDate-col${columnNum}`);
             if (!element) return;
 
             const dateText = listingDate ? String(listingDate).trim() : '';
@@ -1077,8 +1115,8 @@
             element.innerHTML = `${dateText} <span class="text-black/50">(${elapsedText})</span>`;
         }
 
-        function setListingIdLink(listingId) {
-            const element = document.getElementById('listingId-col1');
+        function setListingIdLink(listingId, columnNum = 1) {
+            const element = document.getElementById(`listingId-col${columnNum}`);
             if (!element) return;
 
             const idText = listingId ? String(listingId).trim() : '';
@@ -1098,48 +1136,41 @@
             element.appendChild(link);
         }
 
-        function setSpecsHeaderTitle(modelName) {
-            const element = document.getElementById('specsHeaderTitle');
-            if (!element) return;
-
-            const title = modelName ? String(modelName).trim() : '';
-            element.textContent = title ? `${title} Teknik Özellikler` : 'Teknik Özellikler';
-        }
-
-        function displayListing(data) {
+        function displayListing(data, columnNum = 1) {
             currentListing = data;
-            hideError();
+            listingDataByColumn[columnNum - 1] = data;
+            imagesByColumn[columnNum - 1] = Array.isArray(data.images) ? data.images : [];
+            hideError(columnNum);
 
             // Basic info (now including title as a proper row)
-            setText('title', data.title);
-            setText('breadcrumb', data.breadcrumb);
-            setText('price', data.price);
-            setText('location', data.location);
-            setListingDateWithElapsed(data.listingDate);
-            setListingIdLink(data.listingId);
-            setText('lister', data.lister);
-            setText('trade', data.trade);
+            setText('title', data.title, columnNum);
+            setText('breadcrumb', data.breadcrumb, columnNum);
+            setText('price', data.price, columnNum);
+            setText('location', data.location, columnNum);
+            setListingDateWithElapsed(data.listingDate, columnNum);
+            setListingIdLink(data.listingId, columnNum);
+            setText('lister', data.lister, columnNum);
+            setText('trade', data.trade, columnNum);
 
             // Vehicle details
-            setText('brand', data.brand);
-            setText('series', data.series);
-            setText('model', data.model);
-            setSpecsHeaderTitle(data.modelName || data.model);
-            setText('year', data.year);
-            setText('fuelType', data.fuelType);
-            setText('transmission', data.transmission);
-            setText('mileage', data.mileage);
-            setText('color', data.color);
-            setText('bodyType', data.bodyType);
-            setText('enginePower', data.enginePower);
-            setText('engineVolume', data.engineVolume);
-            setText('cekis', data.Çekiş);
-            setText('state', data.state);
-            setText('warranty', data.warranty);
-            setText('heavilyDamaged', data.heavilyDamaged);
+            setText('brand', data.brand, columnNum);
+            setText('series', data.series, columnNum);
+            setText('model', data.model, columnNum);
+            setText('year', data.year, columnNum);
+            setText('fuelType', data.fuelType, columnNum);
+            setText('transmission', data.transmission, columnNum);
+            setText('mileage', data.mileage, columnNum);
+            setText('color', data.color, columnNum);
+            setText('bodyType', data.bodyType, columnNum);
+            setText('enginePower', data.enginePower, columnNum);
+            setText('engineVolume', data.engineVolume, columnNum);
+            setText('cekis', data.Çekiş, columnNum);
+            setText('state', data.state, columnNum);
+            setText('warranty', data.warranty, columnNum);
+            setText('heavilyDamaged', data.heavilyDamaged, columnNum);
 
             // Contact rows
-            const storeLogo = document.getElementById('storeLogo-col1');
+            const storeLogo = document.getElementById(`storeLogo-col${columnNum}`);
             if (storeLogo) {
                 if (data.storeLogo && data.storeLogo.thumb) {
                     storeLogo.src = data.storeLogo.thumb || '';
@@ -1151,7 +1182,7 @@
                 }
             }
 
-            const storeLink = document.getElementById('storeName-col1');
+            const storeLink = document.getElementById(`storeName-col${columnNum}`);
             const span = storeLink.querySelector('span');
             if (span) {
                 if (data.storeLink) {
@@ -1161,44 +1192,30 @@
                 }
             }
 
-            setText('storeAgentName', data.storeAgentName);
-            setText('storeAgentMobilePhone', data.storeAgentMobilePhone);
-            setText('username', data.username);
-            setText('userRegistrationDate', data.userRegistrationDate);
-            setText('userMobilePhone', data.userMobilePhone);
-            setText('licencePlate', data.licencePlate);
+            setText('storeAgentName', data.storeAgentName, columnNum);
+            setText('storeAgentMobilePhone', data.storeAgentMobilePhone, columnNum);
+            setText('username', data.username, columnNum);
+            setText('userRegistrationDate', data.userRegistrationDate, columnNum);
+            setText('userMobilePhone', data.userMobilePhone, columnNum);
+            setText('licencePlate', data.licencePlate, columnNum);
 
             // Description
-            const descElement = document.getElementById('description-col1');
+            const descElement = document.getElementById(`description-col${columnNum}`);
             if (descElement) {
                 descElement.textContent = data.description || '';
             }
 
             // Images
-            if (data.images && data.images.length > 0) {
-                displayImages(data.images);
-            }
-
-            // Features
-            if (data.feats && Object.keys(data.feats).length > 0) {
-                displayFeatures(data.feats);
-            }
-
-            // Parts
-            if (data.parts && Object.keys(data.parts).length > 0) {
-                displayParts(data.parts);
-            }
-
-            // Specs
-            if (data.specs && Object.keys(data.specs).length > 0) {
-                displaySpecs(data.specs);
-            }
+            displayImages(data.images || [], columnNum);
+            rerenderSharedSections();
+            setSpecsHeaderFromActiveListings();
 
             document.getElementById('listingDisplay').classList.remove('hidden');
         }
 
-        function displayImages(images) {
-            const container = document.getElementById('imagesContainer');
+        function displayImages(images, columnNum = 1) {
+            const container = document.getElementById(`imagesContainer-col${columnNum}`);
+            if (!container) return;
             container.innerHTML = '';
 
             images.forEach((image, index) => {
@@ -1210,12 +1227,15 @@
                          alt="Vehicle Image ${index + 1}"
                          style="max-height: 100px;" class="object-contain rounded-lg transition-opacity hover:opacity-80 shadow-md">
                 `;
-                imgDiv.addEventListener('click', () => openImageViewer(images, index));
+                imgDiv.addEventListener('click', () => {
+                    currentImages = imagesByColumn[columnNum - 1] || images;
+                    openImageViewer(currentImages, index);
+                });
                 container.appendChild(imgDiv);
             });
         }
 
-        function displayFeatures(feats) {
+        function displayFeatures() {
             const tbody = document.getElementById('featuresRows');
             tbody.innerHTML = '';
 
@@ -1225,7 +1245,7 @@
                 const categoryRow = document.createElement('tr');
                 categoryRow.className = 'bg-blue-50 no-hover';
                 categoryRow.innerHTML = `
-                    <td colspan="2" class="px-4 py-1 font-semibold text-blue-700">
+                    <td colspan="${activeColumnCount + 1}" class="px-4 py-1 font-semibold text-blue-700">
                         ${categoryNames[category] || category}
                     </td>
                 `;
@@ -1233,69 +1253,68 @@
 
                 // Add all features in this category
                 Object.keys(featureNames[category]).forEach(feat => {
-                    const hasData = feats[category] !== undefined;
-                    const isEnabled = feats[category] ? feats[category][feat] : false;
                     const featDisplayName = featureNames[category][feat];
-
-                    let displayValue, displayClass;
-                    if (!hasData) {
-                        displayValue = '-';
-                        displayClass = 'text-gray-500';
-                    } else {
-                        displayValue = isEnabled ? '✓' : '✗';
-                        displayClass = isEnabled ? 'text-green-600 font-bold' : 'text-red-900/15';
-                    }
 
                     const row = document.createElement('tr');
                     row.className = 'border-b border-gray-100 hover:bg-gray-100';
-                    row.innerHTML = `
-                        <td class="px-4 py-1 font-medium text-gray-700 bg-gray-50">${featDisplayName}</td>
-                        <td class="px-4 py-1">
-                            <span class="${displayClass} text-lg">${displayValue}</span>
-                        </td>
-                    `;
+
+                    let html = `<td class="px-4 py-1 font-medium text-gray-700 bg-gray-50">${featDisplayName}</td>`;
+                    for (let c = 1; c <= activeColumnCount; c++) {
+                        const feats = listingDataByColumn[c - 1]?.feats;
+                        const hasData = feats && feats[category] !== undefined;
+                        const isEnabled = feats?.[category] ? !!feats[category][feat] : false;
+                        let displayValue = '-';
+                        let displayClass = 'text-gray-500';
+                        if (hasData) {
+                            displayValue = isEnabled ? '✓' : '✗';
+                            displayClass = isEnabled ? 'text-green-600 font-bold' : 'text-red-900/15';
+                        }
+                        html += `<td class="px-4 py-1"><span class="${displayClass} text-lg">${displayValue}</span></td>`;
+                    }
+                    row.innerHTML = html;
                     tbody.appendChild(row);
                 });
             });
         }
 
-        function displayParts(parts) {
+        function displayParts() {
             const tbody = document.getElementById('partsRows');
             tbody.innerHTML = '';
 
             // Show ALL possible parts, always
             Object.keys(partNames).forEach(partKey => {
                 const partDisplayName = partNames[partKey];
-                const partValue = parts[partKey] || '-';
-
                 const row = document.createElement('tr');
                 const shouldAddBottomBorder = partKey === 'rearBumper' || partKey === 'rearLeftFender';
                 row.className = `border-b hover:bg-gray-100 ${shouldAddBottomBorder ? 'border-gray-300' : 'border-gray-100'}`;
 
-                // Color mapping for different part statuses
-                let statusClass = '';
-                if (partValue !== '-') {
-                    const normalizedStatus = partValue.toLowerCase();
-                    if (normalizedStatus.includes('değişen')) {
-                        statusClass = 'font-bold text-red-600';
-                    } else if (normalizedStatus.includes('lokal boyalı')) {
-                        statusClass = 'font-bold text-orange-600';
-                    } else if (normalizedStatus.includes('boyalı') || normalizedStatus.includes('boyal')) {
-                        statusClass = 'font-bold text-blue-600';
-                    } else if (normalizedStatus.includes('orijinal')) {
-                        statusClass = 'text-black/25';
+                let html = `<td class="px-4 py-1 font-medium text-gray-700 bg-gray-50">${partDisplayName}</td>`;
+                for (let c = 1; c <= activeColumnCount; c++) {
+                    const parts = listingDataByColumn[c - 1]?.parts || {};
+                    const partValue = parts[partKey] || '-';
+
+                    let statusClass = '';
+                    if (partValue !== '-') {
+                        const normalizedStatus = partValue.toLowerCase();
+                        if (normalizedStatus.includes('değişen')) {
+                            statusClass = 'font-bold text-red-600';
+                        } else if (normalizedStatus.includes('lokal boyalı')) {
+                            statusClass = 'font-bold text-orange-600';
+                        } else if (normalizedStatus.includes('boyalı') || normalizedStatus.includes('boyal')) {
+                            statusClass = 'font-bold text-blue-600';
+                        } else if (normalizedStatus.includes('orijinal')) {
+                            statusClass = 'text-black/25';
+                        }
                     }
+                    html += `<td class="px-4 py-1 ${statusClass}">${partValue}</td>`;
                 }
 
-                row.innerHTML = `
-                    <td class="px-4 py-1 font-medium text-gray-700 bg-gray-50">${partDisplayName}</td>
-                    <td class="px-4 py-1 ${statusClass}">${partValue}</td>
-                `;
+                row.innerHTML = html;
                 tbody.appendChild(row);
             });
         }
 
-        function displaySpecs(specs) {
+        function displaySpecs() {
             const tbody = document.getElementById('specsRows');
             tbody.innerHTML = '';
 
@@ -1305,67 +1324,65 @@
                 const categoryRow = document.createElement('tr');
                 categoryRow.className = 'bg-green-50 no-hover';
                 categoryRow.innerHTML = `
-                    <td colspan="2" class="px-4 py-1 font-semibold text-green-700">
+                    <td colspan="${activeColumnCount + 1}" class="px-4 py-1 font-semibold text-green-700">
                         ${categoryNames[category] || category}
                     </td>
                 `;
                 tbody.appendChild(categoryRow);
 
                 if (category === 'equipments') {
-                    const hasAnyEquipmentsData =
-                        specs.equipments && typeof specs.equipments === 'object';
-
                     Object.keys(specNames.equipments).forEach(equipmentCategory => {
                         const equipmentCategoryRow = document.createElement('tr');
                         equipmentCategoryRow.className = 'bg-teal-50 no-hover';
                         equipmentCategoryRow.innerHTML = `
-                            <td colspan="2" class="px-4 py-1 font-semibold text-teal-700">
+                            <td colspan="${activeColumnCount + 1}" class="px-4 py-1 font-semibold text-teal-700">
                                 ${categoryNames[equipmentCategory] || equipmentCategory}
                             </td>
                         `;
                         tbody.appendChild(equipmentCategoryRow);
 
                         Object.keys(specNames.equipments[equipmentCategory]).forEach(equipmentName => {
-                            const hasCategoryData =
-                                specs.equipments &&
-                                specs.equipments[equipmentCategory] !== undefined;
-                            const equipmentValue = hasCategoryData
-                                ? specs.equipments[equipmentCategory][equipmentName]
-                                : undefined;
-                            const normalizedEquipmentValue =
-                                typeof equipmentValue === 'string'
-                                    ? equipmentValue.trim()
-                                    : equipmentValue;
-                            const normalizedLower =
-                                typeof normalizedEquipmentValue === 'string'
-                                    ? normalizedEquipmentValue.toLowerCase()
-                                    : '';
-
-                            let displayValue = '-';
-                            let displayClass = 'text-gray-500';
-
-                            if (hasAnyEquipmentsData) {
-                                const isEnabled =
-                                    normalizedEquipmentValue === true ||
-                                    normalizedEquipmentValue === '✓' ||
-                                    normalizedEquipmentValue === '✔' ||
-                                    normalizedLower === 'true' ||
-                                    normalizedLower === '1' ||
-                                    normalizedLower === 'evet' ||
-                                    normalizedLower === 'var';
-
-                                displayValue = isEnabled ? '✓' : '✗';
-                                displayClass = isEnabled ? 'text-green-600 font-bold' : 'text-red-900/15';
-                            }
-
                             const row = document.createElement('tr');
                             row.className = 'border-b border-gray-100 hover:bg-gray-100';
-                            row.innerHTML = `
-                                <td class="px-4 py-1 font-medium text-gray-700 bg-gray-50">${specNames.equipments[equipmentCategory][equipmentName]}</td>
-                                <td class="px-4 py-1">
-                                    <span class="${displayClass} ${(displayValue === '✓' || displayValue === '✗') ? 'text-lg' : ''}">${displayValue}</span>
-                                </td>
-                            `;
+                            let html = `<td class="px-4 py-1 font-medium text-gray-700 bg-gray-50">${specNames.equipments[equipmentCategory][equipmentName]}</td>`;
+                            for (let c = 1; c <= activeColumnCount; c++) {
+                                const specs = listingDataByColumn[c - 1]?.specs || {};
+                                const hasAnyEquipmentsData = specs.equipments && typeof specs.equipments === 'object';
+                                const hasCategoryData =
+                                    specs.equipments &&
+                                    specs.equipments[equipmentCategory] !== undefined;
+                                const equipmentValue = hasCategoryData
+                                    ? specs.equipments[equipmentCategory][equipmentName]
+                                    : undefined;
+                                const normalizedEquipmentValue =
+                                    typeof equipmentValue === 'string'
+                                        ? equipmentValue.trim()
+                                        : equipmentValue;
+                                const normalizedLower =
+                                    typeof normalizedEquipmentValue === 'string'
+                                        ? normalizedEquipmentValue.toLowerCase()
+                                        : '';
+
+                                let displayValue = '-';
+                                let displayClass = 'text-gray-500';
+
+                                if (hasAnyEquipmentsData) {
+                                    const isEnabled =
+                                        normalizedEquipmentValue === true ||
+                                        normalizedEquipmentValue === '✓' ||
+                                        normalizedEquipmentValue === '✔' ||
+                                        normalizedLower === 'true' ||
+                                        normalizedLower === '1' ||
+                                        normalizedLower === 'evet' ||
+                                        normalizedLower === 'var';
+
+                                    displayValue = isEnabled ? '✓' : '✗';
+                                    displayClass = isEnabled ? 'text-green-600 font-bold' : 'text-red-900/15';
+                                }
+
+                                html += `<td class="px-4 py-1"><span class="${displayClass} ${(displayValue === '✓' || displayValue === '✗') ? 'text-lg' : ''}">${displayValue}</span></td>`;
+                            }
+                            row.innerHTML = html;
                             tbody.appendChild(row);
                         });
                     });
@@ -1375,91 +1392,221 @@
 
                 // Add all specs in this category
                 Object.keys(specNames[category]).forEach(spec => {
-                    const specValue = specs[category] ? (specs[category][spec] || '-') : '-';
                     const specDisplayName = specNames[category][spec];
 
                     const row = document.createElement('tr');
                     row.className = 'border-b border-gray-100 hover:bg-gray-100';
-                    row.innerHTML = `
-                        <td class="px-4 py-1 font-medium text-gray-700 bg-gray-50">${specDisplayName}</td>
-                        <td class="px-4 py-1 text-gray-800">${specValue}</td>
-                    `;
+                    let html = `<td class="px-4 py-1 font-medium text-gray-700 bg-gray-50">${specDisplayName}</td>`;
+                    for (let c = 1; c <= activeColumnCount; c++) {
+                        const specs = listingDataByColumn[c - 1]?.specs || {};
+                        const specValue = specs[category] ? (specs[category][spec] || '-') : '-';
+                        html += `<td class="px-4 py-1 text-gray-800">${specValue}</td>`;
+                    }
+                    row.innerHTML = html;
                     tbody.appendChild(row);
                 });
             });
         }
 
-        // Event listeners
-        document.getElementById('parseBtn').addEventListener('click', function () {
-            const input = document.getElementById('jsonInput').value.trim();
+        function rerenderSharedSections() {
+            displayFeatures();
+            displayParts();
+            displaySpecs();
+        }
 
-            if (!input) {
-                showError('Lütfen JSON verisi girin.');
-                return;
+        function setSpecsHeaderFromActiveListings() {
+            const row = document.getElementById('specsHeader');
+            if (!row) return;
+
+            while (row.children.length < activeColumnCount + 1) {
+                const clone = row.children[row.children.length - 1].cloneNode(true);
+                clone.textContent = '-';
+                row.appendChild(clone);
             }
 
-            let data;
-            try {
-                data = JSON.parse(input);
-            } catch (error) {
-                showError('Geçersiz JSON formatı: ' + error.message);
-                return;
+            for (let c = 1; c <= activeColumnCount; c++) {
+                const cell = row.children[c];
+                if (!cell) continue;
+
+                const listing = listingDataByColumn[c - 1];
+                const modelName = listing ? String(listing.modelName || listing.model || '').trim() : '';
+                cell.textContent = modelName || '-';
             }
+        }
 
-            displayListing(data);
-        });
+        function updateListingValueColCountCss() {
+            document.documentElement.style.setProperty('--listing-value-col-count', String(activeColumnCount));
+        }
 
-        document.getElementById('loadSampleBtn').addEventListener('click', function () {
-            document.getElementById('jsonInput').value = JSON.stringify(sampleData, null, 2);
-            displayListing(sampleData);
-        });
+        function renameColIdsInNode(node, newColNum) {
+            if (!node || node.nodeType !== 1) return;
+            const nodes = [node, ...node.querySelectorAll('[id]')];
+            nodes.forEach(el => {
+                if (!el.id) return;
+                if (el.id.endsWith('-col1')) {
+                    el.id = el.id.replace(/-col1$/, `-col${newColNum}`);
+                }
+            });
+        }
 
-        document.getElementById('clearBtn').addEventListener('click', function () {
-            document.getElementById('jsonInput').value = '';
-            clearListing(); // Keep table visible with empty values
-            hideError();
-        });
+        function ensureColumnStructure() {
+            const tables = document.querySelectorAll('.listing-table');
+            tables.forEach(table => {
+                const colgroup = table.querySelector('colgroup');
+                while (colgroup && colgroup.children.length < activeColumnCount + 1) {
+                    const col = document.createElement('col');
+                    col.className = 'listing-value-col';
+                    colgroup.appendChild(col);
+                }
 
-        function clearListing() {
+                const theadRows = table.querySelectorAll('thead tr');
+                theadRows.forEach(row => {
+                    const firstCell = row.children[0];
+                    if (!firstCell) return;
+                    if (firstCell.hasAttribute('colspan')) {
+                        firstCell.setAttribute('colspan', String(activeColumnCount + 1));
+                    } else {
+                        while (row.children.length < activeColumnCount + 1) {
+                            const clone = row.children[row.children.length - 1].cloneNode(true);
+                            clone.textContent = '';
+                            row.appendChild(clone);
+                        }
+                    }
+                });
+
+                const tbody = table.querySelector('tbody');
+                if (!tbody) return;
+                const isDynamic = tbody.id === 'partsRows' || tbody.id === 'featuresRows' || tbody.id === 'specsRows';
+                if (isDynamic) return;
+
+                const rows = tbody.querySelectorAll('tr');
+                rows.forEach(row => {
+                    while (row.children.length < activeColumnCount + 1) {
+                        const clone = row.children[1].cloneNode(true);
+                        renameColIdsInNode(clone, activeColumnCount);
+                        const img = clone.querySelector('img');
+                        if (img) {
+                            img.src = '';
+                            img.classList.add('hidden');
+                        }
+                        const span = clone.querySelector('span');
+                        if (span) span.textContent = '-';
+                        const desc = clone.querySelector(`[id^="description-col"]`);
+                        if (desc) desc.textContent = '-';
+                        const imgContainer = clone.querySelector(`[id^="imagesContainer-col"]`);
+                        if (imgContainer) imgContainer.innerHTML = '';
+                        row.appendChild(clone);
+                    }
+                });
+            });
+        }
+
+        function addListingInputCard() {
+            const wrap = document.getElementById('inputCardsRow');
+            const addBtn = document.getElementById('addListingBtn');
+            if (!wrap || !addBtn) return;
+
+            const nextColumnNum = activeColumnCount + 1;
+
+            const card = document.createElement('div');
+            card.className = 'input-panel';
+            card.id = `inputCardWrap-col${nextColumnNum}`;
+            card.innerHTML = `
+                <div class="input-card bg-white rounded-lg shadow-md p-6 mb-12">
+                    <div class="mb-4">
+                        <label for="jsonInput-col${nextColumnNum}" class="block font-medium text-gray-700 mb-2">Scrape JSON Verisi #${nextColumnNum}:</label>
+                        <textarea id="jsonInput-col${nextColumnNum}" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 resize-vertical" placeholder="${nextColumnNum}. ilanın scrape edilmiş JSON verisini buraya yapıştırın..."></textarea>
+                    </div>
+                    <div class="flex gap-2 flex-wrap">
+                        <button id="parseBtn-col${nextColumnNum}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium transition-colors text-sm">Görüntüle</button>
+                        <button id="loadSampleBtn-col${nextColumnNum}" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md font-medium transition-colors text-sm">Örnek Yükle</button>
+                        <button id="clearBtn-col${nextColumnNum}" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-medium transition-colors text-sm">Temizle</button>
+                    </div>
+                    <div id="errorMsg-col${nextColumnNum}" class="mt-3 text-red-600 hidden"></div>
+                </div>
+            `;
+
+            wrap.insertBefore(card, addBtn);
+            activeColumnCount = nextColumnNum;
+            updateListingValueColCountCss();
+            ensureColumnStructure();
+            attachInputHandlersForColumn(nextColumnNum);
+            clearListing(nextColumnNum);
+        }
+
+        function attachInputHandlersForColumn(columnNum) {
+            const inputEl = document.getElementById(`jsonInput-col${columnNum}`);
+            const parseBtn = document.getElementById(`parseBtn-col${columnNum}`);
+            const loadBtn = document.getElementById(`loadSampleBtn-col${columnNum}`);
+            const clearBtn = document.getElementById(`clearBtn-col${columnNum}`);
+            if (!inputEl || !parseBtn || !loadBtn || !clearBtn) return;
+
+            parseBtn.addEventListener('click', function () {
+                const input = inputEl.value.trim();
+                if (!input) {
+                    showError('Lütfen JSON verisi girin.', columnNum);
+                    return;
+                }
+
+                let data;
+                try {
+                    data = JSON.parse(input);
+                } catch (error) {
+                    showError('Geçersiz JSON formatı: ' + error.message, columnNum);
+                    return;
+                }
+
+                displayListing(data, columnNum);
+            });
+
+            loadBtn.addEventListener('click', function () {
+                inputEl.value = JSON.stringify(sampleData, null, 2);
+                displayListing(sampleData, columnNum);
+            });
+
+            clearBtn.addEventListener('click', function () {
+                inputEl.value = '';
+                clearListing(columnNum);
+                hideError(columnNum);
+            });
+        }
+
+        function clearListing(columnNum = 1) {
+            listingDataByColumn[columnNum - 1] = null;
+            imagesByColumn[columnNum - 1] = [];
+
             // Clear all basic fields to dash
             const basicFields = ['title', 'breadcrumb', 'price', 'location', 'lister', 'trade',
                 'brand', 'series', 'model', 'year', 'fuelType', 'transmission', 'mileage', 'color', 'bodyType',
                 'enginePower', 'engineVolume', 'cekis', 'state', 'warranty', 'heavilyDamaged', 'username',
                 'userRegistrationDate', 'userMobilePhone', 'licencePlate', 'description'];
 
-            basicFields.forEach(field => setText(field, '-'));
-            setSpecsHeaderTitle('');
-            setListingDateWithElapsed('');
-            setListingIdLink('');
-            setText('storeAgentName', '-');
-            setText('storeAgentMobilePhone', '-');
+            basicFields.forEach(field => setText(field, '-', columnNum));
+            setListingDateWithElapsed('', columnNum);
+            setListingIdLink('', columnNum);
+            setText('storeAgentName', '-', columnNum);
+            setText('storeAgentMobilePhone', '-', columnNum);
 
-            const storeLogo = document.getElementById('storeLogo-col1');
+            const storeLogo = document.getElementById(`storeLogo-col${columnNum}`);
             if (storeLogo) {
                 storeLogo.src = '';
                 storeLogo.classList.add('hidden');
             }
 
-            const storeNameCell = document.getElementById('storeName-col1');
+            const storeNameCell = document.getElementById(`storeName-col${columnNum}`);
             const storeNameSpan = storeNameCell ? storeNameCell.querySelector('span') : null;
             if (storeNameSpan) {
                 storeNameSpan.textContent = '-';
             }
 
             // Clear images
-            const imagesContainer = document.getElementById('imagesContainer');
+            const imagesContainer = document.getElementById(`imagesContainer-col${columnNum}`);
             if (imagesContainer) {
                 imagesContainer.innerHTML = '';
             }
 
-            // Clear features with "No features" message
-            displayFeatures({});
-
-            // Clear parts with "No parts" message
-            displayParts({});
-
-            // Clear specs with "No specs" message
-            displaySpecs({});
+            rerenderSharedSections();
+            setSpecsHeaderFromActiveListings();
 
             // Keep the table visible
             document.getElementById('listingDisplay').classList.remove('hidden');
@@ -1467,8 +1614,20 @@
 
         // Load sample data on page load
         document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('jsonInput').value = JSON.stringify(sampleData, null, 2);
-            displayListing(sampleData);
+            listingDataByColumn[0] = null;
+            imagesByColumn[0] = [];
+            updateListingValueColCountCss();
+            attachInputHandlersForColumn(1);
+            const addListingBtn = document.getElementById('addListingBtn');
+            if (addListingBtn) {
+                addListingBtn.addEventListener('click', addListingInputCard);
+            }
+
+            const firstInput = document.getElementById('jsonInput-col1');
+            if (firstInput) {
+                firstInput.value = JSON.stringify(sampleData, null, 2);
+            }
+            displayListing(sampleData, 1);
         });
 
         // Image viewer event listeners
