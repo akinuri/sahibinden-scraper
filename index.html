@@ -81,6 +81,12 @@
             z-index: 20;
             background-color: inherit;
         }
+
+        .compare-diff {
+            box-shadow: inset 0 0 0 9999px rgba(239, 68, 68, 0.08);
+            color: #991b1b;
+            font-weight: 600;
+        }
     </style>
 </head>
 
@@ -1136,6 +1142,76 @@
             element.appendChild(link);
         }
 
+        function normalizeVehicleCompareValue(value) {
+            if (value === undefined || value === null) return '';
+            return String(value)
+                .trim()
+                .toLocaleLowerCase('tr-TR')
+                .replace(/\s+/g, ' ');
+        }
+
+        function updateVehicleCompareHighlights() {
+            const compareFields = [
+                'series',
+                'model',
+                'year',
+                'fuelType',
+                'transmission',
+                'mileage',
+                'enginePower',
+                'engineVolume',
+                'color'
+            ];
+
+            for (let c = 1; c <= activeColumnCount; c++) {
+                compareFields.forEach(field => {
+                    const cell = document.getElementById(`${field}-col${c}`);
+                    if (cell) cell.classList.remove('compare-diff');
+                });
+            }
+
+            const activeIndexes = [];
+            for (let i = 0; i < activeColumnCount; i++) {
+                if (listingDataByColumn[i]) activeIndexes.push(i);
+            }
+            if (activeIndexes.length < 2) return;
+
+            const brandValues = activeIndexes
+                .map(i => normalizeVehicleCompareValue(listingDataByColumn[i]?.brand))
+                .filter(Boolean);
+            const allBrandsSame = brandValues.length >= 2 && new Set(brandValues).size === 1;
+
+            const eligibleFields = [
+                'year',
+                'fuelType',
+                'transmission',
+                'mileage',
+                'enginePower',
+                'engineVolume',
+                'color'
+            ];
+            if (allBrandsSame) {
+                eligibleFields.unshift('series', 'model');
+            }
+
+            eligibleFields.forEach(field => {
+                const comparableValues = activeIndexes
+                    .map(i => normalizeVehicleCompareValue(listingDataByColumn[i]?.[field]))
+                    .filter(Boolean);
+
+                if (comparableValues.length < 2) return;
+
+                if (new Set(comparableValues).size > 1) {
+                    activeIndexes.forEach(i => {
+                        const rawValue = normalizeVehicleCompareValue(listingDataByColumn[i]?.[field]);
+                        if (!rawValue) return;
+                        const cell = document.getElementById(`${field}-col${i + 1}`);
+                        if (cell) cell.classList.add('compare-diff');
+                    });
+                }
+            });
+        }
+
         function displayListing(data, columnNum = 1) {
             currentListing = data;
             listingDataByColumn[columnNum - 1] = data;
@@ -1207,6 +1283,7 @@
 
             // Images
             displayImages(data.images || [], columnNum);
+            updateVehicleCompareHighlights();
             rerenderSharedSections();
             setSpecsHeaderFromActiveListings();
 
@@ -1484,6 +1561,7 @@
                     while (row.children.length < activeColumnCount + 1) {
                         const clone = row.children[1].cloneNode(true);
                         renameColIdsInNode(clone, activeColumnCount);
+                        clone.classList.remove('compare-diff');
                         const img = clone.querySelector('img');
                         if (img) {
                             img.src = '';
@@ -1607,6 +1685,7 @@
 
             rerenderSharedSections();
             setSpecsHeaderFromActiveListings();
+            updateVehicleCompareHighlights();
 
             // Keep the table visible
             document.getElementById('listingDisplay').classList.remove('hidden');
