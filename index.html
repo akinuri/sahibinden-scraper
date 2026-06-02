@@ -1350,9 +1350,7 @@
                         const feats = listingDataByColumn[c - 1]?.feats;
                         const hasCategory = !!(feats && feats[category] !== undefined);
                         if (!hasCategory) continue;
-                        if (!(feat in feats[category])) continue;
-                        const normalizedValue = normalizeFeatureFlagValue(feats[category][feat]);
-                        if (!normalizedValue) continue;
+                        const normalizedValue = normalizeFeatureFlagValue(!!feats[category][feat]);
                         comparableValues.push(normalizedValue);
                     }
                     const hasDiff = comparableValues.length >= 2 && new Set(comparableValues).size > 1;
@@ -1364,7 +1362,6 @@
                     for (let c = 1; c <= activeColumnCount; c++) {
                         const feats = listingDataByColumn[c - 1]?.feats;
                         const hasData = feats && feats[category] !== undefined;
-                        const hasFeatureValue = !!(hasData && (feat in feats[category]));
                         const isEnabled = feats?.[category] ? !!feats[category][feat] : false;
                         let displayValue = '-';
                         let displayClass = 'text-gray-500';
@@ -1373,7 +1370,7 @@
                             displayValue = isEnabled ? '✓' : '✗';
                             displayClass = isEnabled ? 'text-green-600 font-bold' : 'text-red-900/15';
                         }
-                        if (hasDiff && hasFeatureValue) {
+                        if (hasDiff && hasData) {
                             cellClass += ' compare-diff';
                         }
                         html += `<td class="${cellClass}"><span class="${displayClass} text-lg">${displayValue}</span></td>`;
