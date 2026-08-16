@@ -591,8 +591,7 @@
             const viewerImage = document.getElementById('viewerImage');
             const counter = document.getElementById('imageCounter');
 
-            // Use the base64 thumbnail data for viewer too (since we have it locally)
-            viewerImage.src = image.thumb;
+            viewerImage.src = image.thumb || image.url || '';
             counter.textContent = `${currentImageIndex + 1} / ${currentImages.length}`;
         }
 
