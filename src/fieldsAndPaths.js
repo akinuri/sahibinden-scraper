@@ -1,6 +1,5 @@
 let fieldsAndPaths = {
     title: ["h1"],
-    images: [".classifiedDetailMainPhoto img", "imgs2b64($, img => img.dataset.src || img.src)", "array"],
     breadcrumb: [".search-result-bc .bc-item", "elsToText($, ' > ')"],
     price: ".classified-price-wrapper",
     location: ".classifiedInfo h2",
@@ -34,6 +33,7 @@ let fieldsAndPaths = {
     userRegistrationDate: ".userRegistrationDate span",
     userMobilePhone: [".pretty-phone-part span", `$0.dataset.content`],
     description: "#classified-detail .uiBoxContainer",
+    images: [".classifiedDetailMainPhoto img", "imgs2b64($, img => img.dataset.src || img.src)", "array"],
     parts: {
         frontBumper: getCarPartStatus.bind(null, ["Ön Tampon"]),
         frontHood: getCarPartStatus.bind(null, ["Motor Kaputu"]),
