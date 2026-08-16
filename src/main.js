@@ -1,3 +1,5 @@
+const console = getCleanConsole();
+
 console.clear();
 
 (async () => {

@@ -12,6 +12,15 @@ function qs(query, parent) {
     return parent.querySelector(query);
 }
 
+// sahibinden.com overrides window.console methods (anti-debugging); grab an untouched
+// console from a throwaway same-origin iframe realm so logging actually shows up.
+function getCleanConsole() {
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+    return iframe.contentWindow.console;
+}
+
 function qsa(query, parent) {
     if (query instanceof HTMLElement) return query;
     if (parent === undefined) {
