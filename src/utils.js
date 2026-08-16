@@ -258,12 +258,6 @@ function createThumb(image, maxWidth, maxHeight) {
 
 async function img2b64(img, srcGetter = null, maxWidth = 200, maxHeight = 200) {
     const src = srcGetter ? srcGetter(img) : img.src;
-    const fallbackResult = {
-        url: src,
-        width: null,
-        height: null,
-        thumb: null,
-    };
     const makeResult = (image) => ({
         url: src,
         width: image.naturalWidth,
@@ -274,27 +268,26 @@ async function img2b64(img, srcGetter = null, maxWidth = 200, maxHeight = 200) {
         return makeResult(img);
     } catch (error) {
         // console.log("createThumb failed");
-        if (error.name === "SecurityError") {
-            try {
-                const response = await fetch(src);
-                const blob = await response.blob();
-                return new Promise((resolve) => {
-                    const newImg = new Image();
-                    newImg.onload = () => resolve(makeResult(newImg));
-                    newImg.onerror = () => resolve(fallbackResult);
-                    newImg.src = URL.createObjectURL(blob);
-                });
-            } catch (fetchError) {
-                // console.log("fetch blob failed");
-                return fallbackResult;
-            }
-        }
-        throw error;
+        // Cross-origin image with a tainted canvas; the host doesn't send CORS headers so a fetch retry
+        // would also fail (and spam the console), so just skip the thumbnail and keep the dimensions we can read.
+        return {
+            url: src,
+            width: img.naturalWidth || null,
+            height: img.naturalHeight || null,
+            thumb: null,
+        };
     }
 }
 
 async function imgs2b64(imgs, srcGetter = null, maxWidth = 200, maxHeight = 200) {
-    return Promise.all(imgs.map((img) => img2b64(img, srcGetter, maxWidth, maxHeight)));
+    const results = await Promise.allSettled(imgs.map((img) => img2b64(img, srcGetter, maxWidth, maxHeight)));
+    return results.map((result, i) => {
+        if (result.status === "fulfilled") {
+            return result.value;
+        }
+        const src = srcGetter ? srcGetter(imgs[i]) : imgs[i].src;
+        return { url: src, width: null, height: null, thumb: null };
+    });
 }
 
 function latinize(str) {
