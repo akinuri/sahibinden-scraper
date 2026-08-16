@@ -1394,13 +1394,14 @@
             tbody.innerHTML = '';
 
             // Show ALL possible parts, always
-            Object.keys(partNames).forEach(partKey => {
+            Object.keys(partNames).forEach((partKey, partIndex) => {
                 const partDisplayName = partNames[partKey];
                 const row = document.createElement('tr');
                 const shouldAddBottomBorder = partKey === 'rearBumper' || partKey === 'rearLeftFender';
                 row.className = `border-b hover:bg-gray-100 ${shouldAddBottomBorder ? 'border-gray-300' : 'border-gray-100'}`;
 
-                let html = `<td class="px-4 py-1 font-medium text-gray-700 bg-gray-50">${partDisplayName}</td>`;
+                const labelAlignmentClass = partIndex < 5 ? 'text-center' : partIndex >= 9 ? 'text-right' : '';
+                let html = `<td class="px-4 py-1 font-medium text-gray-700 bg-gray-50 ${labelAlignmentClass}">${partDisplayName}</td>`;
                 for (let c = 1; c <= activeColumnCount; c++) {
                     const parts = listingDataByColumn[c - 1]?.parts || {};
                     const partValue = parts[partKey] || '-';
