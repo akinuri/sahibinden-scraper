@@ -87,6 +87,12 @@
             color: #991b1b;
             font-weight: 600;
         }
+
+        td[title] {
+            text-decoration-line: underline;
+            text-decoration-style: dotted;
+            text-underline-offset: 3px;
+        }
     </style>
 </head>
 
@@ -680,6 +686,23 @@
                 bluetooth: "Bluetooth",
                 usbAux: "USB / AUX"
             }
+        };
+
+        const fieldDescriptions = {
+            "ABS": "Anti-lock Braking System: Frenleme sırasında tekerleklerin kilitlenmesini önler.",
+            "AEB": "Autonomous Emergency Braking: Çarpışma riski algılandığında gerektiğinde otomatik fren yapar.",
+            "BAS": "Brake Assist System: Acil frenleme sırasında fren gücünü artırarak durma mesafesini kısaltmaya yardımcı olur.",
+            "Çocuk Kilidi": "Child Safety Lock: Arka kapıların içeriden açılmasını engelleyerek çocuk güvenliğini artırır.",
+            "Distronic": "Distance Control: Öndeki araçla güvenli mesafeyi koruyarak aracın hızını otomatik olarak ayarlar.",
+            "ESP / VSA": "Electronic Stability Program / Vehicle Stability Assist: Savrulmayı azaltmaya ve aracın dengesini korumaya yardımcı olur.",
+            "Immobilizer": "Engine Immobilizer: Yetkisiz motor çalıştırmayı elektronik olarak engeller.",
+            "Isofix": "International Standard Organisation FIX: Çocuk koltuklarının araca güvenli ve kolay şekilde bağlanmasını sağlar.",
+            "Kör Nokta Uyarı Sistemi": "Blind Spot Warning System: Kör noktadaki araçları algılayarak sürücüyü uyarır.",
+            "Merkezi Kilit": "Central Locking: Kapıların tek kumandayla aynı anda kilitlenmesini ve açılmasını sağlar.",
+            "Start / Stop": "Start-Stop System: Araç durduğunda motoru otomatik olarak durdurur ve hareket edilince yeniden çalıştırır.",
+            "Far (Adaptif)": "Adaptive Headlights: Farların aydınlatma yönünü ve seviyesini sürüş koşullarına göre ayarlar.",
+            "EBD": "Electronic Brakeforce Distribution: Fren gücünü yol ve yük koşullarına göre tekerlekler arasında dağıtır.",
+            "ESP (Denge Kontrolü)": "Electronic Stability Program: Savrulmayı azaltmak için fren ve motor gücünü bağımsız olarak düzenler."
         };
 
         const partNames = {
@@ -1369,7 +1392,9 @@
                     const row = document.createElement('tr');
                     row.className = 'border-b border-gray-100 hover:bg-gray-100';
 
-                    let html = `<td class="px-4 py-1 font-medium text-gray-700 bg-gray-50">${featDisplayName}</td>`;
+                    const description = fieldDescriptions[featDisplayName];
+                    const titleAttribute = description ? ` title="${description}"` : '';
+                    let html = `<td class="px-4 py-1 font-medium text-gray-700 bg-gray-50"${titleAttribute}>${featDisplayName}</td>`;
                     for (let c = 1; c <= activeColumnCount; c++) {
                         const feats = listingDataByColumn[c - 1]?.feats;
                         const hasData = feats && feats[category] !== undefined;
@@ -1470,7 +1495,10 @@
 
                             const row = document.createElement('tr');
                             row.className = 'border-b border-gray-100 hover:bg-gray-100';
-                            let html = `<td class="px-4 py-1 font-medium text-gray-700 bg-gray-50">${specNames.equipments[equipmentCategory][equipmentName]}</td>`;
+                            const equipmentDisplayName = specNames.equipments[equipmentCategory][equipmentName];
+                            const description = fieldDescriptions[equipmentDisplayName];
+                            const titleAttribute = description ? ` title="${description}"` : '';
+                            let html = `<td class="px-4 py-1 font-medium text-gray-700 bg-gray-50"${titleAttribute}>${equipmentDisplayName}</td>`;
                             for (let c = 1; c <= activeColumnCount; c++) {
                                 const specs = listingDataByColumn[c - 1]?.specs || {};
                                 const hasAnyEquipmentsData = specs.equipments && typeof specs.equipments === 'object';
