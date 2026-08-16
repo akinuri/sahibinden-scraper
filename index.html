@@ -237,7 +237,10 @@
                             >-</td>
                         </tr>
                         <tr class="border-b border-gray-100 hover:bg-gray-100">
-                            <td class="py-1 px-4 font-medium text-gray-700 bg-gray-50">Fotoğraflar</td>
+                            <td
+                                class="py-1 px-4 font-medium text-gray-700 bg-gray-50"
+                                id="imagesLabel-col1"
+                            >Fotoğraflar (0)</td>
                             <td
                                 class="py-1 px-4"
                                 id="images-col1"
@@ -1237,6 +1240,7 @@
             listingDataByColumn[columnNum - 1] = data;
             imagesByColumn[columnNum - 1] = Array.isArray(data.images) ? data.images : [];
             hideError(columnNum);
+            setText('imagesLabel', `Fotoğraflar (${imagesByColumn[columnNum - 1].length})`, columnNum);
 
             // Basic info (now including title as a proper row)
             setText('title', data.title, columnNum);
@@ -1774,6 +1778,7 @@
                 'userRegistrationDate', 'userMobilePhone', 'licencePlate', 'description'];
 
             basicFields.forEach(field => setText(field, '-', columnNum));
+            setText('imagesLabel', 'Fotoğraflar (0)', columnNum);
             setListingDateWithElapsed('', columnNum);
             setListingIdLink('', columnNum);
             setText('storeAgentName', '-', columnNum);
