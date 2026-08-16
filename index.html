@@ -188,7 +188,35 @@
                     <thead>
                         <tr class="border-b border-slate-400/50 bg-gray-300 no-hover">
                             <td class="py-1 px-4 font-semibold text-gray-800 section-header-cell">İlan</td>
-                            <td class="py-1 px-4 font-semibold text-gray-800 section-header-cell"></td>
+                            <td
+                                class="py-1 px-4 text-xs font-semibold text-gray-800/50 section-header-cell text-right"
+                                id="listingSummary-col1"
+                            >
+                                <div class="flex items-center justify-end gap-2">
+                                    <span class="listing-summary-text" id="listingSummaryText-col1">-</span>
+                                    <button
+                                        type="button"
+                                        data-copy-listing-summary
+                                        class="shrink-0 rounded border border-gray-400/60 bg-white/60 px-1 py-1 text-xs text-gray-700 hover:bg-white"
+                                        title="İlan özetini kopyala"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="1.5"
+                                            stroke="currentColor"
+                                            class="size-4"
+                                            >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"
+                                            />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </td>
                         </tr>
                     </thead>
                     <tbody>
@@ -1063,6 +1091,54 @@
             }
         }
 
+        function setListingSummary(data, columnNum = 1) {
+            const element = document.getElementById(`listingSummary-col${columnNum}`);
+            if (!element) return;
+            const summaryText = element.querySelector('.listing-summary-text');
+            if (!summaryText) return;
+            if (!data) {
+                summaryText.textContent = '-';
+                return;
+            }
+
+            const values = [
+                data?.listingId,
+                data?.year,
+                [data?.series, data?.model].filter(Boolean).join(' '),
+                data?.transmission,
+                data?.fuelType,
+                data?.mileage ? `${data.mileage} km` : '',
+                data?.price
+            ].map(value => String(value || '-').trim());
+
+            const [listingId, year, model, transmission, fuelType, mileage, price] = values;
+            summaryText.textContent = `${listingId} - ${year}, ${model}, ${transmission}, ${fuelType}, ${mileage}, ${price}`;
+        }
+
+        async function copyListingSummary(button) {
+            const summaryText = button.closest('td')?.querySelector('.listing-summary-text')?.textContent || '';
+            if (!summaryText || summaryText === '-') return;
+
+            try {
+                if (navigator.clipboard?.writeText) {
+                    await navigator.clipboard.writeText(summaryText);
+                } else {
+                    throw new Error('Clipboard API unavailable');
+                }
+            } catch (error) {
+                const copyInput = document.createElement('textarea');
+                copyInput.value = summaryText;
+                copyInput.setAttribute('readonly', '');
+                copyInput.style.position = 'fixed';
+                copyInput.style.opacity = '0';
+                document.body.appendChild(copyInput);
+                copyInput.select();
+                document.execCommand('copy');
+                copyInput.remove();
+            }
+
+        }
+
         function parseTurkishDate(dateText) {
             if (!dateText) return null;
 
@@ -1269,6 +1345,7 @@
             imagesByColumn[columnNum - 1] = Array.isArray(data.images) ? data.images : [];
             hideError(columnNum);
             setText('imagesLabel', `Fotoğraflar (${imagesByColumn[columnNum - 1].length})`, columnNum);
+            setListingSummary(data, columnNum);
 
             // Basic info (now including title as a proper row)
             setText('title', data.title, columnNum);
@@ -1840,6 +1917,7 @@
 
             basicFields.forEach(field => setText(field, '-', columnNum));
             setText('imagesLabel', 'Fotoğraflar (0)', columnNum);
+            setListingSummary(null, columnNum);
             setListingDateWithElapsed('', columnNum);
             setListingIdLink('', columnNum);
             setText('storeAgentName', '-', columnNum);
@@ -1894,6 +1972,12 @@
         document.getElementById('closeViewer').addEventListener('click', closeImageViewer);
         document.getElementById('prevImage').addEventListener('click', prevImage);
         document.getElementById('nextImage').addEventListener('click', nextImage);
+
+        document.addEventListener('click', function (event) {
+            if (!(event.target instanceof Element)) return;
+            const copyButton = event.target.closest('[data-copy-listing-summary]');
+            if (copyButton) copyListingSummary(copyButton);
+        });
 
         // Close viewer when clicking outside image
         document.getElementById('imageViewer').addEventListener('click', function (e) {
