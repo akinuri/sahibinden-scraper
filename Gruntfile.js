@@ -23,6 +23,7 @@ module.exports = function (grunt) {
             dist: {
                 src: [
                     "src/fieldsAndPaths.js",
+                    "src/elements-by-text.js",
                     "src/utils.js",
                     "src/sahibinden.js",
                     "src/helpers.js",
