@@ -123,6 +123,7 @@ function sheetCell(value) {
     const fuelType = info.fuelType === "Benzinli" ? "Benzin" : sheetText(info.fuelType);
     const row = [
         sheetText(info.listingId),
+        sheetText(info.listingId),
         sheetText(info.title),
         location[1] || "-",
         (location[2] || "-").replace(/\s*(?:Mh\.?|Mah\.?|Mahallesi)\s*$/i, "").trim(),
