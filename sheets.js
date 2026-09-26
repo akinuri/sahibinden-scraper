@@ -591,9 +591,9 @@ function sheetCell(value) {
         const matching = parts
             .filter(([, partStatus]) => partStatus === status)
             .map(([key]) => partLabels[key]);
-        return matching.length ? matching.join(", ") : "-";
+        return matching.length ? matching.join("\n") : "-";
     };
-    const lister = isDealer ? "galeri" : /sahip/i.test(info.lister || "") ? "sahibinden" : sheetText(info.lister);
+    const lister = isDealer ? "galeri" : /sahib/i.test(info.lister || "") ? "sahip" : sheetText(info.lister).toLowerCase();
     const fuelType = info.fuelType === "Benzinli" ? "Benzin" : sheetText(info.fuelType);
     const row = [
         sheetText(info.listingId),
