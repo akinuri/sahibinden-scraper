@@ -445,43 +445,76 @@ let fieldsAndPaths = {
 
 // #endregion
 
-// #region ==================== UTILS
+// #region ==================== ELEMENTS-BY-TEXT
 
-function qs(query, parent) {
-    if (query instanceof HTMLElement) return query;
+function getElementsByText(text, parent) {
     if (parent === undefined) {
         parent = document;
     }
     if (typeof parent == "string") {
-        parent = qs(parent);
-    }
-    if (parent === null) {
-        return null;
-    }
-    return parent.querySelector(query);
-}
-
-// sahibinden.com overrides window.console methods (anti-debugging); grab an untouched
-// console from a throwaway same-origin iframe realm so logging actually shows up.
-function getCleanConsole() {
-    const iframe = document.createElement("iframe");
-    iframe.style.display = "none";
-    document.body.appendChild(iframe);
-    return iframe.contentWindow.console;
-}
-
-function qsa(query, parent) {
-    if (query instanceof HTMLElement) return query;
-    if (parent === undefined) {
-        parent = document;
-    }
-    if (typeof parent == "string") {
-        parent = qs(parent);
+        parent = document.querySelector(parent);
     }
     if (parent === null) {
         return [];
     }
-    return Array.from(parent.querySelectorAll(query));
+    let elements = parent.querySelectorAll("*");
+    let candidates = [];
+    text = innerText(text, { linearize: true });
+    let hasPattern = isWrappedWith(text, "/");
+    if (hasPattern) {
+        text = unwrap(text, "/");
+    }
+    let textPattern = new RegExp("^" + text + "$", "i");
+    for (let element of elements) {
+        let elementText = innerText(element, { linearize: true });
+        if (hasPattern) {
+            if (textPattern.test(elementText)) {
+                candidates.push(element);
+            }
+        } else {
+            if (elementText === text) {
+                candidates.push(element);
+            }
+        }
+    }
+    if (candidates.length === 0) {
+        return [];
+    }
+    candidates.sort((a, b) => a.children.length - b.children.length);
+    const minChildren = candidates[0].children.length || 1;
+    return candidates.filter((element) => element.children.length <= minChildren);
+}
+
+function innerText(el, options = {}) {
+    let text = "";
+    const { multilineThreshold = 20, hiddenParentDepth = 2, linearize = false } = options;
+    if (el instanceof Element) {
+        text = el.innerText || "";
+        let isMultiline = text.includes("\n") || text.length > multilineThreshold;
+        if (isMultiline) {
+            const hiderParent = findHiddenParent(el, hiddenParentDepth);
+            if (hiderParent) {
+                const hideMethod = getHideMethod(hiderParent);
+                let originalValue;
+                try {
+                    originalValue = hideEl(hiderParent, hideMethod);
+                    text = el.innerText;
+                } finally {
+                    unhideEl(hiderParent, hideMethod, originalValue);
+                }
+            }
+        }
+        if (!text || text.trim() === "") {
+            text = el.textContent;
+        }
+    } else if (typeof el === "string") {
+        text = el;
+    }
+    text = text?.trim().replace(/ +/g, " ");
+    if (linearize) {
+        text = text.replace(/\n+/g, "");
+    }
+    return text;
 }
 
 function findHiddenParent(el, maxDepth = 5) {
@@ -557,38 +590,6 @@ function unhideEl(el, method, originalValue) {
     }
 }
 
-function innerText(el, options = {}) {
-    let text = "";
-    const { multilineThreshold = 20, hiddenParentDepth = 2, linearize = false } = options;
-    if (el instanceof Element) {
-        text = el.innerText || "";
-        let isMultiline = text.includes("\n") || text.length > multilineThreshold;
-        if (isMultiline) {
-            const hiderParent = findHiddenParent(el, hiddenParentDepth);
-            if (hiderParent) {
-                const hideMethod = getHideMethod(hiderParent);
-                let originalValue;
-                try {
-                    originalValue = hideEl(hiderParent, hideMethod);
-                    text = el.innerText;
-                } finally {
-                    unhideEl(hiderParent, hideMethod, originalValue);
-                }
-            }
-        }
-        if (!text || text.trim() === "") {
-            text = el.textContent;
-        }
-    } else if (typeof el === "string") {
-        text = el;
-    }
-    text = text?.trim().replace(/ +/g, " ");
-    if (linearize) {
-        text = text.replace(/\n+/g, "");
-    }
-    return text;
-}
-
 function isWrappedWith(str, wrapperChar) {
     return typeof str === "string" && str.startsWith(wrapperChar) && str.endsWith(wrapperChar);
 }
@@ -600,7 +601,35 @@ function unwrap(str, wrapperChar) {
     return str;
 }
 
-function getElementsByText(text, parent) {
+// #endregion
+
+// #region ==================== UTILS
+
+function qs(query, parent) {
+    if (query instanceof HTMLElement) return query;
+    if (parent === undefined) {
+        parent = document;
+    }
+    if (typeof parent == "string") {
+        parent = qs(parent);
+    }
+    if (parent === null) {
+        return null;
+    }
+    return parent.querySelector(query);
+}
+
+// sahibinden.com overrides window.console methods (anti-debugging); grab an untouched
+// console from a throwaway same-origin iframe realm so logging actually shows up.
+function getCleanConsole() {
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+    return iframe.contentWindow.console;
+}
+
+function qsa(query, parent) {
+    if (query instanceof HTMLElement) return query;
     if (parent === undefined) {
         parent = document;
     }
@@ -610,32 +639,7 @@ function getElementsByText(text, parent) {
     if (parent === null) {
         return [];
     }
-    let elements = qsa("*", parent);
-    let candidates = [];
-    text = innerText(text, { linearize: true });
-    let hasPattern = isWrappedWith(text, "/");
-    if (hasPattern) {
-        text = unwrap(text, "/");
-    }
-    let textPattern = new RegExp("^" + text + "$", "i");
-    for (let element of elements) {
-        let elementText = innerText(element, { linearize: true });
-        if (hasPattern) {
-            if (textPattern.test(elementText)) {
-                candidates.push(element);
-            }
-        } else {
-            if (elementText === text) {
-                candidates.push(element);
-            }
-        }
-    }
-    if (candidates.length === 0) {
-        return [];
-    }
-    candidates.sort((a, b) => a.children.length - b.children.length);
-    const minChildren = candidates[0].children.length || 1;
-    return candidates.filter((element) => element.children.length <= minChildren);
+    return Array.from(parent.querySelectorAll(query));
 }
 
 function unquote(str) {
