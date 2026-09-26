@@ -31,6 +31,16 @@ module.exports = function (grunt) {
                 ],
                 dest: "scrape.js",
             },
+            sheets: {
+                src: [
+                    "src/elements-by-text.js",
+                    "src/utils.js",
+                    "src/sahibinden.js",
+                    "src/helpers.js",
+                    "src/sheets-main.js",
+                ],
+                dest: "sheets.js",
+            },
         },
 
         terser: {
