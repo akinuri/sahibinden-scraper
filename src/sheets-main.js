@@ -65,13 +65,13 @@ function sheetNumber(value) {
 }
 
 function sheetPrice(value) {
-    const amount = sheetNumber(value);
-    return amount === null ? "-" : `₺${new Intl.NumberFormat("en-US").format(amount)}`;
+    const price = String(value || "").replace(/\D/g, "");
+    return price || "-";
 }
 
 function sheetMileage(value) {
-    const mileage = sheetNumber(value);
-    return mileage === null ? "-" : new Intl.NumberFormat("en-US").format(mileage);
+    const mileage = String(value || "").replace(/\D/g, "");
+    return mileage || "-";
 }
 
 function sheetPhone(value) {
