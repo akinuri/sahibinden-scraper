@@ -5,11 +5,12 @@ const sheetFieldsAndPaths = {
     title: "h1",
     price: ".classifiedPriceValue",
     location: ".classifiedLocation",
-    storeName: ".user-info-store-name a",
-    storeAgentName: ".user-info-agent h3",
+    storeName: ".user-info-store-name a, .storeBox .storeInfo",
+    storeAgentName: ".user-info-agent h3, .username-info-area h5",
     storeAgentPhone: [".user-info-phones", "text=Cep", "$0.nextElementSibling"],
     username: [".username-info-area span", `getComputedStyle($0, "::before").content`],
     userPhone: [".pretty-phone-part span", "$0.dataset.content"],
+    phoneText: ".pretty-phone-part",
 };
 
 function sheetInfoItems() {
@@ -99,7 +100,7 @@ function sheetCell(value) {
     const seller = isDealer
         ? [info.storeName, info.storeAgentName].filter(Boolean).join("\n")
         : info.username;
-    const phone = isDealer ? info.storeAgentPhone || info.userPhone : info.userPhone || info.storeAgentPhone;
+    const phone = (isDealer ? info.storeAgentPhone || info.userPhone : info.userPhone || info.storeAgentPhone) || info.phoneText;
     const partLabels = [
         "Ön Tampon", "Motor Kaputu", "Tavan", "Bagaj Kapağı", "Arka Tampon",
         "Sol Ön Çamurluk", "Sol Ön Kapı", "Sol Arka Kapı", "Sol Arka Çamurluk",
