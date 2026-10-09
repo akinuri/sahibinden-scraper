@@ -5,37 +5,27 @@ const sheetFieldsAndPaths = {
     title: "h1",
     price: ".classifiedPriceValue",
     location: ".classifiedLocation",
-    listingId: ["text=İlan No", "$0.nextElementSibling"],
-    listingDate: ["text=İlan Tarihi", "$0.nextElementSibling"],
-    series: ["text=Seri", "$0.nextElementSibling"],
-    model: ["text=Model", "$0.nextElementSibling"],
-    year: ["text=Yıl", "$0.nextElementSibling"],
-    fuelType: ["text=Yakıt / Motor Tipi", "$0.nextElementSibling"],
-    transmission: ["text=Vites", "$0.nextElementSibling"],
-    mileage: ["text=KM", "$0.nextElementSibling"],
-    color: ["text=Renk", "$0.nextElementSibling"],
-    lister: ["text=Kimden", "$0.nextElementSibling"],
     storeName: ".user-info-store-name a",
     storeAgentName: ".user-info-agent h3",
     storeAgentPhone: [".user-info-phones", "text=Cep", "$0.nextElementSibling"],
     username: [".username-info-area span", `getComputedStyle($0, "::before").content`],
     userPhone: [".pretty-phone-part span", "$0.dataset.content"],
-    parts: {
-        frontBumper: getCarPartStatus.bind(null, ["Ön Tampon"]),
-        frontHood: getCarPartStatus.bind(null, ["Motor Kaputu"]),
-        roof: getCarPartStatus.bind(null, ["Tavan"]),
-        rearHood: getCarPartStatus.bind(null, ["Bagaj Kapağı"]),
-        rearBumper: getCarPartStatus.bind(null, ["Arka Tampon"]),
-        frontLeftFender: getCarPartStatus.bind(null, ["Sol Ön Çamurluk"]),
-        frontLeftDoor: getCarPartStatus.bind(null, ["Sol Ön Kapı"]),
-        rearLeftDoor: getCarPartStatus.bind(null, ["Sol Arka Kapı"]),
-        rearLeftFender: getCarPartStatus.bind(null, ["Sol Arka Çamurluk"]),
-        frontRightFender: getCarPartStatus.bind(null, ["Sağ Ön Çamurluk"]),
-        frontRightDoor: getCarPartStatus.bind(null, ["Sağ Ön Kapı"]),
-        rearRightDoor: getCarPartStatus.bind(null, ["Sağ Arka Kapı"]),
-        rearRightFender: getCarPartStatus.bind(null, ["Sağ Arka Çamurluk"]),
-    },
 };
+
+function sheetInfoItems() {
+    const items = {};
+    for (const item of document.querySelectorAll(".classifiedInfoItem")) {
+        const label = item.querySelector("dt")?.textContent.trim();
+        if (label) items[label] = item.querySelector("dd")?.textContent.trim();
+    }
+    return items;
+}
+
+// textContent avoids the layout cost of innerText
+function sheetSectionText(heading) {
+    const el = [...document.querySelectorAll("*")].find((e) => e.textContent.trim() === heading);
+    return nextElementSiblings(el).map((e) => e.textContent).join(" ");
+}
 
 function sheetText(value) {
     return typeof value === "string" && value.trim() ? value.trim() : "-";
@@ -91,32 +81,40 @@ function sheetCell(value) {
 
 (async () => {
     const info = await processesMapping(sheetFieldsAndPaths);
+    const items = sheetInfoItems();
+    Object.assign(info, {
+        listingId: items["İlan No"],
+        listingDate: items["İlan Tarihi"],
+        series: items["Seri"],
+        model: items["Model"],
+        year: items["Yıl"],
+        fuelType: items["Yakıt / Motor Tipi"],
+        transmission: items["Vites"],
+        mileage: items["KM"],
+        color: items["Renk"],
+        lister: items["Kimden"],
+    });
     const location = sheetText(info.location).split("/").map((part) => part.trim());
     const isDealer = /galeri/i.test(info.lister || "");
     const seller = isDealer
         ? [info.storeName, info.storeAgentName].filter(Boolean).join("\n")
         : info.username;
     const phone = isDealer ? info.storeAgentPhone || info.userPhone : info.userPhone || info.storeAgentPhone;
-    const parts = Object.entries(info.parts || {});
-    const partLabels = {
-        frontBumper: "Ön Tampon",
-        frontHood: "Motor Kaputu",
-        roof: "Tavan",
-        rearHood: "Bagaj Kapağı",
-        rearBumper: "Arka Tampon",
-        frontLeftFender: "Sol Ön Çamurluk",
-        frontLeftDoor: "Sol Ön Kapı",
-        rearLeftDoor: "Sol Arka Kapı",
-        rearLeftFender: "Sol Arka Çamurluk",
-        frontRightFender: "Sağ Ön Çamurluk",
-        frontRightDoor: "Sağ Ön Kapı",
-        rearRightDoor: "Sağ Arka Kapı",
-        rearRightFender: "Sağ Arka Çamurluk",
+    const partLabels = [
+        "Ön Tampon", "Motor Kaputu", "Tavan", "Bagaj Kapağı", "Arka Tampon",
+        "Sol Ön Çamurluk", "Sol Ön Kapı", "Sol Arka Kapı", "Sol Arka Çamurluk",
+        "Sağ Ön Çamurluk", "Sağ Ön Kapı", "Sağ Arka Kapı", "Sağ Arka Çamurluk",
+    ];
+    // key order is the match priority
+    const sections = {
+        "Lokal Boyalı": sheetSectionText("Lokal Boyalı Parçalar"),
+        "Değişen": sheetSectionText("Değişen Parçalar"),
+        "Boyalı": sheetSectionText("Boyalı Parçalar"),
     };
     const partNames = (status) => {
-        const matching = parts
-            .filter(([, partStatus]) => partStatus === status)
-            .map(([key]) => partLabels[key]);
+        const matching = partLabels.filter(
+            (label) => Object.keys(sections).find((key) => sections[key].includes(label)) === status,
+        );
         return matching.length ? matching.join("\n") : "-";
     };
     const lister = isDealer ? "galeri" : /sahib/i.test(info.lister || "") ? "sahip" : sheetText(info.lister).toLowerCase();
