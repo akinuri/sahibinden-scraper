@@ -86,6 +86,7 @@ function sheetCell(value) {
     Object.assign(info, {
         listingId: items["İlan No"],
         listingDate: items["İlan Tarihi"],
+        brand: items["Marka"],
         series: items["Seri"],
         model: items["Model"],
         year: items["Yıl"],
@@ -135,6 +136,7 @@ function sheetCell(value) {
         lister,
         sheetText(seller),
         sheetPhone(phone),
+        sheetText(info.brand),
         sheetText(info.series),
         sheetText(info.model),
         sheetText(info.year),
